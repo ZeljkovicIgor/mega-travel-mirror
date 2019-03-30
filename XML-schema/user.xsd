@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="admin" type="User"> </xs:element>
+    <xs:element name="agent">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="User">
+                    <xs:sequence>
+                        <xs:element name="business_id" type="xs:string"/>
+                        <xs:element name="business_name" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="end_user">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="User">
+                    <xs:attribute name="blocked" type="xs:boolean" default="false"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType abstract="true" name="User">
+        <xs:sequence>
+            <xs:element name="u_id" type="xs:long"/>
+            <xs:element name="u_username" type="xs:string"/>
+            <xs:element name="u_first_name" type="xs:string"/>
+            <xs:element name="u_last_name" type="xs:string"/>
+            <xs:element name="u_password" type="xs:string"/>
+            <xs:element name="u_email" type="xs:string"/>
+            <xs:element default="false" name="activated" type="xs:boolean"/>
+        </xs:sequence>
+        <xs:attribute default="false" name="deleted" type="xs:boolean"/>
+    </xs:complexType>
+</xs:schema>
