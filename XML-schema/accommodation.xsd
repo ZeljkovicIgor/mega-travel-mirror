@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:include schemaLocation="service.xsd"/>
+    <xs:include schemaLocation="category.xsd"/>
+    <xs:include schemaLocation="acc_type.xsd"/>
+    <xs:include schemaLocation="user.xsd"/>
+    <xs:element name="accommodation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="acc_id" type="xs:long"/>
+                <xs:element name="acc_name" type="xs:string"/>
+                <xs:element name="acc_description" type="xs:string"/>
+                <xs:element name="acc_capacity">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="50"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="acc_pictures">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" name="acc_picture"
+                                type="xs:base64Binary"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="acc_price_plan">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="1" name="acc_price">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="price_value" type="xs:float"/>
+                                        <xs:element name="price_start_date" type="xs:date"/>
+                                        <xs:element name="price_end_date" type="xs:date"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="acc_unavailable">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="unavailable_start" type="xs:date"/>
+                            <xs:element name="unavailable_end" type="xs:date"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="acc_location">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="address" type="xs:string"/>
+                            <xs:element name="city" type="xs:string"/>
+                            <xs:element name="country" type="xs:string"/>
+                            <xs:element name="latitude" type="xs:float"/>
+                            <xs:element name="longitude" type="xs:float"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="category"/>
+                <xs:element ref="acc_type"/>
+                <xs:element name="acc_services">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" ref="service" minOccurs="0"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="agent"/>
+                <xs:element name="acc_cancel_period">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element default="0" name="acc_avg_rating">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:float">
+                            <xs:minInclusive value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
