@@ -6,8 +6,10 @@
 //
 
 
-package model;
+package com.megatravel.agentbackend.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,8 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="category_id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="category_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="service_id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="service_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,55 +39,56 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "categoryId",
-    "categoryName"
+    "serviceId",
+    "serviceName"
 })
-@XmlRootElement(name = "category")
-public class Category {
-
-    @XmlElement(name = "category_id")
-    protected long categoryId;
-    @XmlElement(name = "category_name", required = true)
-    protected String categoryName;
+@XmlRootElement(name = "service")
+@Entity
+public class Service {
+	@Id
+    @XmlElement(name = "service_id")
+    protected long serviceId;
+    @XmlElement(name = "service_name", required = true)
+    protected String serviceName;
 
     /**
-     * Gets the value of the categoryId property.
+     * Gets the value of the serviceId property.
      * 
      */
-    public long getCategoryId() {
-        return categoryId;
+    public long getServiceId() {
+        return serviceId;
     }
 
     /**
-     * Sets the value of the categoryId property.
+     * Sets the value of the serviceId property.
      * 
      */
-    public void setCategoryId(long value) {
-        this.categoryId = value;
+    public void setServiceId(long value) {
+        this.serviceId = value;
     }
 
     /**
-     * Gets the value of the categoryName property.
+     * Gets the value of the serviceName property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getCategoryName() {
-        return categoryName;
+    public String getServiceName() {
+        return serviceName;
     }
 
     /**
-     * Sets the value of the categoryName property.
+     * Sets the value of the serviceName property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setCategoryName(String value) {
-        this.categoryName = value;
+    public void setServiceName(String value) {
+        this.serviceName = value;
     }
 
 }

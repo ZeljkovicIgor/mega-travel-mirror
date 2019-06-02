@@ -6,8 +6,10 @@
 //
 
 
-package model;
+package com.megatravel.agentbackend.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,8 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="service_id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="service_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="acc_type_id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="acc_type_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,55 +39,57 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "serviceId",
-    "serviceName"
+    "accTypeId",
+    "accTypeName"
 })
-@XmlRootElement(name = "service")
-public class Service {
-
-    @XmlElement(name = "service_id")
-    protected long serviceId;
-    @XmlElement(name = "service_name", required = true)
-    protected String serviceName;
+@XmlRootElement(name = "acc_type")
+@Entity
+public class AccType {
+	
+	@Id
+    @XmlElement(name = "acc_type_id")
+    protected long accTypeId;
+    @XmlElement(name = "acc_type_name", required = true)
+    protected String accTypeName;
 
     /**
-     * Gets the value of the serviceId property.
+     * Gets the value of the accTypeId property.
      * 
      */
-    public long getServiceId() {
-        return serviceId;
+    public long getAccTypeId() {
+        return accTypeId;
     }
 
     /**
-     * Sets the value of the serviceId property.
+     * Sets the value of the accTypeId property.
      * 
      */
-    public void setServiceId(long value) {
-        this.serviceId = value;
+    public void setAccTypeId(long value) {
+        this.accTypeId = value;
     }
 
     /**
-     * Gets the value of the serviceName property.
+     * Gets the value of the accTypeName property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getServiceName() {
-        return serviceName;
+    public String getAccTypeName() {
+        return accTypeName;
     }
 
     /**
-     * Sets the value of the serviceName property.
+     * Sets the value of the accTypeName property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setServiceName(String value) {
-        this.serviceName = value;
+    public void setAccTypeName(String value) {
+        this.accTypeName = value;
     }
 
 }

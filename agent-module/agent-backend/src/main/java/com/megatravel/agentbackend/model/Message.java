@@ -6,8 +6,12 @@
 //
 
 
-package model;
+package com.megatravel.agentbackend.model;
 
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -60,16 +64,18 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "receiver",
     "reservation"
 })
+@Entity
 @XmlRootElement(name = "message")
 public class Message {
-
+	
+	@Id
     @XmlElement(name = "message_id")
     protected long messageId;
     @XmlElement(name = "message_content", required = true)
     protected String messageContent;
     @XmlElement(name = "message_date", required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar messageDate;
+    protected Date messageDate;
     @XmlElement(required = true)
     protected User sender;
     @XmlElement(required = true)
@@ -127,7 +133,7 @@ public class Message {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getMessageDate() {
+    public Date getMessageDate() {
         return messageDate;
     }
 
@@ -139,7 +145,7 @@ public class Message {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setMessageDate(XMLGregorianCalendar value) {
+    public void setMessageDate(Date value) {
         this.messageDate = value;
     }
 

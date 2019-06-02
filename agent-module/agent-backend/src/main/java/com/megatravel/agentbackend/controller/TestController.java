@@ -1,0 +1,48 @@
+package com.megatravel.agentbackend.controller;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.megatravel.agentbackend.model.Accommodation;
+import com.megatravel.agentbackend.model.ObjectFactory;
+
+@RestController
+public class TestController {
+
+	@GetMapping(value="/test")
+	public Accommodation testController() {
+		Accommodation acc = new Accommodation();
+		ObjectFactory of = new ObjectFactory();
+		Accommodation.AccLocation location = of.createAccommodationAccLocation();
+		location.setAddress("Adresa 1");
+		location.setCity("Novi Sad");
+		location.setCountry("Srbija");
+		location.setLatitude(10);
+		location.setLongitude(12);
+		acc.setAccLocation(location);
+		return acc;
+	}
+	@GetMapping(value="/all")
+	public String getAll() {
+		return "all";
+	}
+	@GetMapping(value="/one")
+	public String getOne() {
+		return "one";
+	}
+	@PostMapping(value="/add")
+	public String add() {
+		return "add";
+	}
+	@DeleteMapping(value="/delete")
+	public String delete() {
+		return "delete";
+	}
+	@PutMapping(value="/update")
+	public String update() {
+		return "update";
+	}
+}

@@ -6,10 +6,13 @@
 //
 
 
-package model;
+package com.megatravel.agentbackend.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -155,8 +158,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "accAvgRating"
 })
 @XmlRootElement(name = "accommodation")
+@Entity
 public class Accommodation {
-
+	
+	@Id
     @XmlElement(name = "acc_id")
     protected long accId;
     @XmlElement(name = "acc_name", required = true)

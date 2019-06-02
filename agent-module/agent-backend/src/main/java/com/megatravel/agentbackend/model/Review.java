@@ -6,8 +6,12 @@
 //
 
 
-package model;
+package com.megatravel.agentbackend.model;
 
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -68,13 +72,15 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "accommodation"
 })
 @XmlRootElement(name = "review")
+@Entity
 public class Review {
-
+	
+	@Id
     @XmlElement(name = "review_id")
     protected long reviewId;
     @XmlElement(name = "review_date", required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar reviewDate;
+    protected Date reviewDate;
     @XmlElement(name = "review_grade")
     protected int reviewGrade;
     @XmlElement(name = "review_comment", required = true)
@@ -108,7 +114,7 @@ public class Review {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getReviewDate() {
+    public Date getReviewDate() {
         return reviewDate;
     }
 
@@ -120,7 +126,7 @@ public class Review {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setReviewDate(XMLGregorianCalendar value) {
+    public void setReviewDate(Date value) {
         this.reviewDate = value;
     }
 

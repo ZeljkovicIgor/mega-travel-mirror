@@ -6,9 +6,13 @@
 //
 
 
-package model;
+package com.megatravel.agentbackend.model;
 
 import java.math.BigInteger;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -59,8 +63,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "rReservationDate"
 })
 @XmlRootElement(name = "reservation")
+@Entity
 public class Reservation {
 
+	@Id
     @XmlElement(name = "r_id")
     protected long rId;
     @XmlElement(name = "end_user", required = true)
@@ -71,16 +77,16 @@ public class Reservation {
     protected float rPrice;
     @XmlElement(name = "r_start_date", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar rStartDate;
+    protected Date rStartDate;
     @XmlElement(name = "r_end_date", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar rEndDate;
+    protected Date rEndDate;
     @XmlElement(name = "r_people", required = true)
     @XmlSchemaType(name = "positiveInteger")
     protected BigInteger rPeople;
     @XmlElement(name = "r_reservation_date", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar rReservationDate;
+    protected Date rReservationDate;
     @XmlAttribute(name = "realized")
     protected Boolean realized;
     @XmlAttribute(name = "cancelled")
@@ -174,7 +180,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getRStartDate() {
+    public Date getRStartDate() {
         return rStartDate;
     }
 
@@ -186,7 +192,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setRStartDate(XMLGregorianCalendar value) {
+    public void setRStartDate(Date value) {
         this.rStartDate = value;
     }
 
@@ -198,7 +204,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getREndDate() {
+    public Date getREndDate() {
         return rEndDate;
     }
 
@@ -210,7 +216,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setREndDate(XMLGregorianCalendar value) {
+    public void setREndDate(Date value) {
         this.rEndDate = value;
     }
 
@@ -246,7 +252,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getRReservationDate() {
+    public Date getRReservationDate() {
         return rReservationDate;
     }
 
@@ -258,7 +264,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setRReservationDate(XMLGregorianCalendar value) {
+    public void setRReservationDate(Date value) {
         this.rReservationDate = value;
     }
 

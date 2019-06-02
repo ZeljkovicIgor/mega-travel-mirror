@@ -6,8 +6,10 @@
 //
 
 
-package model;
+package com.megatravel.agentbackend.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,8 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="acc_type_id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="acc_type_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="category_id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="category_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,55 +39,57 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "accTypeId",
-    "accTypeName"
+    "categoryId",
+    "categoryName"
 })
-@XmlRootElement(name = "acc_type")
-public class AccType {
-
-    @XmlElement(name = "acc_type_id")
-    protected long accTypeId;
-    @XmlElement(name = "acc_type_name", required = true)
-    protected String accTypeName;
+@Entity
+@XmlRootElement(name = "category")
+public class Category {
+	
+	@Id
+    @XmlElement(name = "category_id")
+    protected long categoryId;
+    @XmlElement(name = "category_name", required = true)
+    protected String categoryName;
 
     /**
-     * Gets the value of the accTypeId property.
+     * Gets the value of the categoryId property.
      * 
      */
-    public long getAccTypeId() {
-        return accTypeId;
+    public long getCategoryId() {
+        return categoryId;
     }
 
     /**
-     * Sets the value of the accTypeId property.
+     * Sets the value of the categoryId property.
      * 
      */
-    public void setAccTypeId(long value) {
-        this.accTypeId = value;
+    public void setCategoryId(long value) {
+        this.categoryId = value;
     }
 
     /**
-     * Gets the value of the accTypeName property.
+     * Gets the value of the categoryName property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getAccTypeName() {
-        return accTypeName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     /**
-     * Sets the value of the accTypeName property.
+     * Sets the value of the categoryName property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setAccTypeName(String value) {
-        this.accTypeName = value;
+    public void setCategoryName(String value) {
+        this.categoryName = value;
     }
 
 }

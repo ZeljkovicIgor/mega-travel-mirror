@@ -6,8 +6,10 @@
 //
 
 
-package model;
+package com.megatravel.agentbackend.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -41,10 +43,12 @@ import javax.xml.bind.annotation.XmlType;
     "businessName"
 })
 @XmlRootElement(name = "agent")
+@Entity
 public class Agent
     extends User
 {
-
+	
+	@Id
     @XmlElement(name = "business_id", required = true)
     protected String businessId;
     @XmlElement(name = "business_name", required = true)

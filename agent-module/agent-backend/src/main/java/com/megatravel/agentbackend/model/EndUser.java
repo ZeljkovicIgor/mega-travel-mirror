@@ -6,8 +6,9 @@
 //
 
 
-package model;
+package com.megatravel.agentbackend.model;
 
+import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "end_user")
+@Entity
 public class EndUser
     extends User
 {

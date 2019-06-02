@@ -6,8 +6,10 @@
 //
 
 
-package model;
+package com.megatravel.agentbackend.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -56,8 +58,10 @@ import javax.xml.bind.annotation.XmlType;
     EndUser.class,
     Agent.class
 })
+@Entity
 public abstract class User {
 
+	@Id
     @XmlElement(name = "u_id")
     protected long uId;
     @XmlElement(name = "u_username", required = true)
