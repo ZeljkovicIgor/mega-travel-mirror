@@ -8,6 +8,7 @@
 
 package com.megatravel.agentbackend.model;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -54,8 +55,11 @@ import javax.xml.bind.annotation.XmlType;
     "reviewEndUser",
     "reviewAccommodation"
 })
+@Entity
 public class Review {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "review_id")
     protected long reviewId;
     @XmlElement(name = "review_grade")
@@ -63,8 +67,10 @@ public class Review {
     @XmlElement(name = "review_comment", required = true)
     protected String reviewComment;
     @XmlElement(name = "review_end_user", required = true)
+    @ManyToOne
     protected User reviewEndUser;
     @XmlElement(name = "review_accommodation", required = true)
+    @ManyToOne
     protected Accommodation reviewAccommodation;
     @XmlAttribute(name = "comment_approved")
     protected Boolean commentApproved;

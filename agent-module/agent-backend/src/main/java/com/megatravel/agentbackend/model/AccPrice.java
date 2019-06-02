@@ -9,6 +9,10 @@
 package com.megatravel.agentbackend.model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -44,8 +48,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "priceStartDate",
     "priceEndDate"
 })
+@Entity
 public class AccPrice {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "price_value")
     protected float priceValue;
     @XmlElement(name = "price_start_date", required = true, type = String.class)

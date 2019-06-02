@@ -9,6 +9,7 @@
 package com.megatravel.agentbackend.model;
 
 import java.util.Date;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -61,11 +62,15 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "rPeople",
     "rEndUser"
 })
+@Entity
 public class Reservation {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "r_id")
     protected long rId;
     @XmlElement(name = "r_accommodation", required = true)
+    @ManyToOne
     protected Accommodation rAccommodation;
     @XmlElement(name = "r_price")
     protected float rPrice;
@@ -80,6 +85,7 @@ public class Reservation {
     @XmlElement(name = "r_people")
     protected int rPeople;
     @XmlElement(name = "r_end_user", required = true)
+    @ManyToOne
     protected User rEndUser;
     @XmlAttribute(name = "realized")
     protected Boolean realized;

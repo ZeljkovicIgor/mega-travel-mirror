@@ -8,6 +8,10 @@
 
 package com.megatravel.agentbackend.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -39,8 +43,11 @@ import javax.xml.bind.annotation.XmlType;
     "serviceId",
     "serviceName"
 })
+@Entity
 public class Service {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "service_id")
     protected long serviceId;
     @XmlElement(name = "service_name", required = true)

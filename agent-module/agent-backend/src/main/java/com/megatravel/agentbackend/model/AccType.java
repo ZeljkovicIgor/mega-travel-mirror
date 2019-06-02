@@ -8,6 +8,12 @@
 
 package com.megatravel.agentbackend.model;
 
+import org.springframework.data.repository.cdi.Eager;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -39,8 +45,11 @@ import javax.xml.bind.annotation.XmlType;
     "accTypeId",
     "accTypeName"
 })
+@Entity
 public class AccType {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "acc_type_id")
     protected long accTypeId;
     @XmlElement(name = "acc_type_name", required = true)

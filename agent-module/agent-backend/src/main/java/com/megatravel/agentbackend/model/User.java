@@ -8,6 +8,12 @@
 
 package com.megatravel.agentbackend.model;
 
+import sun.awt.AWTAccessor;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -57,8 +63,11 @@ import javax.xml.bind.annotation.XmlType;
     "userBusinessName",
     "userType"
 })
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "user_id")
     protected long userId;
     @XmlElement(name = "user_username", required = true)

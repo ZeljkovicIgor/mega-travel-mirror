@@ -9,6 +9,10 @@
 package com.megatravel.agentbackend.model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -42,8 +46,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "unavailableStart",
     "unavailableEnd"
 })
+@Entity
 public class AccUnavailable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @XmlElement(name = "un_id")
+    protected long unId;
     @XmlElement(name = "unavailable_start", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "date")
@@ -53,6 +62,38 @@ public class AccUnavailable {
     @XmlSchemaType(name = "date")
     protected Date unavailableEnd;
 
+    /**
+     * Gets the value of the unavailableStart property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public Long getUnId() {
+        return unId;
+    }
+
+    /**
+     * Sets the value of the unId property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setUnId(Long value) {
+        this.unId = value;
+    }
+
+    /**
+     * Gets the value of the unavailableEnd property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
     /**
      * Gets the value of the unavailableStart property.
      * 

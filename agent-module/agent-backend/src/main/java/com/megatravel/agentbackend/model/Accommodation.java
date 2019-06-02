@@ -10,6 +10,7 @@ package com.megatravel.agentbackend.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -84,8 +85,11 @@ import javax.xml.bind.annotation.XmlType;
     "accCancelPeriod",
     "accAvgRating"
 })
+@Entity
 public class Accommodation {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "acc_id")
     protected long accId;
     @XmlElement(name = "acc_name", required = true)
@@ -95,20 +99,28 @@ public class Accommodation {
     @XmlElement(name = "acc_capacity")
     protected int accCapacity;
     @XmlElement(name = "acc_pictures", required = true)
+    @Lob
     protected List<byte[]> accPictures;
     @XmlElement(name = "acc_price_plan", required = true)
+    @OneToMany
     protected List<AccPrice> accPricePlan;
     @XmlElement(name = "acc_unavailable", required = true)
+    @ManyToOne
     protected AccUnavailable accUnavailable;
     @XmlElement(name = "acc_location", required = true)
+    @ManyToOne
     protected AccLocation accLocation;
     @XmlElement(name = "acc_category", required = true)
+    @ManyToOne
     protected Category accCategory;
     @XmlElement(name = "acc_type", required = true)
+    @ManyToOne
     protected AccType accType;
     @XmlElement(name = "acc_services")
+    @ManyToMany
     protected List<Service> accServices;
     @XmlElement(name = "acc_agent", required = true)
+    @ManyToOne
     protected User accAgent;
     @XmlElement(name = "acc_cancel_period")
     protected int accCancelPeriod;

@@ -8,6 +8,10 @@
 
 package com.megatravel.agentbackend.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -39,14 +43,20 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "acc_location", propOrder = {
+    "loc_id",
     "address",
     "city",
     "country",
     "xCoordinate",
     "yCoordinate"
 })
+@Entity
 public class AccLocation {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @XmlElement(name = "loc_id")
+    protected long locId;
     @XmlElement(required = true)
     protected String address;
     @XmlElement(required = true)
@@ -58,6 +68,29 @@ public class AccLocation {
     @XmlElement(name = "y_coordinate")
     protected float yCoordinate;
 
+    /**
+     * Gets the value of the locId property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public Long getLocId() {
+        return locId;
+    }
+
+    /**
+     * Sets the value of the locId property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setLocId(Long value) {
+        this.locId = value;
+    }
     /**
      * Gets the value of the address property.
      * 

@@ -8,6 +8,7 @@
 
 package com.megatravel.agentbackend.model;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -47,17 +48,23 @@ import javax.xml.bind.annotation.XmlType;
     "messageSender",
     "messageReservation"
 })
+@Entity
 public class Message {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "message_id")
     protected long messageId;
     @XmlElement(name = "message_content", required = true)
     protected String messageContent;
     @XmlElement(name = "message_reciever", required = true)
+    @ManyToOne
     protected User messageReciever;
     @XmlElement(name = "message_sender", required = true)
+    @ManyToOne
     protected User messageSender;
     @XmlElement(name = "message_reservation", required = true)
+    @ManyToOne
     protected Reservation messageReservation;
     @XmlAttribute(name = "status")
     protected MessageStatus status;
