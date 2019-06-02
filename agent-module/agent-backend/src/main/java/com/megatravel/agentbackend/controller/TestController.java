@@ -6,24 +6,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.megatravel.agentbackend.model.Accommodation;
-import com.megatravel.agentbackend.model.ObjectFactory;
+
 
 @RestController
 public class TestController {
 
 	@GetMapping(value="/test")
-	public Accommodation testController() {
-		Accommodation acc = new Accommodation();
-		ObjectFactory of = new ObjectFactory();
-		Accommodation.AccLocation location = of.createAccommodationAccLocation();
-		location.setAddress("Adresa 1");
-		location.setCity("Novi Sad");
-		location.setCountry("Srbija");
-		location.setLatitude(10);
-		location.setLongitude(12);
-		acc.setAccLocation(location);
-		return acc;
+	public String testController() {
+		
+		return "test";
 	}
 	@GetMapping(value="/all")
 	public String getAll() {
