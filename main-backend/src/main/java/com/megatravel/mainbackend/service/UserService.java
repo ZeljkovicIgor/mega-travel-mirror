@@ -3,11 +3,17 @@ import com.megatravel.mainbackend.model.User;
 
 import java.util.List;
 
+
 public interface UserService {
 
 	List<User> getAllUsers();
+	User save(User user);
+	void deleteUser(Long id);
+	
+	User findOne(Long id);
 	User getUser();
-	User addUser(User user);
 	User updateUser(User user);
-	void deleteUser(User user);
+	
+	
+	
 }

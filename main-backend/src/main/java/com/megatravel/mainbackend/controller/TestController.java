@@ -37,7 +37,7 @@ public class TestController {
 		user.setUserLastName("Peric");
 		user.setUserType(UserType.ADMIN);
 
-		return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
+		return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.megatravel.mainbackend.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.megatravel.mainbackend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User addUser(User user) {
+	public User save(User user) {
 		return userRepository.save(user);
 	}
 
@@ -38,10 +39,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(User user) {
+	public void deleteUser(Long id) {
 		// TODO Auto-generated method stub
-		
+		userRepository.deleteById(id);
 	}
+
+	@Override
+	public User findOne(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }
