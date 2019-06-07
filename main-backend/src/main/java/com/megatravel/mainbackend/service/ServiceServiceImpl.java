@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.megatravel.mainbackend.repository.ServiceRepository;
 
 
-@Service
+@org.springframework.stereotype.Service
 public class ServiceServiceImpl implements ServiceService {
 
 	@Autowired
