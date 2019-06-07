@@ -2,6 +2,7 @@ package com.megatravel.mainbackend.service;
 import com.megatravel.mainbackend.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface UserService {
@@ -10,7 +11,8 @@ public interface UserService {
 	User save(User user);
 	void deleteUser(Long id);
 	
-	User findOne(Long id);
+	Optional<User> findOne(Long id);
+	
 	User getUser();
 	User updateUser(User user);
 	
