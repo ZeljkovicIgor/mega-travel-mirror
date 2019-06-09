@@ -1,9 +1,8 @@
 package com.megatravel.mainbackend.service;
 
-import java.util.List;
-
 import com.megatravel.mainbackend.model.AccLocation;
 
+import java.util.List;
 
 
 public interface AccLocationService {

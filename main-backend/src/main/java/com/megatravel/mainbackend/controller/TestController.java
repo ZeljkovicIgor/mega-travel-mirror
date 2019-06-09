@@ -2,7 +2,6 @@ package com.megatravel.mainbackend.controller;
 
 import java.util.List;
 
-import com.megatravel.mainbackend.model.Message;
 import com.megatravel.mainbackend.model.User;
 import com.megatravel.mainbackend.model.UserType;
 import com.megatravel.mainbackend.service.MessageService;

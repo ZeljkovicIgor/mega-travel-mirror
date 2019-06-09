@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    targetNamespace="http://megatravel.com/soap" xmlns:ns="http://megatravel.com/booking"
+    attributeFormDefault="unqualified" jxb:version="2.0" elementFormDefault="qualified"
+    xmlns:mt="http://megatravel.com/booking">
+    <xs:import namespace="http://megatravel.com/booking" schemaLocation="mega-travel.xsd"/>
+
+    <xs:element name="getOneAccommodationRequest">
+        <xs:complexType>
+            <xs:sequence>
+               <xs:element name="acc_id" type="xs:long"/>
+                <xs:element name="user_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getOneAccommodationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accommodation" type="mt:accommodation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="getAllAccommodationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllAccommodationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accommodation" type="mt:accommodation" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+</xs:schema>

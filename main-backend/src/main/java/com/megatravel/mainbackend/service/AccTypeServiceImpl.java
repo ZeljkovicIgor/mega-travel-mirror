@@ -2,10 +2,10 @@ package com.megatravel.mainbackend.service;
 
 import java.util.List;
 
+import com.megatravel.mainbackend.model.AccType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.megatravel.mainbackend.model.AccType;
 import com.megatravel.mainbackend.repository.AccTypeRepository;
 
 @Service

@@ -1,8 +1,8 @@
 package com.megatravel.mainbackend.service;
 
-import java.util.List;
-
 import com.megatravel.mainbackend.model.Reservation;
+
+import java.util.List;
 
 public interface ReservationService {
 	

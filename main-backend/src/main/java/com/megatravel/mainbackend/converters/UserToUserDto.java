@@ -3,12 +3,12 @@ package com.megatravel.mainbackend.converters;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.megatravel.mainbackend.model.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import com.megatravel.mainbackend.dto.UserDto;
-import com.megatravel.mainbackend.model.User;
 
 @Component
 public class UserToUserDto implements Converter<User,UserDto> {

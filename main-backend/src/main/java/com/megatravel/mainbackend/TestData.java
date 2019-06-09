@@ -2,11 +2,11 @@ package com.megatravel.mainbackend;
 
 import javax.annotation.PostConstruct;
 
+import com.megatravel.mainbackend.model.User;
+import com.megatravel.mainbackend.model.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.megatravel.mainbackend.model.User;
-import com.megatravel.mainbackend.model.UserType;
 import com.megatravel.mainbackend.service.UserService;
 
 @Component

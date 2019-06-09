@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.megatravel.mainbackend.dto.UserDto;
+
 import com.megatravel.mainbackend.model.User;
 import com.megatravel.mainbackend.model.UserType;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
