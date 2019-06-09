@@ -3,7 +3,10 @@ package com.megatravel.mainbackend.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.megatravel.mainbackend.dto.UserDto;
 import com.megatravel.mainbackend.model.User;
+import com.megatravel.mainbackend.model.UserType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +51,77 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> findOne(Long id) {
 		// TODO Auto-generated method stub
 		return userRepository.findById(id);
+	}
+	
+	@Override
+	public User findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return userRepository.findByUserEmail(email);
+	}
+	
+	@Override
+	public User convertFromDTO(UserDto userDto) {
+		// TODO Auto-generated method stub
+		User user = new User();
+		user.setUserFirstName(userDto.getUserFirstName());
+		user.setUserLastName(userDto.getUserLastName());
+		user.setUserEmail(userDto.getUserEmail());
+		user.setUserPassword(userDto.getUserPassword());
+		user.setUserUsername(userDto.getUserUsername());
+		
+		return user;
+	}
+
+	@Override
+	public User registerNewUserAccount(UserDto userDto){
+		// TODO Auto-generated method stub
+		 User user = convertFromDTO(userDto);
+		 
+		 if(emailExists(userDto.getUserEmail())) {
+			 System.out.println("Email exist");
+			 return null;
+		 }
+		 
+		 user.setActivated(true);
+		 user.setDeleted(false);
+		 user.setUserType(UserType.ENDUSER);
+
+		 return userRepository.save(user);
+	}
+	
+	private boolean emailExists(String email) {
+        User user = userRepository.findByUserEmail(email);
+        if (user != null) {
+            return true;
+        }
+        return false;
+    }
+
+	@Override
+	public User signIn(UserDto userDto) {
+		// TODO Auto-generated method stub
+		User user1 = new User();
+		if(userExist(userDto.getUserEmail(),userDto.getUserPassword())) {
+			//firstName,LastName,Email,Username,Password
+			user1 = convertFromDTO(userDto);
+			user1.setUserId(findByEmail(userDto.getUserEmail()).getUserId());
+			user1.setUserType(findByEmail(userDto.getUserEmail()).getUserType());
+			user1.setActivated(findByEmail(userDto.getUserEmail()).isActivated());
+			user1.setDeleted(findByEmail(userDto.getUserEmail()).isDeleted());
+			return user1;
+		}
+		return null;
+	}
+
+	private boolean userExist(String userEmail, String userPassword) {
+		// TODO Auto-generated method stub
+		User user=userRepository.findByUserEmailAndUserPassword(userEmail, userPassword);
+		if(user!=null){
+			System.out.println("Odgovaraju email i sifra");
+            return true;
+		}
+		 System.out.println("Ne odgovaraju email i sifra");
+	        return false;
 	}
 
 	

@@ -1,4 +1,5 @@
 package com.megatravel.mainbackend.service;
+import com.megatravel.mainbackend.dto.UserDto;
 import com.megatravel.mainbackend.model.User;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public interface UserService {
 	User getUser();
 	User updateUser(User user);
 	
-	
-	
+	User convertFromDTO(UserDto userDto);
+	User registerNewUserAccount(UserDto userDto);
+	User signIn(UserDto userDto);
+
+	User findByEmail(String email);
+
 }
