@@ -57,6 +57,7 @@ public class AccLocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "loc_id")
     protected long locId;
+    protected long locDbId;
     @XmlElement(required = true)
     protected String address;
     @XmlElement(required = true)
@@ -68,6 +69,14 @@ public class AccLocation {
     @XmlElement(name = "y_coordinate")
     protected float yCoordinate;
 
+
+    public long getLocDbId() {
+        return locDbId;
+    }
+
+    public void setLocDbId(long locDbId) {
+        this.locDbId = locDbId;
+    }
     /**
      * Gets the value of the locId property.
      *
@@ -93,23 +102,24 @@ public class AccLocation {
     }
     /**
      * Gets the value of the address property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
+
     public String getAddress() {
         return address;
     }
 
     /**
      * Sets the value of the address property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAddress(String value) {
         this.address = value;
@@ -117,11 +127,11 @@ public class AccLocation {
 
     /**
      * Gets the value of the city property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCity() {
         return city;
@@ -129,11 +139,11 @@ public class AccLocation {
 
     /**
      * Sets the value of the city property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCity(String value) {
         this.city = value;

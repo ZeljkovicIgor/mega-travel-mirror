@@ -92,6 +92,7 @@ public class Accommodation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "acc_id")
     protected long accId;
+    protected long accDbId;
     @XmlElement(name = "acc_name", required = true)
     protected String accName;
     @XmlElement(name = "acc_description", required = true)
@@ -131,6 +132,7 @@ public class Accommodation {
      * Gets the value of the accId property.
      * 
      */
+
     public long getAccId() {
         return accId;
     }
@@ -143,6 +145,13 @@ public class Accommodation {
         this.accId = value;
     }
 
+    public long getAccDbId() {
+        return accDbId;
+    }
+
+    public void setAccDbId(long accDbId) {
+        this.accDbId = accDbId;
+    }
     /**
      * Gets the value of the accName property.
      * 
