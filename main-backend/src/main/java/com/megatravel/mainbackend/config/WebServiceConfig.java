@@ -17,7 +17,7 @@ import org.springframework.xml.xsd.XsdSchema;
 @EnableWs
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
-/*
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Bean
     public ServletRegistrationBean messageDiServletRegistrationBean(ApplicationContext applicationContext){
@@ -41,5 +41,5 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public XsdSchema megaTravelSchema(){
         return new SimpleXsdSchema(new ClassPathResource("/xsd/mega-travel-soap.xsd"));
     }
-*/
+
 }
