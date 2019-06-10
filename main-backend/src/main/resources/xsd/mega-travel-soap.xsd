@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
     targetNamespace="http://megatravel.com/booking/ws" xmlns:tns="http://megatravel.com/booking/ws"
-    attributeFormDefault="unqualified" jxb:version="2.1" elementFormDefault="qualified">
+    attributeFormDefault="unqualified" jxb:version="2.0" elementFormDefault="qualified">
 
     <xs:element name="getOneAccommodationRequest">
         <xs:complexType>
@@ -104,6 +104,103 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="getAddServicesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agent_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAddServicesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="add_servce" type="tns:add_serviceSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getCategoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agent_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getCategoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="category" type="tns:add_serviceSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAccTypeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agent_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAccTypeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="acc_type" type="tns:acc_typeSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getMessageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agent_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getMessageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="tns:messageSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="sendMessageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="tns:messageSoap"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="sendMessageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="sent" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="confirmReservationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservation" type="tns:reservationSoap"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="confirmReservationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="checkAgentRequest">
         <xs:complexType>
             <xs:sequence>
@@ -118,6 +215,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="accommodation" type="tns:accommodationSoap" maxOccurs="unbounded"/>
+                <xs:element name="agent" type="tns:userSoap" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>

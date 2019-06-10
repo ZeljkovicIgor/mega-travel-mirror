@@ -3,7 +3,13 @@ package com.megatravel.mainbackend.endpoint;
 import com.megatravel.mainbackend.model.Accommodation;
 import com.megatravel.mainbackend.service.AccommodationService;
 
-import com.megatravel.mainbackend.ws.*;
+import com.megatravel.mainbackend.ws.messages.GetAllAccommodationRequest;
+import com.megatravel.mainbackend.ws.messages.GetAllAccommodationResponse;
+import com.megatravel.mainbackend.ws.messages.GetOneAccommodationRequest;
+import com.megatravel.mainbackend.ws.messages.GetOneAccommodationResponse;
+import com.megatravel.mainbackend.ws.model.AccommodationSoap;
+import com.megatravel.mainbackend.ws.model.UserSoap;
+import com.megatravel.mainbackend.ws.model.UserTypeSoap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -40,7 +46,7 @@ public class AccommodationEndpoint {
         //duplirane klase iz modela
         GetOneAccommodationResponse response = new GetOneAccommodationResponse();
         Accommodation acc = new Accommodation();
-        AccommodationSoap accommodation = new com.megatravel.mainbackend.ws.AccommodationSoap();
+        AccommodationSoap accommodation = new AccommodationSoap();
         UserSoap user = new UserSoap();
         user.setUserId(request.getUserId());
         user.setUserFirstName("Pera");
