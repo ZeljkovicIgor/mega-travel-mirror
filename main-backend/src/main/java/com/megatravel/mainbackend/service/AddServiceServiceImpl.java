@@ -15,22 +15,31 @@ public class AddServiceServiceImpl implements AddServiceService {
 
 	@Autowired
 	public AddServiceRepository addServiceRepository;
+	
+	
 	@Override
 	public List<AddService> findAll() {
-		// TODO Auto-generated method stub
 		return addServiceRepository.findAll();
 	}
 
 	@Override
 	public AddService save(AddService service) {
-		// TODO Auto-generated method stub
 		return addServiceRepository.save(service);
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		addServiceRepository.deleteById(id);
+	}
+
+	@Override
+	public AddService update(Long id, AddService service) {
+		
+		if(!addServiceRepository.findById(id).isPresent())
+			return null;
+		
+		service.setServiceId(id);
+		return addServiceRepository.save(service);
 	}
 
 	

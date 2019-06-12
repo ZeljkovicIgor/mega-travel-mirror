@@ -17,19 +17,26 @@ public class AccTypeServiceImpl implements AccTypeService {
 	
 	@Override
 	public List<AccType> findAll() {
-		// TODO Auto-generated method stub
 		return accTypeRepository.findAll();
 	}
 
 	@Override
 	public AccType save(AccType accType) {
-		// TODO Auto-generated method stub
 		return accTypeRepository.save(accType);
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		accTypeRepository.deleteById(id);
+	}
+
+	@Override
+	public AccType update(Long id, AccType accType) {
+		
+		if(!accTypeRepository.findById(id).isPresent())
+			return null;
+		
+		accType.setAccTypeId(id);
+		return accTypeRepository.save(accType);
 	}
 }

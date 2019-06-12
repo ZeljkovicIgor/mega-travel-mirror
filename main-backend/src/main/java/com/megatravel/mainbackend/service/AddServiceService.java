@@ -9,5 +9,6 @@ public interface AddServiceService {
 	List<AddService> findAll();
 	AddService save(AddService service);
 	void delete(Long id);
-
+	AddService update(Long id, AddService service);
+	
 }

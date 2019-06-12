@@ -9,5 +9,6 @@ public interface AccTypeService {
 	List<AccType> findAll();
 	AccType save(AccType accType);
 	void delete(Long id);
+	AccType update(Long id, AccType accType);
 	
 }
