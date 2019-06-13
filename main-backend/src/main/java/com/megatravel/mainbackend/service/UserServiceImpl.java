@@ -18,6 +18,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	//private PasswordEncoder passwordEncoder;
+	
 	@Override
 	public List<User> getAllUsers() {
 		// TODO Auto-generated method stub
@@ -48,9 +51,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<User> findOne(Long id) {
+	public User findOne(Long id) {
 		// TODO Auto-generated method stub
-		return userRepository.findById(id);
+		return userRepository.getOne(id);
 	}
 	
 	@Override
@@ -85,7 +88,7 @@ public class UserServiceImpl implements UserService {
 		 user.setActivated(true);
 		 user.setDeleted(false);
 		 user.setUserType(UserType.ENDUSER);
-
+		 
 		 return userRepository.save(user);
 	}
 	
@@ -125,5 +128,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	
-	
+
+
 }

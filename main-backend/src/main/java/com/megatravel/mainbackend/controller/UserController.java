@@ -28,14 +28,12 @@ public class UserController {
 	
 	@RequestMapping(value = "/allUsers", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getUsers(){
-				
 		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Optional<User>> getUser(@PathVariable("id") Long id){
-		//ako user ne postoji vraca null
-		Optional<User> user=userService.findOne(id);
+	public ResponseEntity<User> getUser(@PathVariable("id") Long id){
+		User user=userService.findOne(id);
 		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 	
@@ -72,6 +70,8 @@ public class UserController {
 		return new ResponseEntity<>(logged,HttpStatus.NOT_FOUND);
 	}
 	
+
+																																	
 	@RequestMapping(value="/loggoutUser", method=RequestMethod.GET)
 	public ResponseEntity<String> logoutUser(HttpSession session,HttpServletRequest request){
 			request.getSession().invalidate();

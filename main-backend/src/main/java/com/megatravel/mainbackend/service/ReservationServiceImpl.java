@@ -31,4 +31,22 @@ public class ReservationServiceImpl implements ReservationService {
 		// TODO Auto-generated method stub
 		reservationRepository.deleteById(id);
 	}
+
+	@Override
+	public Reservation update(Long id, Reservation reservation) {
+		// TODO Auto-generated method stub
+		if(!reservationRepository.findById(id).isPresent()) {
+			return null;
+		}
+		reservation.setRId(id);
+		return reservationRepository.save(reservation);
+	}
+
+	@Override
+	public Reservation findOne(Long id) {
+		// TODO Auto-generated method stub
+		return reservationRepository.getOne(id);
+	}
+	
+	
 }

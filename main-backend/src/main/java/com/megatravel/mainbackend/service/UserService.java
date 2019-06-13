@@ -12,7 +12,7 @@ public interface UserService {
 	User save(User user);
 	void deleteUser(Long id);
 	
-	Optional<User> findOne(Long id);
+	User findOne(Long id);
 	
 	User getUser();
 	User updateUser(User user);
@@ -22,5 +22,6 @@ public interface UserService {
 	User signIn(UserDto userDto);
 
 	User findByEmail(String email);
+
 
 }
