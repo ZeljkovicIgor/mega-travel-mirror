@@ -1,6 +1,8 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.Accommodation;
+import com.megatravel.mainbackend.model.User;
 import com.megatravel.mainbackend.ws.model.AccommodationSoap;
 import com.megatravel.mainbackend.ws.model.UserSoap;
 
@@ -42,9 +44,9 @@ import javax.xml.bind.annotation.XmlType;
 public class CheckAgentResponse {
 
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected List<AccommodationSoap> accommodation;
+    protected List<Accommodation> accommodation;
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected UserSoap agent;
+    protected User agent;
 
     /**
      * Gets the value of the accommodation property.
@@ -68,9 +70,9 @@ public class CheckAgentResponse {
      * 
      * 
      */
-    public List<AccommodationSoap> getAccommodation() {
+    public List<Accommodation> getAccommodation() {
         if (accommodation == null) {
-            accommodation = new ArrayList<AccommodationSoap>();
+            accommodation = new ArrayList<Accommodation>();
         }
         return this.accommodation;
     }
@@ -83,7 +85,7 @@ public class CheckAgentResponse {
      *     {@link UserSoap }
      *     
      */
-    public UserSoap getAgent() {
+    public User getAgent() {
         return agent;
     }
 
@@ -95,7 +97,7 @@ public class CheckAgentResponse {
      *     {@link UserSoap }
      *     
      */
-    public void setAgent(UserSoap value) {
+    public void setAgent(User value) {
         this.agent = value;
     }
 

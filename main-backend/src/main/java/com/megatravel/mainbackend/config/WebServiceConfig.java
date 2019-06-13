@@ -31,7 +31,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema){
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("MegaTravelPort");
-        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setLocationUri("/ws/*");
         wsdl11Definition.setTargetNamespace(AccommodationEndpoint.NAMESPACE_URI);
         wsdl11Definition.setSchema(schema);
         return wsdl11Definition;
