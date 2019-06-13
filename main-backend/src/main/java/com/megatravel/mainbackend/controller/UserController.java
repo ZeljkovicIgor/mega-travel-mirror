@@ -60,7 +60,6 @@ public class UserController {
 		User logged=userService.signIn(userDto);
 		
 		if(logged!=null ){
-			System.out.println("Logged je ime "+ logged.getUserUsername());
 			HttpSession newSession = request.getSession();
 		    newSession.setAttribute("logged", logged);
 			return new ResponseEntity<>(logged,HttpStatus.OK);
