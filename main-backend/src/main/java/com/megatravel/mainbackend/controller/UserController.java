@@ -1,12 +1,10 @@
 package com.megatravel.mainbackend.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.megatravel.mainbackend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.megatravel.mainbackend.dto.UserDto;
+import com.megatravel.mainbackend.model.User;
 import com.megatravel.mainbackend.service.UserService;
 
 @RestController
@@ -78,5 +77,55 @@ public class UserController {
 			return new ResponseEntity<String>("User logged out",HttpStatus.OK);	
 	}
 	
+	
+	/**
+	 * 		BLOKIRANJE, AKTIVIRANJE i BRISANJE obicnih korisnika
+	 */
+	
+	@RequestMapping(value="/deleteEndUser/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<User> deleteEndUser(@PathVariable("id") Long id, HttpServletRequest request){
+		User loggedUser = (User) request.getSession().getAttribute("logged");
+		/*
+		 * if(loggedUser == null) return new
+		 *	ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+		 */
+		
+		User deletedUser = userService.deleteUser(id);
+		if(deletedUser == null)
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<User>(deletedUser, HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value="/blockUser/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<User> blockUser(@PathVariable("id") Long id, HttpServletRequest request){
+		User loggedUser = (User) request.getSession().getAttribute("logged");
+		/*
+		 * if(loggedUser == null) return new
+		 *	ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+		 */
+		
+		User blockedUser = userService.blockActivateUser(id, false);
+		if(blockedUser == null)
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<User>(blockedUser, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/activateUser/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<User> activateUser(@PathVariable("id") Long id, HttpServletRequest request){
+		User loggedUser = (User) request.getSession().getAttribute("logged");
+		/*
+		 * if(loggedUser == null) return new
+		 *	ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+		 */
+		
+		User activatedUser = userService.blockActivateUser(id, true);
+		if(activatedUser == null)
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<User>(activatedUser, HttpStatus.OK);
+	}
 	
 }

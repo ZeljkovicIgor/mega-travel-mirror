@@ -1,15 +1,13 @@
 package com.megatravel.mainbackend.service;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.megatravel.mainbackend.dto.UserDto;
-
-import com.megatravel.mainbackend.model.User;
-import com.megatravel.mainbackend.model.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.megatravel.mainbackend.dto.UserDto;
+import com.megatravel.mainbackend.model.User;
+import com.megatravel.mainbackend.model.UserType;
 import com.megatravel.mainbackend.repository.UserRepository;
 
 @Service
@@ -45,9 +43,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(Long id) {
-		// TODO Auto-generated method stub
-		userRepository.deleteById(id);
+	public User deleteUser(Long id) {
+		User user = userRepository.getOne(id);
+		if(user == null || user.getUserType() != UserType.ENDUSER)
+			return null;
+		
+		user.setDeleted(true);
+		
+		return userRepository.save(user);
 	}
 
 	@Override
@@ -125,6 +128,16 @@ public class UserServiceImpl implements UserService {
 		}
 		 System.out.println("Ne odgovaraju email i sifra");
 	        return false;
+	}
+
+	@Override
+	public User blockActivateUser(Long id, boolean activated) {
+		User user = userRepository.getOne(id);
+		if(user == null || user.getUserType() != UserType.ENDUSER || user.isDeleted() == true)
+			return null;
+		
+		user.setActivated(activated);
+		return userRepository.save(user);
 	}
 
 	

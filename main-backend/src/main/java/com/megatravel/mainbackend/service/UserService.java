@@ -10,7 +10,7 @@ public interface UserService {
 
 	List<User> getAllUsers();
 	User save(User user);
-	void deleteUser(Long id);
+	User deleteUser(Long id);
 	
 	User findOne(Long id);
 	
@@ -22,6 +22,7 @@ public interface UserService {
 	User signIn(UserDto userDto);
 
 	User findByEmail(String email);
+	User blockActivateUser(Long id, boolean activated);
 
 
 }
