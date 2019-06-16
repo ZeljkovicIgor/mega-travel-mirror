@@ -128,4 +128,20 @@ public class UserController {
 		return new ResponseEntity<User>(activatedUser, HttpStatus.OK);
 	}
 	
+	/**
+	 * 		registracija agenta
+	 */
+	
+	@RequestMapping(value="/registerAgent", method=RequestMethod.POST)
+	public ResponseEntity<User> registerAgent(@RequestBody User agent, HttpServletRequest request){
+		User loggedUser = (User) request.getSession().getAttribute("logged");
+		/*
+		 * if(loggedUser == null) return new
+		 *	ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+		 */
+		
+		userService.registerAgent(agent);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 }

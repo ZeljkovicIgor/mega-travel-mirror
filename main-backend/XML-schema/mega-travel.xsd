@@ -136,6 +136,7 @@
             <xs:element name="user_email" type="xs:string"/>
             <xs:element name="user_business_id" type="xs:string"/>
             <xs:element name="user_business_name" type="xs:string"/>
+            <xs:element name="user_address" type="xs:string"/>
             <xs:element name="user_type" type="ns:user_type"/>
         </xs:sequence>
         <xs:attribute default="false" name="deleted" type="xs:boolean"/>

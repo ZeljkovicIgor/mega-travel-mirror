@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="user_email" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="user_business_id" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="user_business_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="user_address" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="user_type" type="{http://megatravel.com/booking}user_type"/>
  *       &lt;/sequence>
  *       &lt;attribute name="deleted" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
@@ -52,6 +53,7 @@ import javax.xml.bind.annotation.XmlType;
     "userEmail",
     "userBusinessId",
     "userBusinessName",
+    "userAddress",
     "userType"
 })
 @Entity
@@ -75,6 +77,8 @@ public class User {
     protected String userBusinessId;
     @XmlElement(name = "user_business_name", namespace = "http://megatravel.com/booking", required = true)
     protected String userBusinessName;
+    @XmlElement(name = "user_address", namespace = "http://megatravel.com/booking", required = true)
+    protected String userAddress;
     @XmlElement(name = "user_type", namespace = "http://megatravel.com/booking", required = true)
     @XmlSchemaType(name = "string")
     protected UserType userType;
@@ -347,4 +351,11 @@ public class User {
         this.activated = value;
     }
 
+	public String getUserAddress() {
+		return userAddress;
+	}
+
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
+	}
 }

@@ -140,6 +140,14 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
+	@Override
+	public void registerAgent(User agent) {
+		//agent.setActivated(false);
+		agent.setUserType(UserType.AGENT);
+		agent.setDeleted(false);
+		userRepository.save(agent);
+	}
+
 	
 
 

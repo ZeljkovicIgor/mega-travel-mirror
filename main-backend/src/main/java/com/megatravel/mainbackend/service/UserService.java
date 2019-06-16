@@ -23,6 +23,7 @@ public interface UserService {
 
 	User findByEmail(String email);
 	User blockActivateUser(Long id, boolean activated);
+	void registerAgent(User agent);
 
 
 }
