@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.model;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.*;

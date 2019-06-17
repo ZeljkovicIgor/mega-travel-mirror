@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.megatravel.mainbackend.dto.ReservationDto;
 import com.megatravel.mainbackend.dto.UserDto;
+import com.megatravel.mainbackend.model.Reservation;
 import com.megatravel.mainbackend.model.User;
+import com.megatravel.mainbackend.service.ReservationService;
 import com.megatravel.mainbackend.service.UserService;
 
 @RestController
@@ -24,6 +28,8 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ReservationService reservationService;
 	
 	@RequestMapping(value = "/allUsers", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getUsers(){
@@ -77,7 +83,17 @@ public class UserController {
 			return new ResponseEntity<String>("User logged out",HttpStatus.OK);	
 	}
 	
-	
+	//lista rezervacija krajnjeg korisnika
+	@RequestMapping(value="/reservations", method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ReservationDto>> getUserReservation(HttpServletRequest request){
+		User logged =(User) request.getSession().getAttribute("logged");
+		
+		//User logged = userService.findOne(id);
+		List<Reservation> reservations = reservationService.findByUserId(logged.getUserId());
+		List<ReservationDto> reservationsDto = reservationService.convertToDtoList(reservations);
+		
+		return new ResponseEntity<>(reservationsDto,HttpStatus.OK);
+	}
 	/**
 	 * 		BLOKIRANJE, AKTIVIRANJE i BRISANJE obicnih korisnika
 	 */
