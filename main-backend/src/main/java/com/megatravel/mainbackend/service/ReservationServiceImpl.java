@@ -62,8 +62,8 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		return reservationDto;
 	}
-
-	private ReservationDto convertToDto(Reservation r) {
+	@Override
+	public ReservationDto convertToDto(Reservation r) {
 		// TODO Auto-generated method stub
 		ReservationDto reservationDto=new ReservationDto();
 		reservationDto.setrId(r.getRId());

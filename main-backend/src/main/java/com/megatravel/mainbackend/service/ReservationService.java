@@ -15,4 +15,5 @@ public interface ReservationService {
 	List<ReservationDto> convertToDtoList(List<Reservation> reservations);
 	
 	List<Reservation> findByUserId(Long id);
+	ReservationDto convertToDto(Reservation r);
 }
