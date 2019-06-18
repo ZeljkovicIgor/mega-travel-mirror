@@ -1,5 +1,6 @@
 package com.megatravel.mainbackend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,9 +88,15 @@ public class UserController {
 	@RequestMapping(value="/reservations", method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ReservationDto>> getUserReservation(HttpServletRequest request){
 		User logged =(User) request.getSession().getAttribute("logged");
-		
-		//User logged = userService.findOne(id);
-		List<Reservation> reservations = reservationService.findByUserId(logged.getUserId());
+
+		List<Reservation> reservationsAll = reservationService.findByUserId(logged.getUserId());
+	
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		for(Reservation r : reservationsAll) {
+			if(r.isCancelled()==false) {
+				reservations.add(r);
+			}
+		}
 		List<ReservationDto> reservationsDto = reservationService.convertToDtoList(reservations);
 		
 		return new ResponseEntity<>(reservationsDto,HttpStatus.OK);
