@@ -84,7 +84,7 @@ public class Reservation {
     @XmlSchemaType(name = "dateTime")
     protected Date rDate;
     @XmlElement(name = "r_people", namespace = "http://megatravel.com/booking", required = true)
-    protected BigInteger rPeople;
+    protected int rPeople;
     @XmlElement(name = "r_end_user", namespace = "http://megatravel.com/booking", required = true)
     @ManyToOne
     protected User rEndUser;
@@ -229,7 +229,7 @@ public class Reservation {
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getRPeople() {
+    public int getRPeople() {
         return rPeople;
     }
 
@@ -241,7 +241,7 @@ public class Reservation {
      *     {@link BigInteger }
      *     
      */
-    public void setRPeople(BigInteger value) {
+    public void setRPeople(int value) {
         this.rPeople = value;
     }
 
