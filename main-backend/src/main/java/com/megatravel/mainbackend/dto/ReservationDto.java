@@ -1,16 +1,11 @@
 package com.megatravel.mainbackend.dto;
 
-import java.math.BigInteger;
+
 import java.util.Date;
 
-import javax.persistence.ManyToOne;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.megatravel.mainbackend.model.Accommodation;
-import com.megatravel.mainbackend.model.Adapter1;
+
 import com.megatravel.mainbackend.model.User;
 
 public class ReservationDto {
@@ -26,7 +21,7 @@ public class ReservationDto {
 
     public Date rDate;
   
-    public BigInteger rPeople;
+    public int rPeople;
    
     public User rEndUser;
 
@@ -87,11 +82,11 @@ public class ReservationDto {
 		this.rDate = rDate;
 	}
 
-	public BigInteger getrPeople() {
+	public int getrPeople() {
 		return rPeople;
 	}
 
-	public void setrPeople(BigInteger rPeople) {
+	public void setrPeople(int rPeople) {
 		this.rPeople = rPeople;
 	}
 
