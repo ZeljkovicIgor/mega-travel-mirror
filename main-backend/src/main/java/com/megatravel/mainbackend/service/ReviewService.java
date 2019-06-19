@@ -9,5 +9,7 @@ public interface ReviewService {
 	List<Review> findAll();
 	Review save(Review review);
 	void delete(Long id);
+	List<Review> unapprovedComments();
+	Review approveComment(Long reviewId);
 
 }
