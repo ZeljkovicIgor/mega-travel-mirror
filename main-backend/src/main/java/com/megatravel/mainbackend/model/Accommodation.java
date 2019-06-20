@@ -126,7 +126,7 @@ public class Accommodation {
     @ManyToOne
     protected User accAgent;
     @XmlElement(name = "acc_cancel_period", namespace = "http://megatravel.com/booking", required = true)
-    protected BigInteger accCancelPeriod;
+    protected int accCancelPeriod;
     @XmlElement(name = "acc_avg_rating", namespace = "http://megatravel.com/booking", defaultValue = "0")
     protected float accAvgRating;
 
@@ -448,7 +448,7 @@ public class Accommodation {
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getAccCancelPeriod() {
+    public int getAccCancelPeriod() {
         return accCancelPeriod;
     }
 
@@ -460,7 +460,7 @@ public class Accommodation {
      *     {@link BigInteger }
      *     
      */
-    public void setAccCancelPeriod(BigInteger value) {
+    public void setAccCancelPeriod(int value) {
         this.accCancelPeriod = value;
     }
 
