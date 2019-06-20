@@ -41,4 +41,16 @@ public class LogInController {
 
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
+
+    @GetMapping(value = "/isLogged")
+    public ResponseEntity<?> loggedIn(){
+        User agent = (User) httpSession.getAttribute("agent");
+        if (agent == null){
+            System.out.println("Nije ulogovan");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else{
+            System.out.println("Ulogovan " + agent.getUserUsername());
+            return new ResponseEntity<>(agent, HttpStatus.OK);
+        }
+    }
 }

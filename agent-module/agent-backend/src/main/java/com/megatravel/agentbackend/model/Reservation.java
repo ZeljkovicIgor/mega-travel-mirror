@@ -4,7 +4,6 @@ package com.megatravel.agentbackend.model;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.math.BigInteger;
 import java.util.Date;
 
 
@@ -78,7 +77,7 @@ public class Reservation {
     @XmlSchemaType(name = "dateTime")
     protected Date rDate;
     @XmlElement(name = "r_people", namespace = "http://megatravel.com/booking", required = true)
-    protected BigInteger rPeople;
+    protected int rPeople;
     @XmlElement(name = "r_end_user", namespace = "http://megatravel.com/booking", required = true)
     @ManyToOne
     protected User rEndUser;
@@ -220,10 +219,10 @@ public class Reservation {
      * 
      * @return
      *     possible object is
-     *     {@link BigInteger }
+     *     {@link int }
      *     
      */
-    public BigInteger getRPeople() {
+    public int getRPeople() {
         return rPeople;
     }
 
@@ -232,10 +231,10 @@ public class Reservation {
      * 
      * @param value
      *     allowed object is
-     *     {@link BigInteger }
+     *     {@link int }
      *     
      */
-    public void setRPeople(BigInteger value) {
+    public void setRPeople(int value) {
         this.rPeople = value;
     }
 

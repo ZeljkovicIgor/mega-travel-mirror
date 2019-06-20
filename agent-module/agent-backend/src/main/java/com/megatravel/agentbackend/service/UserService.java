@@ -10,6 +10,7 @@ public interface UserService {
 
     List<User> getAll();
     User getOneById(Long id);
+    User getOneByUsername(String username);
     User addOne(User user);
     User editOne(User user);
     boolean deleteOne(User  user);

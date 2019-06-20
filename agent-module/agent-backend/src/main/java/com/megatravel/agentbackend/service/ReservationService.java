@@ -10,6 +10,7 @@ public interface ReservationService {
     Reservation getOneById(Long id);
     Reservation addOne(Reservation reservation);
     Reservation editOne(Reservation reservation);
+    Reservation confirmReservation(long id);
     boolean deleteOne(Reservation reservation);
     boolean deleteById(Long id);
     //convertFromDto();

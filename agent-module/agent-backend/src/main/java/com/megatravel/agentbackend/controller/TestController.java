@@ -2,10 +2,7 @@ package com.megatravel.agentbackend.controller;
 
 import com.megatravel.agentbackend.client.MegaTravelClient;
 import com.megatravel.agentbackend.model.*;
-import com.megatravel.agentbackend.service.AccTypeService;
-import com.megatravel.agentbackend.service.AddServiceService;
-import com.megatravel.agentbackend.service.CategoryService;
-import com.megatravel.agentbackend.service.UserService;
+import com.megatravel.agentbackend.service.*;
 import com.megatravel.agentbackend.ws.AccommodationSoap;
 import com.megatravel.agentbackend.ws.GetOneAccommodationRequest;
 import com.megatravel.agentbackend.ws.GetOneAccommodationResponse;
@@ -32,6 +29,8 @@ public class TestController {
 	CategoryService categoryService;
 	@Autowired
 	AddServiceService addServiceService;
+	@Autowired
+	ReservationService reservationService;
 
 	@GetMapping(value="/test")
 	public ResponseEntity<Accommodation> test() {
@@ -54,17 +53,26 @@ public class TestController {
 	}
 	@GetMapping(value="/one")
 	public String getOne() {
+
+
 		return "one";
 	}
 
 	@GetMapping(value="/addTestData")
 	public String add() {
 
+		User agent = new User();
+		agent.setUserPassword("password");
+		agent.setUserBusinessName("Apartmani pera");
+		agent.setUserEmail("agent@a.com");
+		agent.setUserUsername("agent");
+		userService.addOne(agent);
+
+
 		User user = new User();
-		user.setUserPassword("passwprd");
-		user.setUserBusinessName("Apartmani pera");
-		user.setUserEmail("agent@a.com");
-		user.setUserUsername("agent");
+		user.setUserPassword("password");
+		user.setUserEmail("user@a.com");
+		user.setUserUsername("user");
 		userService.addOne(user);
 
 		AccType accType = new AccType();

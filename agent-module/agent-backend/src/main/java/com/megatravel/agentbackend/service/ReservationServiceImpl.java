@@ -34,6 +34,16 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public Reservation confirmReservation(long id) {
+        Reservation res = reservationRepository.getOne(id);
+        if (res != null){
+            res.setRealized(true);
+            return reservationRepository.save(res);
+        }
+        return null;
+    }
+
+    @Override
     public boolean deleteOne(Reservation reservation) {
         reservationRepository.delete(reservation);
         return (reservationRepository.existsById(reservation.getRId())?true:false);

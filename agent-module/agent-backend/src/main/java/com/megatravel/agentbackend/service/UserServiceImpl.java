@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getOneByUsername(String username) {
+        return userRepository.findByUserUsername(username);
+    }
+
+    @Override
     public User addOne(User user) {
         return userRepository.save(user);
     }
