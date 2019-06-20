@@ -1,7 +1,6 @@
 package com.megatravel.agentbackend.dto;
 
-import com.megatravel.agentbackend.model.Accommodation;
-
+import java.util.Date;
 import java.util.List;
 
 public class AccommodationDto {
@@ -22,6 +21,7 @@ public class AccommodationDto {
     private Long accAgentId;
     private int accCancelPeriod;
     private float accAvgRating;
+    private Date accDate;
 
     public AccommodationDto() {
     }
@@ -164,5 +164,13 @@ public class AccommodationDto {
                 ", accCancelPeriod=" + accCancelPeriod +
                 ", accAvgRating=" + accAvgRating +
                 '}';
+    }
+
+    public Date getAccDate() {
+        return accDate;
+    }
+
+    public void setAccDate(Date accDate) {
+        this.accDate = accDate;
     }
 }

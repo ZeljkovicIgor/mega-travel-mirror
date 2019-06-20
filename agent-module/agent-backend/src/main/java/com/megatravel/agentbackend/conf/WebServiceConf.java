@@ -19,7 +19,7 @@ public class WebServiceConf extends WsConfigurerAdapter {
     }
 
     @Bean
-    public MegaTravelClient movieClient(Jaxb2Marshaller marshaller) {
+    public MegaTravelClient megaTravelClientClient(Jaxb2Marshaller marshaller) {
         MegaTravelClient client = new MegaTravelClient();
         client.setDefaultUri("http://localhost:8080/ws");
         client.setMarshaller(marshaller);

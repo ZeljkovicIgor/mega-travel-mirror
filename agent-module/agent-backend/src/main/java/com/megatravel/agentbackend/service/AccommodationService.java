@@ -1,14 +1,18 @@
 package com.megatravel.agentbackend.service;
 
-import com.megatravel.agentbackend.dto.AccommodationDTO;
+
+import com.megatravel.agentbackend.dto.AccommodationDto;
 import com.megatravel.agentbackend.model.Accommodation;
+
+import java.util.List;
 
 public interface AccommodationService {
 
-    public Accommodation getAcc(Long id);
-    public Accommodation addAcc(Accommodation accommodation);
-    public Accommodation editAcc(Accommodation accommodation);
-    public boolean deleteAcc(Accommodation accommodation);
-    public boolean deleteAccById(Long id);
-    public Accommodation convertFromDto(AccommodationDTO accDto);
+    Accommodation getOneById(Long id);
+    List<Accommodation> getAll();
+    Accommodation addOne(Accommodation accommodation);
+    Accommodation editOne(Accommodation accommodation);
+    boolean deleteOne(Accommodation accommodation);
+    boolean deleteAccById(Long id);
+    Accommodation convertFromDto(AccommodationDto accDto);
 }

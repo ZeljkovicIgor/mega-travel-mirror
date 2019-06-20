@@ -1,30 +1,37 @@
 package com.megatravel.agentbackend.controller;
 
 import com.megatravel.agentbackend.client.MegaTravelClient;
-import com.megatravel.agentbackend.model.Accommodation;
-import com.megatravel.agentbackend.model.User;
+import com.megatravel.agentbackend.model.*;
+import com.megatravel.agentbackend.service.AccTypeService;
+import com.megatravel.agentbackend.service.AddServiceService;
+import com.megatravel.agentbackend.service.CategoryService;
 import com.megatravel.agentbackend.service.UserService;
-import com.megatravel.agentbackend.ws.GetAllAccommodationResponse;
+import com.megatravel.agentbackend.ws.AccommodationSoap;
 import com.megatravel.agentbackend.ws.GetOneAccommodationRequest;
 import com.megatravel.agentbackend.ws.GetOneAccommodationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import java.util.List;
 
 
 @RestController
+@RequestMapping(value = "/test")
 public class TestController {
 
 	@Autowired
 	UserService userService;
 	@Autowired
 	MegaTravelClient client;
+	@Autowired
+	AccTypeService accTypeService;
+	@Autowired
+	CategoryService categoryService;
+	@Autowired
+	AddServiceService addServiceService;
 
 	@GetMapping(value="/test")
 	public ResponseEntity<Accommodation> test() {
@@ -41,15 +48,49 @@ public class TestController {
 		return new ResponseEntity<Accommodation>(acc, HttpStatus.OK);
 	}
 	@GetMapping(value="/all")
-	public String getAll() {
-		return "all";
+	public ResponseEntity<List<AccommodationSoap>> getAll() {
+
+		return new ResponseEntity<List<AccommodationSoap>>(client.getAccommodation(3L).getAccommodation(),HttpStatus.OK);
 	}
 	@GetMapping(value="/one")
 	public String getOne() {
 		return "one";
 	}
-	@PostMapping(value="/add")
+
+	@GetMapping(value="/addTestData")
 	public String add() {
+
+		User user = new User();
+		user.setUserPassword("passwprd");
+		user.setUserBusinessName("Apartmani pera");
+		user.setUserEmail("agent@a.com");
+		user.setUserUsername("agent");
+		userService.addOne(user);
+
+		AccType accType = new AccType();
+		accType.setAccTypeName("Tip 1");
+		accTypeService.addOne(accType);
+
+		AccType accType2 = new AccType();
+		accType2.setAccTypeName("Tip 2");
+		accTypeService.addOne(accType2);
+
+		Category category = new Category();
+		category.setCategoryName("Kategorija 1");
+		categoryService.addOne(category);
+
+		Category category2 = new Category();
+		category2.setCategoryName("Kategorija 2");
+		categoryService.addOne(category2);
+
+		AddService addService = new AddService();
+		addService.setServiceName("WiFi");
+		addServiceService.addOne(addService);
+
+		AddService addService2 = new AddService();
+		addService2.setServiceName("Bazen");
+		addServiceService.addOne(addService2);
+
 		return "add";
 	}
 	@DeleteMapping(value="/delete")

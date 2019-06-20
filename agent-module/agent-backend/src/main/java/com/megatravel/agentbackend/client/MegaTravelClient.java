@@ -1,14 +1,34 @@
 package com.megatravel.agentbackend.client;
 
-import com.megatravel.agentbackend.ws.GetAllAccommodationRequest;
-import com.megatravel.agentbackend.ws.GetAllAccommodationResponse;
-import com.megatravel.agentbackend.ws.GetOneAccommodationRequest;
-import com.megatravel.agentbackend.ws.GetOneAccommodationResponse;
+import com.megatravel.agentbackend.model.Accommodation;
+import com.megatravel.agentbackend.ws.*;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
 public class MegaTravelClient extends WebServiceGatewaySupport {
 
+    public AddOneAccommodationResponse addOneAccommodation(Accommodation accommodation){
+        return null;
+    }
     public GetOneAccommodationResponse getOneAccomodation(GetOneAccommodationRequest request){
         return (GetOneAccommodationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
+
+    public CheckAgentResponse getAgent(String username, String password){
+        CheckAgentRequest agentRequest = new CheckAgentRequest();
+        agentRequest.setUsername(username);
+        agentRequest.setPassword(password);
+        CheckAgentResponse response = (CheckAgentResponse) getWebServiceTemplate().marshalSendAndReceive(agentRequest);
+        return response;
+    }
+
+    public GetAllAccommodationResponse getAccommodation(Long agentId){
+
+        GetAllAccommodationRequest request = new GetAllAccommodationRequest();
+        request.setUserId(agentId);
+        GetAllAccommodationResponse response = new GetAllAccommodationResponse();
+        response = (GetAllAccommodationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        System.out.println(response);
+        return response;
+    }
+
 }
