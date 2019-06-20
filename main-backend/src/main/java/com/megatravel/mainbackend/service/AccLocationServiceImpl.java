@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.megatravel.mainbackend.repository.AccLocationRepository;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class AccLocationServiceImpl implements AccLocationService {
 
 	@Autowired

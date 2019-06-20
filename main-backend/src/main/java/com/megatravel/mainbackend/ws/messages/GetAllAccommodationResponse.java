@@ -70,4 +70,7 @@ public class GetAllAccommodationResponse {
         return this.accommodation;
     }
 
+    public void setAccommodation(List<AccommodationSoap> accommodation) {
+        this.accommodation = accommodation;
+    }
 }

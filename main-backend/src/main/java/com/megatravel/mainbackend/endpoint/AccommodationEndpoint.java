@@ -1,20 +1,18 @@
 package com.megatravel.mainbackend.endpoint;
 
-import com.megatravel.mainbackend.model.Accommodation;
-import com.megatravel.mainbackend.model.User;
-import com.megatravel.mainbackend.service.AccommodationService;
+import com.megatravel.mainbackend.model.*;
+import com.megatravel.mainbackend.repository.AccommodationRepository;
+import com.megatravel.mainbackend.service.*;
 
-import com.megatravel.mainbackend.service.UserService;
 import com.megatravel.mainbackend.ws.messages.*;
-import com.megatravel.mainbackend.ws.model.AccommodationSoap;
-import com.megatravel.mainbackend.ws.model.UserSoap;
-import com.megatravel.mainbackend.ws.model.UserTypeSoap;
+import com.megatravel.mainbackend.ws.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,25 +20,93 @@ import java.util.List;
 public class AccommodationEndpoint {
 
     public static final String NAMESPACE_URI = "http://megatravel.com/booking/ws";
+
+    @Autowired
     private AccommodationService accommodationService;
     @Autowired
-    private UserService userService;
+    AddServiceService addServiceService;
+    @Autowired
+    AccTypeService accTypeService;
+    @Autowired
+    AccLocationService accLocationService;
+    @Autowired
+    CategoryService categoryService;
+    @Autowired
+    AccPriceService accPriceService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    AccommodationRepository accommodationRepository;
+
     public AccommodationEndpoint(){}
 
-    //Intellij preporucuje constructor DI
-    @Autowired
-    public AccommodationEndpoint(AccommodationService accommodationService, UserService userService){
-        this.accommodationService = accommodationService;
-    }
 
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllAccommodationRequest")
     @ResponsePayload
+    @Transactional
     public GetAllAccommodationResponse getAllAccommodationResponse(@RequestPayload GetAllAccommodationRequest request){
         GetAllAccommodationResponse response = new GetAllAccommodationResponse();
+        List<Accommodation> accList = accommodationService.findByAgentId(request.getUserId());
+        List<AccommodationSoap> accommodationSoaps = new ArrayList<>();
+        AccommodationSoap accommodationSoap1 = new AccommodationSoap();
+        AccommodationSoap accommodationSoap2 = new AccommodationSoap();
+        AccommodationSoap accommodationSoap3 = new AccommodationSoap();
+        accommodationSoap1.setAccId(1l);
+        accommodationSoap2.setAccId(2l);
+        accommodationSoap3.setAccId(3l);
+        accommodationSoap1.setAccName("Smestaj 1");
+        accommodationSoap2.setAccName("Smestaj 2");
+        accommodationSoap3.setAccName("Smestaj 3");
+        accommodationSoaps.add(accommodationSoap1);
+        accommodationSoaps.add(accommodationSoap2);
+        accommodationSoaps.add(accommodationSoap3);
+        /*
+        for (Accommodation accommodation : accList) {
+            List<AccPrice> pricePlan = accommodationService.getPricePlan(accommodation.getAccId());
+            accommodationSoap.setAccId(accommodation.getAccId());
+            accommodationSoap.setAccName(accommodation.getAccName());
+            UserSoap agentSoap = new UserSoap();
+            agentSoap.setUserId(accommodation.getAccAgent().getUserId());
+            agentSoap.setUserBusinessId(accommodation.getAccAgent().getUserBusinessId());
+            accommodationSoap.setAccAgent(agentSoap);
+            CategorySoap categorySoap = new CategorySoap();
+            categorySoap.setCategoryId(accommodation.getAccCategory().getCategoryId());
+            categorySoap.setCategoryName(accommodation.getAccCategory().getCategoryName());
+            accommodationSoap.setAccCategory(categorySoap);
+            List<AccPriceSoap> accPriceSoapList = new ArrayList<>();
+            List<AccPrice> accPriceList = accommodation.getAccPricePlan();
+            for (AccPrice accPrice : accPriceList) {
+                AccPriceSoap accPriceSoap = new AccPriceSoap();
+                accPriceSoap.setPriceId(accPrice.getPriceId());
+                accPriceSoap.setPriceEndDate(accPrice.getPriceEndDate());
+                accPriceSoap.setPriceStartDate(accPrice.getPriceStartDate());
+                accPriceSoap.setPriceValue(accPrice.getPriceValue());
+                accPriceSoapList.add(accPriceSoap);
+            }
+
+            accommodationSoap.setAccPricePlan(accPriceSoapList);
+
+            List<AddServiceSoap> addServiceSoapList = new ArrayList<>();
+            List<AddService> addServiceList = accommodation.getAccServices();
+            for (AddService addService : addServiceList) {
+                AddServiceSoap addServiceSoap = new AddServiceSoap();
+                addServiceSoap.setServiceId(addService.getServiceId());
+                addServiceSoap.setServiceName(addService.getServiceName());
+                addServiceSoapList.add(addServiceSoap);
+            }
+
+            //accommodationSoap.setAccServices(addServiceSoapList);
+
+            //accommodationSoapList.add(accommodationSoap);
+        }
+        */
+        response.setAccommodation(accommodationSoaps);
 
         System.out.println("getAllAccEndpoint");
         return response;
+
+
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getOneAccommodationRequest")

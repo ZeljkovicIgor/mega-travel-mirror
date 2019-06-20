@@ -1,6 +1,8 @@
 
 package com.megatravel.mainbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -105,11 +107,11 @@ public class Accommodation {
     @Lob
     protected List<byte[]> accPictures;
     @XmlElement(name = "acc_price_plan", namespace = "http://megatravel.com/booking", required = true)
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     protected List<AccPrice> accPricePlan;
-    @XmlElement(name = "acc_unavailable", namespace = "http://megatravel.com/booking", required = true)
-    @ManyToOne
-    protected AccUnavailable accUnavailable;
+    @XmlElement(name = "acc_unavailable", namespace = "http://megatravel.com/booking")
+    @OneToMany(cascade = CascadeType.ALL)
+    protected List<AccUnavailable> accUnavailable;
     @ManyToOne
     @XmlElement(name = "acc_location", namespace = "http://megatravel.com/booking", required = true)
     protected AccLocation accLocation;
@@ -121,6 +123,14 @@ public class Accommodation {
     protected AccType accType;
     @XmlElement(name = "acc_services", namespace = "http://megatravel.com/booking")
     @ManyToMany
+    @JoinTable(
+            name="accommodation_service",
+            joinColumns = @JoinColumn(
+                    name="accId"),
+            inverseJoinColumns = @JoinColumn(
+                    name="serviceId"
+            )
+    )
     protected List<AddService> accServices;
     @XmlElement(name = "acc_agent", namespace = "http://megatravel.com/booking", required = true)
     @ManyToOne
@@ -204,6 +214,10 @@ public class Accommodation {
      */
     public Date getAccDate() {
         return accDate;
+    }
+
+    public void setAccPictures(List<byte[]> accPictures) {
+        this.accPictures = accPictures;
     }
 
     /**
@@ -291,6 +305,10 @@ public class Accommodation {
         return this.accPricePlan;
     }
 
+    public void setAccPricePlan(List<AccPrice> accPricePlan) {
+        this.accPricePlan = accPricePlan;
+    }
+
     /**
      * Gets the value of the accUnavailable property.
      * 
@@ -299,21 +317,24 @@ public class Accommodation {
      *     {@link AccUnavailable }
      *     
      */
-    public AccUnavailable getAccUnavailable() {
-        return accUnavailable;
+    public List<AccUnavailable> getAccUnavailable() {
+        if (accUnavailable == null) {
+            accUnavailable = new ArrayList<AccUnavailable>();
+        }
+        return this.accUnavailable;
     }
-
     /**
      * Sets the value of the accUnavailable property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link AccUnavailable }
-     *     
+     *
      */
-    public void setAccUnavailable(AccUnavailable value) {
+    public void setAccUnavailable(List<AccUnavailable> value) {
         this.accUnavailable = value;
     }
+
 
     /**
      * Gets the value of the accLocation property.
@@ -415,7 +436,9 @@ public class Accommodation {
         }
         return this.accServices;
     }
-
+    public void setAccServices(List<AddService> accServices) {
+        this.accServices = accServices;
+    }
     /**
      * Gets the value of the accAgent property.
      * 

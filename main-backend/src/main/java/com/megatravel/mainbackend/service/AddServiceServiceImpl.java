@@ -42,5 +42,15 @@ public class AddServiceServiceImpl implements AddServiceService {
 		return addServiceRepository.save(service);
 	}
 
-	
+	@Override
+	public List<AddService> findByAccId(Long accId) {
+		return addServiceRepository.findAll();
+	}
+
+	@Override
+	public AddService findByid(Long id) {
+		return addServiceRepository.getOne(id);
+	}
+
+
 }

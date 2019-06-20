@@ -103,8 +103,8 @@ public class AccommodationSoap {
     protected List<byte[]> accPictures;
     @XmlElement(name = "acc_price_plan", namespace = "http://megatravel.com/booking/ws", required = true)
     protected List<AccPriceSoap> accPricePlan;
-    @XmlElement(name = "acc_unavailable", namespace = "http://megatravel.com/booking/ws", required = true)
-    protected AccUnavailableSoap accUnavailable;
+    @XmlElement(name = "acc_unavailable", namespace = "http://megatravel.com/booking/ws")
+    protected List<AccUnavailableSoap> accUnavailable;
     @XmlElement(name = "acc_location", namespace = "http://megatravel.com/booking/ws", required = true)
     protected AccLocationSoap accLocation;
     @XmlElement(name = "acc_category", namespace = "http://megatravel.com/booking/ws", required = true)
@@ -281,6 +281,18 @@ public class AccommodationSoap {
         return this.accPricePlan;
     }
 
+    public void setAccPricePlan(List<AccPriceSoap> accPricePlan) {
+        this.accPricePlan = accPricePlan;
+    }
+
+    public void setAccUnavailable(List<AccUnavailableSoap> accUnavailable) {
+        this.accUnavailable = accUnavailable;
+    }
+
+    public void setAccServices(List<AddServiceSoap> accServices) {
+        this.accServices = accServices;
+    }
+
     /**
      * Gets the value of the accUnavailable property.
      * 
@@ -289,9 +301,7 @@ public class AccommodationSoap {
      *     {@link AccUnavailableSoap }
      *     
      */
-    public AccUnavailableSoap getAccUnavailable() {
-        return accUnavailable;
-    }
+
 
     /**
      * Sets the value of the accUnavailable property.
@@ -301,9 +311,6 @@ public class AccommodationSoap {
      *     {@link AccUnavailableSoap }
      *     
      */
-    public void setAccUnavailable(AccUnavailableSoap value) {
-        this.accUnavailable = value;
-    }
 
     /**
      * Gets the value of the accLocation property.

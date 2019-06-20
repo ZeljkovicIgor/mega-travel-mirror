@@ -28,7 +28,7 @@
             </xs:element>
             <xs:element maxOccurs="unbounded" name="acc_pictures" type="xs:base64Binary"/>
             <xs:element maxOccurs="unbounded" minOccurs="1" name="acc_price_plan" type="tns:acc_price"> </xs:element>
-            <xs:element name="acc_unavailable" type="tns:acc_unavailable"> </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="acc_unavailable" type="tns:acc_unavailable"> </xs:element>
             <xs:element name="acc_location" type="tns:acc_location"> </xs:element>
             <xs:element name="acc_category" type="tns:category"/>
             <xs:element name="acc_type" type="tns:acc_type"/>

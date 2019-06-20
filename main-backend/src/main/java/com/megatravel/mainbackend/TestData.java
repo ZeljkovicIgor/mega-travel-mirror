@@ -2,14 +2,14 @@ package com.megatravel.mainbackend;
 
 import javax.annotation.PostConstruct;
 
-import com.megatravel.mainbackend.model.Accommodation;
-import com.megatravel.mainbackend.model.User;
-import com.megatravel.mainbackend.model.UserType;
-import com.megatravel.mainbackend.service.AccommodationService;
+import com.megatravel.mainbackend.model.*;
+import com.megatravel.mainbackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.megatravel.mainbackend.service.UserService;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class TestData {
@@ -18,6 +18,16 @@ public class TestData {
 	private UserService userService;
 	@Autowired
 	private AccommodationService accommodationService;
+	@Autowired
+	AddServiceService addServiceService;
+	@Autowired
+	AccTypeService accTypeService;
+	@Autowired
+	AccLocationService accLocationService;
+	@Autowired
+	CategoryService categoryService;
+	@Autowired
+	AccPriceService accPriceService;
 	@PostConstruct
 	private void init(){
 		
@@ -40,24 +50,7 @@ public class TestData {
 		userService.save(user1);
 		userService.save(user2);
 
-		User agent = new User();
-		agent.setUserUsername("agent");
-		agent.setUserPassword("password");
-		agent.setUserType(UserType.AGENT);
-		agent.setUserEmail("agent@agent.com");
-		agent.setActivated(true);
-		agent.setUserBusinessId("12345");
-		User saved = userService.save(agent);
-		Accommodation acc1= new Accommodation();
-		acc1.setAccAgent(userService.findOne(saved.getUserId()));
-		acc1.setAccName("Smestaj 1");
-		acc1.setAccDescription("Neki opis 1");
-		Accommodation acc2= new Accommodation();
-		acc2.setAccAgent(userService.findOne(saved.getUserId()));
-		acc2.setAccName("Smestaj 2");
-		acc2.setAccDescription("Neki opis 2");
-		accommodationService.save(acc1);
-		accommodationService.save(acc2);
+
 	}
 	
 	
