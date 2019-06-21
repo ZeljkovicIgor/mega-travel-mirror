@@ -9,4 +9,7 @@ public interface MessageService {
 	List<Message> findAll();
     Message save(Message message);
     void delete(Long id);
+    
+    List<Message> findBySender_id(Long id);
+	List<Message> findByReciever_id(Long id);
 }
