@@ -33,4 +33,19 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		messageRepository.deleteById(id);
 	}
+	
+	@Override
+	public List<Message> findBySender_id(Long id) {
+		// TODO Auto-generated method stub
+		return messageRepository.findByMessageSenderUserId(id);
+	}
+
+
+	@Override
+	public List<Message> findByReciever_id(Long id) {
+		// TODO Auto-generated method stub
+		return messageRepository.findByMessageRecieverUserId(id);
+	}
+	
+	
 }
