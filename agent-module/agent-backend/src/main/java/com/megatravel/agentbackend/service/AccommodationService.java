@@ -11,6 +11,7 @@ public interface AccommodationService {
     Accommodation getOneById(Long id);
     List<Accommodation> getAll();
     Accommodation addOne(Accommodation accommodation);
+    Accommodation addNewAccomodation(Accommodation accommodation);
     Accommodation editOne(Accommodation accommodation);
     boolean deleteOne(Accommodation accommodation);
     boolean deleteAccById(Long id);

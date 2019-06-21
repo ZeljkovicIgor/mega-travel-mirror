@@ -224,6 +224,14 @@ public class ObjectFactory {
         return new GetAccTypeRequest();
     }
 
+        /**
+     * Create an instance of {@link CreateReservationResponse }
+     *
+     */
+    public CreateReservationResponse createCreateReservationResponse() {
+        return new CreateReservationResponse();
+    }
+
     /**
      * Create an instance of {@link EditOneAccommodationResponse }
      * 

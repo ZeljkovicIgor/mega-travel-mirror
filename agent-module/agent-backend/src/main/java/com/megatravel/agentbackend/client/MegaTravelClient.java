@@ -6,8 +6,10 @@ import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
 public class MegaTravelClient extends WebServiceGatewaySupport {
 
-    public AddOneAccommodationResponse addOneAccommodation(Accommodation accommodation){
-        return null;
+    public AddOneAccommodationResponse addOneAccommodation(AccommodationSoap accommodationSoap){
+        AddOneAccommodationRequest request = new AddOneAccommodationRequest();
+        request.getAccommodation().add(accommodationSoap);
+        return (AddOneAccommodationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
     public GetOneAccommodationResponse getOneAccomodation(GetOneAccommodationRequest request){
         return (GetOneAccommodationResponse) getWebServiceTemplate().marshalSendAndReceive(request);

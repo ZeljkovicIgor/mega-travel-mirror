@@ -43,8 +43,17 @@ public class AccType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "acc_type_id", namespace = "http://megatravel.com/booking")
     protected long accTypeId;
+    protected long accTypeDbId;
     @XmlElement(name = "acc_type_name", namespace = "http://megatravel.com/booking", required = true)
     protected String accTypeName;
+
+    public long getAccTypeDbId() {
+        return accTypeDbId;
+    }
+
+    public void setAccTypeDbId(long accTypeDbId) {
+        this.accTypeDbId = accTypeDbId;
+    }
 
     /**
      * Gets the value of the accTypeId property.

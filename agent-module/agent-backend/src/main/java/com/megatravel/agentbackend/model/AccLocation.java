@@ -50,6 +50,7 @@ public class AccLocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "loc_id", namespace = "http://megatravel.com/booking")
     protected long locId;
+    protected long locDbId;
     @XmlElement(namespace = "http://megatravel.com/booking", required = true)
     protected String address;
     @XmlElement(namespace = "http://megatravel.com/booking", required = true)
@@ -60,6 +61,30 @@ public class AccLocation {
     protected float xCoordinate;
     @XmlElement(name = "y_coordinate", namespace = "http://megatravel.com/booking")
     protected float yCoordinate;
+
+    public long getLocDbId() {
+        return locDbId;
+    }
+
+    public void setLocDbId(long locDbId) {
+        this.locDbId = locDbId;
+    }
+
+    public float getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public void setxCoordinate(float xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    public float getyCoordinate() {
+        return yCoordinate;
+    }
+
+    public void setyCoordinate(float yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
 
     /**
      * Gets the value of the locId property.

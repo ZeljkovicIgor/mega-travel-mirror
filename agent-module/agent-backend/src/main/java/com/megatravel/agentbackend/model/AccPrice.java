@@ -46,6 +46,7 @@ public class AccPrice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "price_id", namespace = "http://megatravel.com/booking")
     protected long priceId;
+    protected long priceDbId;
     @XmlElement(name = "price_value", namespace = "http://megatravel.com/booking")
     protected float priceValue;
     @XmlElement(name = "price_start_date", namespace = "http://megatravel.com/booking", required = true, type = String.class)
@@ -56,6 +57,14 @@ public class AccPrice {
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date priceEndDate;
+
+    public long getPriceDbId() {
+        return priceDbId;
+    }
+
+    public void setPriceDbId(long priceDbId) {
+        this.priceDbId = priceDbId;
+    }
 
     /**
      * Gets the value of the priceId property.

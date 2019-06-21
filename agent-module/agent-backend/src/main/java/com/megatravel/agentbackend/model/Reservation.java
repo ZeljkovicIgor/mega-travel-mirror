@@ -59,6 +59,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "r_id", namespace = "http://megatravel.com/booking")
     protected long rId;
+    protected long rDbId;
     @XmlElement(name = "r_accommodation", namespace = "http://megatravel.com/booking", required = true)
     @ManyToOne
     protected Accommodation rAccommodation;
@@ -85,6 +86,14 @@ public class Reservation {
     protected Boolean realized;
     @XmlAttribute(name = "cancelled")
     protected Boolean cancelled;
+
+    public long getrDbId() {
+        return rDbId;
+    }
+
+    public void setrDbId(long rDbId) {
+        this.rDbId = rDbId;
+    }
 
     /**
      * Gets the value of the rId property.

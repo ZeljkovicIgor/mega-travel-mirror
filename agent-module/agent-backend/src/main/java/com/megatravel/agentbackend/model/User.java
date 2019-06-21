@@ -56,6 +56,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "user_id", namespace = "http://megatravel.com/booking")
     protected long userId;
+    protected long userDbId;
     @XmlElement(name = "user_username", namespace = "http://megatravel.com/booking", required = true)
     protected String userUsername;
     @XmlElement(name = "user_first_name", namespace = "http://megatravel.com/booking", required = true)
@@ -77,6 +78,14 @@ public class User {
     protected Boolean deleted;
     @XmlAttribute(name = "activated")
     protected Boolean activated;
+
+    public long getUserDbId() {
+        return userDbId;
+    }
+
+    public void setUserDbId(long userDbId) {
+        this.userDbId = userDbId;
+    }
 
     /**
      * Gets the value of the userId property.

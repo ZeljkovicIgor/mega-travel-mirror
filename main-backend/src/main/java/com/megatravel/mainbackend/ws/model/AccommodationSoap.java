@@ -1,7 +1,7 @@
 
 package com.megatravel.mainbackend.ws.model;
 
-import com.megatravel.mainbackend.ws.messages.AccLocationSoap;
+import com.megatravel.mainbackend.ws.model.*;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * <p>Java class for accommodationSoap complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="accommodationSoap">
  *   &lt;complexContent>
@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *         &lt;/element>
  *         &lt;element name="acc_pictures" type="{http://www.w3.org/2001/XMLSchema}base64Binary" maxOccurs="unbounded"/>
  *         &lt;element name="acc_price_plan" type="{http://megatravel.com/booking/ws}acc_priceSoap" maxOccurs="unbounded"/>
- *         &lt;element name="acc_unavailable" type="{http://megatravel.com/booking/ws}acc_unavailableSoap"/>
+ *         &lt;element name="acc_unavailable" type="{http://megatravel.com/booking/ws}acc_unavailableSoap" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="acc_location" type="{http://megatravel.com/booking/ws}acc_locationSoap"/>
  *         &lt;element name="acc_category" type="{http://megatravel.com/booking/ws}categorySoap"/>
  *         &lt;element name="acc_type" type="{http://megatravel.com/booking/ws}acc_typeSoap"/>
@@ -64,26 +64,26 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "accommodationSoap", namespace = "http://megatravel.com/booking/ws", propOrder = {
-    "accId",
-    "accName",
-    "accDescription",
-    "accDate",
-    "accCapacity",
-    "accPictures",
-    "accPricePlan",
-    "accUnavailable",
-    "accLocation",
-    "accCategory",
-    "accType",
-    "accServices",
-    "accAgent",
-    "accCancelPeriod",
-    "accAvgRating"
+        "accId",
+        "accName",
+        "accDescription",
+        "accDate",
+        "accCapacity",
+        "accPictures",
+        "accPricePlan",
+        "accUnavailable",
+        "accLocation",
+        "accCategory",
+        "accType",
+        "accServices",
+        "accAgent",
+        "accCancelPeriod",
+        "accAvgRating"
 })
 public class AccommodationSoap {
 
@@ -122,7 +122,7 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accId property.
-     * 
+     *
      */
     public long getAccId() {
         return accId;
@@ -130,7 +130,7 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accId property.
-     * 
+     *
      */
     public void setAccId(long value) {
         this.accId = value;
@@ -138,11 +138,11 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accName property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getAccName() {
         return accName;
@@ -150,11 +150,11 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accName property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAccName(String value) {
         this.accName = value;
@@ -162,11 +162,11 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accDescription property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getAccDescription() {
         return accDescription;
@@ -174,11 +174,11 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accDescription property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAccDescription(String value) {
         this.accDescription = value;
@@ -186,11 +186,11 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accDate property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public Date getAccDate() {
         return accDate;
@@ -198,11 +198,11 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accDate property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAccDate(Date value) {
         this.accDate = value;
@@ -210,7 +210,7 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accCapacity property.
-     * 
+     *
      */
     public int getAccCapacity() {
         return accCapacity;
@@ -218,7 +218,7 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accCapacity property.
-     * 
+     *
      */
     public void setAccCapacity(int value) {
         this.accCapacity = value;
@@ -226,24 +226,24 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accPictures property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the accPictures property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAccPictures().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * byte[]
-     * 
+     *
      */
     public List<byte[]> getAccPictures() {
         if (accPictures == null) {
@@ -254,25 +254,25 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accPricePlan property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the accPricePlan property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAccPricePlan().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link AccPriceSoap }
-     * 
-     * 
+     *
+     *
      */
     public List<AccPriceSoap> getAccPricePlan() {
         if (accPricePlan == null) {
@@ -281,44 +281,42 @@ public class AccommodationSoap {
         return this.accPricePlan;
     }
 
-    public void setAccPricePlan(List<AccPriceSoap> accPricePlan) {
-        this.accPricePlan = accPricePlan;
-    }
-
-    public void setAccUnavailable(List<AccUnavailableSoap> accUnavailable) {
-        this.accUnavailable = accUnavailable;
-    }
-
-    public void setAccServices(List<AddServiceSoap> accServices) {
-        this.accServices = accServices;
-    }
-
     /**
      * Gets the value of the accUnavailable property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link AccUnavailableSoap }
-     *     
+     *
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the accUnavailable property.
+     *
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getAccUnavailable().add(newItem);
+     * </pre>
+     *
+     *
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link AccUnavailableSoap }
+     *
+     *
      */
-
-
-    /**
-     * Sets the value of the accUnavailable property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link AccUnavailableSoap }
-     *     
-     */
+    public List<AccUnavailableSoap> getAccUnavailable() {
+        if (accUnavailable == null) {
+            accUnavailable = new ArrayList<AccUnavailableSoap>();
+        }
+        return this.accUnavailable;
+    }
 
     /**
      * Gets the value of the accLocation property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link AccLocationSoap }
-     *     
+     *
      */
     public AccLocationSoap getAccLocation() {
         return accLocation;
@@ -326,11 +324,11 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accLocation property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link AccLocationSoap }
-     *     
+     *
      */
     public void setAccLocation(AccLocationSoap value) {
         this.accLocation = value;
@@ -338,11 +336,11 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accCategory property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link CategorySoap }
-     *     
+     *
      */
     public CategorySoap getAccCategory() {
         return accCategory;
@@ -350,11 +348,11 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accCategory property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link CategorySoap }
-     *     
+     *
      */
     public void setAccCategory(CategorySoap value) {
         this.accCategory = value;
@@ -362,11 +360,11 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accType property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link AccTypeSoap }
-     *     
+     *
      */
     public AccTypeSoap getAccType() {
         return accType;
@@ -374,11 +372,11 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accType property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link AccTypeSoap }
-     *     
+     *
      */
     public void setAccType(AccTypeSoap value) {
         this.accType = value;
@@ -386,25 +384,25 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accServices property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the accServices property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAccServices().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link AddServiceSoap }
-     * 
-     * 
+     *
+     *
      */
     public List<AddServiceSoap> getAccServices() {
         if (accServices == null) {
@@ -415,11 +413,11 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accAgent property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link UserSoap }
-     *     
+     *
      */
     public UserSoap getAccAgent() {
         return accAgent;
@@ -427,11 +425,11 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accAgent property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link UserSoap }
-     *     
+     *
      */
     public void setAccAgent(UserSoap value) {
         this.accAgent = value;
@@ -439,11 +437,11 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accCancelPeriod property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link BigInteger }
-     *     
+     *
      */
     public BigInteger getAccCancelPeriod() {
         return accCancelPeriod;
@@ -451,11 +449,11 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accCancelPeriod property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link BigInteger }
-     *     
+     *
      */
     public void setAccCancelPeriod(BigInteger value) {
         this.accCancelPeriod = value;
@@ -463,7 +461,7 @@ public class AccommodationSoap {
 
     /**
      * Gets the value of the accAvgRating property.
-     * 
+     *
      */
     public float getAccAvgRating() {
         return accAvgRating;
@@ -471,7 +469,7 @@ public class AccommodationSoap {
 
     /**
      * Sets the value of the accAvgRating property.
-     * 
+     *
      */
     public void setAccAvgRating(float value) {
         this.accAvgRating = value;

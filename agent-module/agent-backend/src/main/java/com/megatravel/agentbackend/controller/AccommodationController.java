@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,11 +39,21 @@ public class AccommodationController {
     AccUnavailableService accUnavailableService;
     @Autowired
     AddServiceService addServiceService;
+    @Autowired
+    SoapService soapService;
 
     @PostMapping
-    ResponseEntity<Accommodation> addNewAcccommodation(@RequestBody Accommodation accommodation){
+    ResponseEntity<Accommodation> addNewAcccommodation(@RequestBody Accommodation accommodation, HttpSession session, HttpServletRequest request){
         //uraditi validaciju ulaznih podataka
         Accommodation acc = new Accommodation();
+        User agent = (User) session.getAttribute("agent");
+        if(agent!= null){
+            System.out.println("Ima agenta");
+            acc.setAccAgent(agent);
+        }else {
+            System.out.println("nema agenta");
+            acc.setAccAgent(userService.getOneByUsername("agent"));
+        }
         acc.setAccName(accommodation.getAccName());
         acc.setAccDescription(accommodation.getAccDescription());
         acc.setAccCancelPeriod(accommodation.getAccCancelPeriod());
@@ -70,7 +83,10 @@ public class AccommodationController {
             addServiceList.add(addServiceService.getOneById(addService.getServiceId()));
         }
         acc.setAccServices(addServiceList);
+        Accommodation added = accommodationService.addOne(accommodation);
+        Accommodation fromWS = soapService.sendOneAccommodation(added);
 
+        System.out.println(fromWS);
         return new ResponseEntity<Accommodation>(accommodationService.addOne(accommodation), HttpStatus.OK);
     }
 

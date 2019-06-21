@@ -90,7 +90,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class Accommodation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlElement(name = "acc_id", namespace = "http://megatravel.com/booking")
     protected long accId;
     @XmlElement(name = "acc_name", namespace = "http://megatravel.com/booking", required = true)

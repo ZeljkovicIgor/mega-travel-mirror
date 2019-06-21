@@ -1,6 +1,9 @@
 
 package com.megatravel.agentbackend.ws;
 
+import com.megatravel.agentbackend.ws.CreateReservationRequest;
+import com.megatravel.agentbackend.ws.CreateReservationResponse;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -142,6 +145,18 @@ public interface MegaTravelPort {
     public GetCategoryResponse getCategory(
         @WebParam(name = "getCategoryRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "getCategoryRequest")
                 GetCategoryRequest getCategoryRequest);
+
+    /**
+     *
+     * @param createReservationRequest
+     * @return
+     *     returns com.megatravel.agentbackend.ws.test.CreateReservationResponse
+     */
+    @WebMethod
+    @WebResult(name = "createReservationResponse", targetNamespace = "http://megatravel.com/booking/ws", partName = "createReservationResponse")
+    public CreateReservationResponse createReservation(
+            @WebParam(name = "createReservationRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "createReservationRequest")
+                    CreateReservationRequest createReservationRequest);
 
     /**
      * 

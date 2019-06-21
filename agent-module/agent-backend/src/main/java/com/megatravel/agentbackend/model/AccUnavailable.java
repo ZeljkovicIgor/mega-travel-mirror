@@ -44,6 +44,7 @@ public class AccUnavailable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "unav_id", namespace = "http://megatravel.com/booking")
     protected long unavId;
+    protected long unavDbId;
     @XmlElement(name = "unavailable_start", namespace = "http://megatravel.com/booking", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
@@ -52,6 +53,14 @@ public class AccUnavailable {
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date unavailableEnd;
+
+    public long getUnavDbId() {
+        return unavDbId;
+    }
+
+    public void setUnavDbId(long unavDbId) {
+        this.unavDbId = unavDbId;
+    }
 
     /**
      * Gets the value of the unavId property.

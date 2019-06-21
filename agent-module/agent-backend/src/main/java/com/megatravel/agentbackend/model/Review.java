@@ -55,6 +55,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "review_id", namespace = "http://megatravel.com/booking")
     protected long reviewId;
+    protected long reviewDbId;
     @XmlElement(name = "acc_date", namespace = "http://megatravel.com/booking", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
@@ -71,6 +72,14 @@ public class Review {
     protected Accommodation reviewAccommodation;
     @XmlAttribute(name = "comment_approved")
     protected Boolean commentApproved;
+
+    public long getReviewDbId() {
+        return reviewDbId;
+    }
+
+    public void setReviewDbId(long reviewDbId) {
+        this.reviewDbId = reviewDbId;
+    }
 
     /**
      * Gets the value of the reviewId property.

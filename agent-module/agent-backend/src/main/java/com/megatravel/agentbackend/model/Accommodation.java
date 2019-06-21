@@ -84,13 +84,13 @@ import java.util.List;
 })
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
 public class Accommodation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "acc_id", namespace = "http://megatravel.com/booking")
     protected long accId;
+    protected long accDbId;
     @XmlElement(name = "acc_name", namespace = "http://megatravel.com/booking", required = true)
     protected String accName;
     @XmlElement(name = "acc_description", namespace = "http://megatravel.com/booking", required = true)
@@ -121,6 +121,14 @@ public class Accommodation {
     protected AccType accType;
     @XmlElement(name = "acc_services", namespace = "http://megatravel.com/booking")
     @ManyToMany
+    @JoinTable(
+            name="accommodation_service",
+            joinColumns = @JoinColumn(
+                    name="accId"),
+            inverseJoinColumns = @JoinColumn(
+                    name="serviceId"
+            )
+    )
     protected List<AddService> accServices;
     @XmlElement(name = "acc_agent", namespace = "http://megatravel.com/booking", required = true)
     @ManyToOne
@@ -142,6 +150,13 @@ public class Accommodation {
         this.accServices = accServices;
     }
 
+    public long getAccDbId() {
+        return accDbId;
+    }
+
+    public void setAccDbId(long accDbId) {
+        this.accDbId = accDbId;
+    }
 
     /**
      * Gets the value of the accId property.

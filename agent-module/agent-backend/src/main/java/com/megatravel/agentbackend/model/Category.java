@@ -43,8 +43,17 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "category_id", namespace = "http://megatravel.com/booking")
     protected long categoryId;
+    protected long categoryDbId;
     @XmlElement(name = "category_name", namespace = "http://megatravel.com/booking", required = true)
     protected String categoryName;
+
+    public long getCategoryDbId() {
+        return categoryDbId;
+    }
+
+    public void setCategoryDbId(long categoryDbId) {
+        this.categoryDbId = categoryDbId;
+    }
 
     /**
      * Gets the value of the categoryId property.

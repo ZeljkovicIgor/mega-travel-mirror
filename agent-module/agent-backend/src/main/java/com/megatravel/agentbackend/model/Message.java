@@ -48,6 +48,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "message_id", namespace = "http://megatravel.com/booking")
     protected long messageId;
+    protected long messageDbId;
     @XmlElement(name = "message_content", namespace = "http://megatravel.com/booking", required = true)
     protected String messageContent;
     @XmlElement(name = "message_reciever", namespace = "http://megatravel.com/booking", required = true)
@@ -65,6 +66,14 @@ public class Message {
     protected Date messageDate;
     @XmlAttribute(name = "status")
     protected MessageStatus status;
+
+    public long getMessageDbId() {
+        return messageDbId;
+    }
+
+    public void setMessageDbId(long messageDbId) {
+        this.messageDbId = messageDbId;
+    }
 
     /**
      * Gets the value of the messageId property.

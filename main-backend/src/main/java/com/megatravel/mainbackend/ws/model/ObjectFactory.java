@@ -1,29 +1,26 @@
 
 package com.megatravel.mainbackend.ws.model;
 
-import com.megatravel.mainbackend.ws.messages.CheckAgentRequest;
-import com.megatravel.mainbackend.ws.messages.CheckAgentResponse;
-import com.megatravel.mainbackend.ws.messages.*;
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
+import com.megatravel.mainbackend.ws.messages.*;
 
 
 /**
- * This object contains factory methods for each 
- * Java content interface and Java element interface 
- * generated in the com.megatravel.mainbackend.ws package. 
- * <p>An ObjectFactory allows you to programatically 
- * construct new instances of the Java representation 
- * for XML content. The Java representation of XML 
- * content can consist of schema derived interfaces 
- * and classes representing the binding of schema 
- * type definitions, element declarations and model 
- * groups.  Factory methods for each of these are 
+ * This object contains factory methods for each
+ * Java content interface and Java element interface
+ * generated in the com.megatravel.mainbackend.ws.test package.
+ * <p>An ObjectFactory allows you to programatically
+ * construct new instances of the Java representation
+ * for XML content. The Java representation of XML
+ * content can consist of schema derived interfaces
+ * and classes representing the binding of schema
+ * type definitions, element declarations and model
+ * groups.  Factory methods for each of these are
  * provided in this class.
- * 
+ *
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -38,15 +35,15 @@ public class ObjectFactory {
     private final static QName _MessageSoap_QNAME = new QName("http://megatravel.com/booking/ws", "messageSoap");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.megatravel.mainbackend.ws
-     * 
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.megatravel.mainbackend.ws.test
+     *
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link GetMessageRequest }
-     * 
+     *
      */
     public GetMessageRequest createGetMessageRequest() {
         return new GetMessageRequest();
@@ -54,7 +51,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetCategoryResponse }
-     * 
+     *
      */
     public GetCategoryResponse createGetCategoryResponse() {
         return new GetCategoryResponse();
@@ -62,15 +59,31 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AddServiceSoap }
-     * 
+     *
      */
     public AddServiceSoap createAddServiceSoap() {
         return new AddServiceSoap();
     }
 
     /**
+     * Create an instance of {@link CreateReservationRequest }
+     *
+     */
+    public CreateReservationRequest createCreateReservationRequest() {
+        return new CreateReservationRequest();
+    }
+
+    /**
+     * Create an instance of {@link ReservationSoap }
+     *
+     */
+    public ReservationSoap createReservationSoap() {
+        return new ReservationSoap();
+    }
+
+    /**
      * Create an instance of {@link MessageSoap }
-     * 
+     *
      */
     public MessageSoap createMessageSoap() {
         return new MessageSoap();
@@ -78,7 +91,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAllAccommodationResponse }
-     * 
+     *
      */
     public GetAllAccommodationResponse createGetAllAccommodationResponse() {
         return new GetAllAccommodationResponse();
@@ -86,7 +99,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AccommodationSoap }
-     * 
+     *
      */
     public AccommodationSoap createAccommodationSoap() {
         return new AccommodationSoap();
@@ -94,7 +107,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DeleteAccommodationsRequest }
-     * 
+     *
      */
     public DeleteAccommodationsRequest createDeleteAccommodationsRequest() {
         return new DeleteAccommodationsRequest();
@@ -102,7 +115,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EditOneAccommodationRequest }
-     * 
+     *
      */
     public EditOneAccommodationRequest createEditOneAccommodationRequest() {
         return new EditOneAccommodationRequest();
@@ -110,7 +123,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAccTypeResponse }
-     * 
+     *
      */
     public GetAccTypeResponse createGetAccTypeResponse() {
         return new GetAccTypeResponse();
@@ -118,7 +131,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AccTypeSoap }
-     * 
+     *
      */
     public AccTypeSoap createAccTypeSoap() {
         return new AccTypeSoap();
@@ -126,7 +139,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link CategorySoap }
-     * 
+     *
      */
     public CategorySoap createCategorySoap() {
         return new CategorySoap();
@@ -134,7 +147,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AddAccommodationsResponse }
-     * 
+     *
      */
     public AddAccommodationsResponse createAddAccommodationsResponse() {
         return new AddAccommodationsResponse();
@@ -142,7 +155,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetMessageResponse }
-     * 
+     *
      */
     public GetMessageResponse createGetMessageResponse() {
         return new GetMessageResponse();
@@ -150,23 +163,15 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ConfirmReservationRequest }
-     * 
+     *
      */
     public ConfirmReservationRequest createConfirmReservationRequest() {
         return new ConfirmReservationRequest();
     }
 
     /**
-     * Create an instance of {@link ReservationSoap }
-     * 
-     */
-    public ReservationSoap createReservationSoap() {
-        return new ReservationSoap();
-    }
-
-    /**
      * Create an instance of {@link AddAccommodationsRequest }
-     * 
+     *
      */
     public AddAccommodationsRequest createAddAccommodationsRequest() {
         return new AddAccommodationsRequest();
@@ -174,7 +179,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAllAccommodationRequest }
-     * 
+     *
      */
     public GetAllAccommodationRequest createGetAllAccommodationRequest() {
         return new GetAllAccommodationRequest();
@@ -182,7 +187,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAddServicesRequest }
-     * 
+     *
      */
     public GetAddServicesRequest createGetAddServicesRequest() {
         return new GetAddServicesRequest();
@@ -190,7 +195,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link CheckAgentResponse }
-     * 
+     *
      */
     public CheckAgentResponse createCheckAgentResponse() {
         return new CheckAgentResponse();
@@ -198,7 +203,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link UserSoap }
-     * 
+     *
      */
     public UserSoap createUserSoap() {
         return new UserSoap();
@@ -206,7 +211,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AddOneAccommodationRequest }
-     * 
+     *
      */
     public AddOneAccommodationRequest createAddOneAccommodationRequest() {
         return new AddOneAccommodationRequest();
@@ -214,15 +219,23 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DeleteAccommodationsResponse }
-     * 
+     *
      */
     public DeleteAccommodationsResponse createDeleteAccommodationsResponse() {
         return new DeleteAccommodationsResponse();
     }
 
     /**
+     * Create an instance of {@link CreateReservationResponse }
+     *
+     */
+    public CreateReservationResponse createCreateReservationResponse() {
+        return new CreateReservationResponse();
+    }
+
+    /**
      * Create an instance of {@link GetAccTypeRequest }
-     * 
+     *
      */
     public GetAccTypeRequest createGetAccTypeRequest() {
         return new GetAccTypeRequest();
@@ -230,7 +243,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EditOneAccommodationResponse }
-     * 
+     *
      */
     public EditOneAccommodationResponse createEditOneAccommodationResponse() {
         return new EditOneAccommodationResponse();
@@ -238,7 +251,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SendMessageRequest }
-     * 
+     *
      */
     public SendMessageRequest createSendMessageRequest() {
         return new SendMessageRequest();
@@ -246,7 +259,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetOneAccommodationRequest }
-     * 
+     *
      */
     public GetOneAccommodationRequest createGetOneAccommodationRequest() {
         return new GetOneAccommodationRequest();
@@ -254,7 +267,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link CheckAgentRequest }
-     * 
+     *
      */
     public CheckAgentRequest createCheckAgentRequest() {
         return new CheckAgentRequest();
@@ -262,7 +275,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetOneAccommodationResponse }
-     * 
+     *
      */
     public GetOneAccommodationResponse createGetOneAccommodationResponse() {
         return new GetOneAccommodationResponse();
@@ -270,7 +283,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ConfirmReservationResponse }
-     * 
+     *
      */
     public ConfirmReservationResponse createConfirmReservationResponse() {
         return new ConfirmReservationResponse();
@@ -278,7 +291,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ReviewSoap }
-     * 
+     *
      */
     public ReviewSoap createReviewSoap() {
         return new ReviewSoap();
@@ -286,7 +299,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAddServicesResponse }
-     * 
+     *
      */
     public GetAddServicesResponse createGetAddServicesResponse() {
         return new GetAddServicesResponse();
@@ -294,7 +307,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AddOneAccommodationResponse }
-     * 
+     *
      */
     public AddOneAccommodationResponse createAddOneAccommodationResponse() {
         return new AddOneAccommodationResponse();
@@ -302,7 +315,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetCategoryRequest }
-     * 
+     *
      */
     public GetCategoryRequest createGetCategoryRequest() {
         return new GetCategoryRequest();
@@ -310,7 +323,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SendMessageResponse }
-     * 
+     *
      */
     public SendMessageResponse createSendMessageResponse() {
         return new SendMessageResponse();
@@ -318,7 +331,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AccPriceSoap }
-     * 
+     *
      */
     public AccPriceSoap createAccPriceSoap() {
         return new AccPriceSoap();
@@ -326,7 +339,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AccLocationSoap }
-     * 
+     *
      */
     public AccLocationSoap createAccLocationSoap() {
         return new AccLocationSoap();
@@ -334,7 +347,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AccUnavailableSoap }
-     * 
+     *
      */
     public AccUnavailableSoap createAccUnavailableSoap() {
         return new AccUnavailableSoap();
@@ -342,7 +355,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AccommodationSoap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "accommodationSoap")
     public JAXBElement<AccommodationSoap> createAccommodationSoap(AccommodationSoap value) {
@@ -351,7 +364,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ReviewSoap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "reviewSoap")
     public JAXBElement<ReviewSoap> createReviewSoap(ReviewSoap value) {
@@ -360,7 +373,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ReservationSoap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "reservationSoap")
     public JAXBElement<ReservationSoap> createReservationSoap(ReservationSoap value) {
@@ -369,7 +382,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link UserSoap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "userSoap")
     public JAXBElement<UserSoap> createUserSoap(UserSoap value) {
@@ -378,7 +391,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AddServiceSoap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "add_serviceSoap")
     public JAXBElement<AddServiceSoap> createAddServiceSoap(AddServiceSoap value) {
@@ -387,7 +400,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CategorySoap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "categorySoap")
     public JAXBElement<CategorySoap> createCategorySoap(CategorySoap value) {
@@ -396,7 +409,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AccTypeSoap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "acc_typeSoap")
     public JAXBElement<AccTypeSoap> createAccTypeSoap(AccTypeSoap value) {
@@ -405,7 +418,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MessageSoap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "messageSoap")
     public JAXBElement<MessageSoap> createMessageSoap(MessageSoap value) {

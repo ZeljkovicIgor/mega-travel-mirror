@@ -52,6 +52,14 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
+    public Accommodation addNewAccomodation(Accommodation accommodation) {
+
+
+
+        return null;
+    }
+
+    @Override
     public Accommodation editOne(Accommodation accommodation) {
         return accRepository.save(accommodation);
     }

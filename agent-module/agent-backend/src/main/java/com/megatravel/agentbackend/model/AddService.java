@@ -1,6 +1,8 @@
 
 package com.megatravel.agentbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,14 +39,24 @@ import javax.xml.bind.annotation.XmlType;
     "serviceName"
 })
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AddService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "service_id", namespace = "http://megatravel.com/booking")
     protected long serviceId;
+    protected long serviceDbId;
     @XmlElement(name = "service_name", namespace = "http://megatravel.com/booking", required = true)
     protected String serviceName;
+
+    public long getServiceDbId() {
+        return serviceDbId;
+    }
+
+    public void setServiceDbId(long serviceDbId) {
+        this.serviceDbId = serviceDbId;
+    }
 
     /**
      * Gets the value of the serviceId property.

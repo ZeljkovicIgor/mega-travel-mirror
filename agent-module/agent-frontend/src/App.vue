@@ -8,7 +8,8 @@
             <router-link class="btn btn-light" to="/add">Dodaj novi smestaj</router-link>
             <router-link class="btn btn-light" to="/reservation">Rezervacije</router-link>
             <router-link class="btn btn-light" to="/reservation">Poruke</router-link>
-            <router-link class="btn btn-light" to="/login">Prijavi se</router-link>
+            <router-link v-if=!isLoggedIn() class="btn btn-light" to="/login">Prijavi se</router-link>
+            <router-link v-if=isLoggedIn() class="btn btn-light" to="/logout">Odjavi se</router-link>
         </nav>
         <br/>
         <router-view/>
@@ -16,8 +17,28 @@
 </template>
 
 <script>
+import http from "./http-common";
+    /* eslint-disable */
 export default {
-  name: "app"
+    name: "app",
+    methods:{
+        isLoggedIn(){
+            http
+                .get("/isLogged")
+                .then(response => {
+                    console.log(response.data);
+                    if (response.data === undefined)
+                        return false;
+                    else
+                        return true;
+
+                })
+                .catch(e => {
+                    console.log(e);
+                    return false;
+                });
+        }
+    }
 };
 </script>
 

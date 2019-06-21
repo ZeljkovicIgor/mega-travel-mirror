@@ -16,8 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    HttpSession httpSession;
+
 
     @Override
     public List<User> getAll() {
@@ -72,7 +71,6 @@ public class UserServiceImpl implements UserService {
         //TODO: zakaciti agenta na sesiju
         if(agent != null && agent.getUserPassword().equals(userDto.getUserPassword())) {
             agent.setUserPassword("");
-            httpSession.setAttribute("agent",agent);
             return agent;
         }else
             return null;

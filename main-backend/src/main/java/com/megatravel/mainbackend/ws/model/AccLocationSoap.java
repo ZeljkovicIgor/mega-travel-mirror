@@ -1,5 +1,5 @@
 
-package com.megatravel.mainbackend.ws.messages;
+package com.megatravel.mainbackend.ws.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -130,6 +130,23 @@ public class AccommodationEndpoint {
         response.setAccommodation(accommodation);
         return response;
     }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addOneAccommodationRequest")
+    @ResponsePayload
+    public AddOneAccommodationResponse addOneAccommodationResponse(@RequestPayload AddOneAccommodationRequest request){
+        System.out.println("Stigao request " + request.getAccommodation());
+        List<AccommodationSoap> accommodationList = request.getAccommodation();
+        AccommodationSoap accommodationSoap = accommodationList.get(0);
+        System.out.println("Stigao smestaj "+ accommodationSoap.getAccName());
+        System.out.println("Plan cena "+ accommodationSoap.getAccPricePlan().get(0).getPriceStartDate());
+        Accommodation accommodation = new Accommodation();
+        accommodation.setAccName(accommodationSoap.getAccName());
+        Accommodation saved = accommodationService.save(accommodation);
+        AddOneAccommodationResponse response = new AddOneAccommodationResponse();
+        response.setAccDBId(saved.getAccId());
+        return response;
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "checkAgentRequest")
     @ResponsePayload
     public CheckAgentResponse checkAgent(@RequestPayload CheckAgentRequest request){

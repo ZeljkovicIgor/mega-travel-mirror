@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
             <label for="accType">Tip smestaja</label>
-            <select id="inputState" class="form-control">
+            <select id="accType" class="form-control">
                 <option selected>Choose...</option>
                 <option>...</option>
             </select>
