@@ -38,10 +38,11 @@ public class MessageController {
 	@RequestMapping(value = "/send/{idR}/{idRes}",method = RequestMethod.POST)
 	public ResponseEntity<Message> sendMessage(@RequestBody Message message,@PathVariable("idR") Long idR,@PathVariable("idRes") Long idRes,HttpServletRequest request){
 		User loggedUser = (User) request.getSession().getAttribute("logged");
-		if(loggedUser==null) {
+		Reservation r = reservationService.findOne(idRes);
+		if(loggedUser==null && r==null) {
 			new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-		Reservation r = reservationService.findOne(idRes);
+		
 		message.setMessageDate(new Date());
 		message.setMessageSender(loggedUser);
 		message.setMessageReservation(r);
