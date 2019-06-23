@@ -1,6 +1,7 @@
 package com.megatravel.mainbackend.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.megatravel.mainbackend.model.AccPrice;
@@ -58,6 +59,27 @@ public class AccommodationServiceImpl implements AccommodationService {
 			prices.add(accPrice);
 		}
 		return prices;
+	}
+
+	@Override
+	public List<Accommodation> findByCityAndAccCapacity(String city, Integer accCapacity, String accType,
+			String accCategory) {
+		// TODO Auto-generated method stub
+		return accommodationRepository.findByAccLocationCityIgnoreCaseContainingAndAccCapacityAndAccTypeAccTypeNameIgnoreCaseContainingAndAccCategoryCategoryNameIgnoreCaseContaining(city, accCapacity, accType, accCategory);		
+	}
+
+	@Override
+	public List<Accommodation> findByCityAndAccCapacity2(String city, Integer accCapacity, String accType) {
+		// TODO Auto-generated method stub
+		 return accommodationRepository.findByAccLocationCityIgnoreCaseContainingAndAccCapacityAndAccTypeAccTypeNameIgnoreCaseContaining(city, accCapacity, accType);
+	}
+
+	@Override
+	public List<Accommodation> findByAccUnavailableDateStartBetweenAndAccUnavailableDateEndBetween(Date startDate,
+			Date endDate, Date startDate1, Date endDate1) {
+		// TODO Auto-generated method stub
+		return accommodationRepository.findByAccUnavailableUnavailableStartBetweenAndAccUnavailableUnavailableEndBetween(startDate, endDate, startDate1, endDate1);
+		
 	}
 
 }
