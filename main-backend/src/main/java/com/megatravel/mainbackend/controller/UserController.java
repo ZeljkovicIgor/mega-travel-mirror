@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +51,7 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
-	
+	@CrossOrigin
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<User> registerUser(@RequestBody UserDto userDto){
 		User user = userService.registerNewUserAccount(userDto);
@@ -61,6 +62,7 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public ResponseEntity<User> loginUser(@RequestBody UserDto userDto,HttpSession session,HttpServletRequest request){
 		User logged=userService.signIn(userDto);
@@ -76,7 +78,7 @@ public class UserController {
 	}
 	
 
-																																	
+	@CrossOrigin
 	@RequestMapping(value="/loggoutUser", method=RequestMethod.GET)
 	public ResponseEntity<String> logoutUser(HttpSession session,HttpServletRequest request){
 			request.getSession().invalidate();
