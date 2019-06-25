@@ -7,9 +7,9 @@
             <router-link class="btn btn-light" to="/">Smestajne jednice</router-link>
             <router-link class="btn btn-light" to="/add">Dodaj novi smestaj</router-link>
             <router-link class="btn btn-light" to="/reservation">Rezervacije</router-link>
-            <router-link class="btn btn-light" to="/reservation">Poruke</router-link>
-            <router-link v-if=!isLoggedIn() class="btn btn-light" to="/login">Prijavi se</router-link>
-            <router-link v-if=isLoggedIn() class="btn btn-light" to="/logout">Odjavi se</router-link>
+            <router-link class="btn btn-light" to="/message">Poruke</router-link>
+            <router-link v-if="!isLoggedIn()" class="btn btn-light"  to="/login">Prijavi se</router-link>
+            <router-link v-if="isLoggedIn()" class="btn btn-light"  to="/logout">Odjavi se</router-link>
         </nav>
         <br/>
         <router-view/>
@@ -21,16 +21,22 @@ import http from "./http-common";
     /* eslint-disable */
 export default {
     name: "app",
+    data(){
+        return {
+        logged: true
+        }
+    },
     methods:{
         isLoggedIn(){
             http
-                .get("/isLogged")
+                .get("/isLogged", {credentials:true})
                 .then(response => {
-                    console.log(response.data);
-                    if (response.data === undefined)
-                        return false;
-                    else
+                    console.log(response.status);
+
+                    if (response.status === 200)
                         return true;
+                    else
+                        return false;
 
                 })
                 .catch(e => {
@@ -38,6 +44,9 @@ export default {
                     return false;
                 });
         }
+    },
+    mounted() {
+        this.isLoggedIn();
     }
 };
 </script>

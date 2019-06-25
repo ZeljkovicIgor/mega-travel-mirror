@@ -7,7 +7,6 @@
                 <b-button size="sm" @click="row.toggleDetails" class="mr-2">
                     {{ row.detailsShowing ? 'Sakrij' : 'Prikazi'}}
                 </b-button>
-                <b-button size="sm" class=" mr-2"  @click="confirmReservation(row.item)">Potvrdi</b-button>
 
                 <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change
                 <b-form-checkbox v-model="row.detailsShowing" @change="row.toggleDetails">
@@ -18,19 +17,16 @@
 
             <template slot="row-details" slot-scope="row">
                 <b-card>
-                    <div>
-                    <message-agent v-if="row.item.messageSender.userId === row.item.messageReservation.raccommodation.accAgent.userId" :date="parseDate(row.item.messageDate)" :time="parseTime(row.item.messageDate)" :content="row.item.messageContent"/>
-                    <message-nesto v-else :date="parseDate(row.item.messageDate)" :time="parseTime(row.item.messageDate)" :content="row.item.messageContent"/>
-                    </div>
+                    <b-card>{{ row.item.messageContent }}</b-card>
+
                     <b-button size="sm" @click="row.toggleDetails">Sakrij detalje</b-button>
 
                     <router-link :to="{
                         name: 'message-reply',
                         params: {messageData: row.item}
                         }">
-                        <b-button type="button" class="btn btn-sm btn-outline-secondary">Odgovori</b-button>
+                        <b-button size="sm" >Odgovori</b-button>
                     </router-link>
-                    <b-button size="sm" @click="reply(row.item)">Odgovori</b-button>
                 </b-card>
             </template>
         </b-table>
@@ -39,11 +35,8 @@
 
 <script>
     import http from "../http-common";
-    import MessageAgent from "./MessageAgent.vue";
-    import MessageNesto from "./MessageNesto.vue";
     export default {
-        name: "message-list",
-        components: {MessageAgent,MessageNesto},
+        name: "reservation-message-list",
         props: ["reservationData"],
         data() {
             return {
@@ -114,12 +107,7 @@
                         console.log(e);
                     });
             },
-            reply(value) {
-               console.log(this);
-                console.log(this.$attrs);
-                console.log(value);
 
-            },
 
         },
         mounted() {

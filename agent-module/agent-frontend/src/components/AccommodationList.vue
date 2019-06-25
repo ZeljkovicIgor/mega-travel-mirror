@@ -1,91 +1,222 @@
-<template>
-    <div class="container">
-        <div>
-            <h4>Smestaj</h4>
-            <div class="row">
-                <div v-for="(accommodation, index) in accommodations" :key="index">
-                    <router-link :to="{
-                            name: 'accommodation-details',
-                            params: { accommodation: accommodation, accId: accommodation.accId }
-                        }">
-                                                     
-                                <div class="col-md">
-                                <div class="card mb shadow-sm">
-                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="150" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                                    <div class="card-body">
-                                    <h5 class="card-title">{{accommodation.accName}}</h5>
-                                    <p class="card-text">{{accommodation.accDescription}}</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Detalji</button>
-                                       
-                                            <router-link :to="{
-                                                name: 'edit-accommodation',
-                                                params: {accommodation: accommodation, accId: accommodation.accId}
-                                            }">
-                                             <button type="button" class="btn btn-sm btn-outline-secondary">Izmeni</button>
-                                            </router-link>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Izbrisi</button>
-                                        </div>
-                                        <small class="text-muted">{{accommodation.accDate}}</small>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            
-                    </router-link>
-                </div>
-            </div>
-        </div>
 
-        
-            <router-view @refreshData="refreshList"></router-view>
-        
-        
-    
+<template>
+    <div>
+        <h4>Smestaj</h4>
+        <b-table :items="accs" :fields="fields" striped>
+            <template slot="show_details" slot-scope="row">
+                <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+                    {{ row.detailsShowing ? 'Sakrij' : 'Prikazi'}}
+                </b-button>
+                <b-button size="sm" class="btn-danger mr-2" @click="deleteAccommodation(row.item)">Izbrisi</b-button>
+
+                <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change
+                <b-form-checkbox v-model="row.detailsShowing" @change="row.toggleDetails">
+                    Details via check
+                </b-form-checkbox>
+                -->
+            </template>
+
+            <template slot="row-details" slot-scope="row">
+                <b-card>
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Opis smestaja:</b></b-col>
+                        <b-col>{{ row.item.accDescription }}</b-col>
+                    </b-row>
+
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Kapacitet:</b></b-col>
+                        <b-col>
+                            <span v-for="(i, index) in row.item.accCapacity" :key="index">
+                                👤
+                            </span>
+                        </b-col>
+                    </b-row>
+
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Kategorija smestaja:</b></b-col>
+                        <b-col>{{ row.item.accCategory.categoryName }} </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Tip smestaja:</b></b-col>
+                        <b-col>{{ row.item.accType.accTypeName }} </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Otkazni rok:</b></b-col>
+                        <b-col>{{ row.item.accCancelPeriod }}</b-col>
+                    </b-row>
+
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Adresa:</b></b-col>
+                        <b-col>{{ row.item.accLocation.address }} </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Grad:</b></b-col>
+                        <b-col>{{ row.item.accLocation.city }} </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Drzava:</b></b-col>
+                        <b-col>{{ row.item.accLocation.country }} </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Dodatne usluge:</b></b-col>
+                        <b-col>
+                            <span v-for="(service, index) in row.item.accServices" :key="index">{{ service.serviceName }},</span>
+                        </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Plan cena:</b></b-col>
+                        <b-col>
+                            <table class="table table-sm">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Od</th>
+                                    <th scope="col">Do</th>
+                                    <th scope="col">Cena</th>
+                                </tr>
+                                </thead>
+                                <tbody v-for="(price, index) in row.item.accPricePlan" :key="index">
+
+                                <tr>
+                                    <td scope="row">{{index}}</td>
+                                    <td>{{parseDate(price.priceStartDate)}}</td>
+                                    <td>{{parseDate(price.priceEndDate)}}</td>
+                                    <td>{{price.priceValue}} RSD</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Zauzetost smestaja:</b></b-col>
+                        <b-col>
+                            <table class="table table-sm">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Od</th>
+                                    <th scope="col">Do</th>
+                                </tr>
+                                </thead>
+                                <tbody v-for="(unav, index) in row.item.accUnavailable" :key="index">
+
+                                <tr>
+                                    <td scope="row">{{index}}</td>
+                                    <td>{{parseDate(unav.unavailableStart)}}</td>
+                                    <td>{{parseDate(unav.unavailableEnd)}}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Komentari:</b></b-col>
+                        <b-col>
+                            <table class="table table-sm">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Datum:</th>
+                                    <th scope="col">Od:</th>
+                                    <th scope="col">Komentar:</th>
+                                    <th scope="col">Ocena:</th>
+                                </tr>
+                                </thead>
+                                <tbody v-for="(review, index) in retrieveAccommodationReviews(row.item)" :key="index">
+
+                                <tr>
+                                    <td scope="row">{{parseDate(review.accDate)}}}</td>
+                                    <td>{{review.reviewEndUser}}</td>
+                                    <td>{{review.reviewComment}}</td>
+                                    <td>
+                                        <span v-for="(i, index) in review.reviewGrade" :key="index">
+                                            ★
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </b-col>
+                    </b-row>
+                    <b-button size="sm" @click="row.toggleDetails">Sakrij detalje</b-button>
+                </b-card>
+            </template>
+        </b-table>
     </div>
-     
-     
 </template>
- 
+
 <script>
-import http from "../http-common";
- 
-export default {
-  name: "accommodation-list",
-  data() {
-    return {
-      accommodations: []
-    };
-  },
-  methods: {
-    /* eslint-disable no-console */
-    retrieveAccommodations() {
-      http
-        .get("/accommodation")
-        .then(response => {
-          this.accommodations = response.data; 
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    refreshList() {
-      this.retrieveAccommodations();
+    import http from "../http-common";
+    export default {
+        name: "accomodation-list",
+        data() {
+            return {
+                fields: [
+                    {
+                        key: 'accName',
+                        label: 'Naziv smestaja',
+                    },
+                    {
+                        key: 'accDate',
+                        label: 'Datum kreiranja',
+                        formatter: 'parseDate'
+                    },
+                    {
+                        key: 'show_details',
+                        label: '',
+                    }
+
+                ],
+                accs: [],
+                reviews: []
+
+            }
+        },
+
+        methods:{
+            /* eslint-disable no-console */
+            parseDate(value) {
+                return `${value.split('T')[0]}`
+            },
+            retrieveAccommodations() {
+                http
+                    .get("/accommodation")
+                    .then(response => {
+                        this.accs = response.data;
+                        console.log(response.data);
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            },
+            retrieveAccommodationReviews(value) {
+                http
+                    .get("review/accommodation/" + value.accId)
+                    .then(response => {
+                        this.accs = response.data;
+                        console.log(response.data);
+                        return response.data;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            },
+            deleteAccommodation(value) {
+                http
+                    .delete("/accommodation/" + value.accId)
+                    .then(response => {
+                        console.log(response.data);
+                        this.$router.push('/');
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            }
+        },
+        mounted() {
+            this.retrieveAccommodations();
+        }
     }
-    /* eslint-enable no-console */
-  },
-  mounted() {
-    this.retrieveAccommodations();
-  }
-};
 </script>
- 
-<style>
-.list {
-  text-align: left;
-  max-width: 450px;
-  margin: auto;
-}
-</style>
