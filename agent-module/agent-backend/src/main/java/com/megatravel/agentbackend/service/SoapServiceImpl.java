@@ -6,6 +6,7 @@ import com.megatravel.agentbackend.ws.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class SoapServiceImpl implements SoapService {
     MegaTravelClient client;
 
     @Override
-    public Accommodation sendOneAccommodation(Accommodation acc) {
+    public Accommodation sendOneAccommodation(Accommodation acc){
         AccommodationSoap accSoap = new AccommodationSoap();
         accSoap.setAccName(acc.getAccName());
         accSoap.setAccDescription(acc.getAccDescription());
@@ -77,10 +78,26 @@ public class SoapServiceImpl implements SoapService {
         }
 
 
+        try {
+            AddOneAccommodationResponse response = client.addOneAccommodation(accSoap);
+            System.out.println(response.getAccDBId());
+            acc.setAccDbId(response.getAccDBId());
+        }catch (Exception e){
+            System.out.println("Nema konekcije sa bazom. " + e);
+        }
 
-        AddOneAccommodationResponse response = client.addOneAccommodation(accSoap);
-        System.out.println(response.getAccDBId());
-        acc.setAccDbId(response.getAccDBId());
+
         return acc;
+    }
+
+    @Override
+    public Reservation sendReservation(Reservation reservation) {
+        Reservation retVal = new Reservation();
+
+        //prilikom salje novu rezervaciju agenta na back
+        //moguce da je termin vec rezervisan na glavnom backu pa rezervacija nece biti moguca
+
+
+        return retVal;
     }
 }

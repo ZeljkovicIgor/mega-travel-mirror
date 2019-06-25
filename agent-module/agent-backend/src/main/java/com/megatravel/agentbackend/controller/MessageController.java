@@ -25,11 +25,14 @@ public class MessageController {
 
     @GetMapping
     public ResponseEntity<List<Message>> getAll(){
+        /*
         User agent = (User) httpSession.getAttribute("agent");
         if (agent == null){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(messageService.getAgentMessages(agent), HttpStatus.OK);
+        */
+
+        return new ResponseEntity<>(messageService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

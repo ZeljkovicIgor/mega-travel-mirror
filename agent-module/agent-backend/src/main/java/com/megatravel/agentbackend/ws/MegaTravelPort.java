@@ -3,6 +3,8 @@ package com.megatravel.agentbackend.ws;
 
 import com.megatravel.agentbackend.ws.CreateReservationRequest;
 import com.megatravel.agentbackend.ws.CreateReservationResponse;
+import com.megatravel.agentbackend.ws.GetAllReviewRequest;
+import com.megatravel.agentbackend.ws.GetAllReviewResponse;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -181,7 +183,17 @@ public interface MegaTravelPort {
     public SendMessageResponse sendMessage(
         @WebParam(name = "sendMessageRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "sendMessageRequest")
         SendMessageRequest sendMessageRequest);
-
+    /**
+     *
+     * @param getAllReviewRequest
+     * @return
+     *     returns com.megatravel.agentbackend.ws.asd.GetAllReviewResponse
+     */
+    @WebMethod
+    @WebResult(name = "getAllReviewResponse", targetNamespace = "http://megatravel.com/booking/ws", partName = "getAllReviewResponse")
+    public GetAllReviewResponse getAllReview(
+            @WebParam(name = "getAllReviewRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "getAllReviewRequest")
+                    GetAllReviewRequest getAllReviewRequest);
     /**
      * 
      * @param getOneAccommodationRequest

@@ -18,7 +18,7 @@ import java.util.Date;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="review_id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="acc_date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="acc_date"  type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="review_grade">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
@@ -105,6 +105,7 @@ public class Review {
      *     {@link String }
      *     
      */
+
     public Date getAccDate() {
         return accDate;
     }

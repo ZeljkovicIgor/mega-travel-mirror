@@ -1,6 +1,9 @@
 
 package com.megatravel.agentbackend.ws;
 
+import com.megatravel.agentbackend.ws.GetAllReviewRequest;
+import com.megatravel.agentbackend.ws.GetAllReviewResponse;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -239,7 +242,13 @@ public class ObjectFactory {
     public EditOneAccommodationResponse createEditOneAccommodationResponse() {
         return new EditOneAccommodationResponse();
     }
-
+    /**
+     * Create an instance of {@link com.megatravel.agentbackend.ws.GetAllReviewRequest }
+     *
+     */
+    public com.megatravel.agentbackend.ws.GetAllReviewRequest createGetAllReviewRequest() {
+        return new GetAllReviewRequest();
+    }
     /**
      * Create an instance of {@link SendMessageRequest }
      * 
@@ -272,6 +281,13 @@ public class ObjectFactory {
         return new GetOneAccommodationResponse();
     }
 
+    /**
+     * Create an instance of {@link com.megatravel.agentbackend.ws.GetAllReviewResponse }
+     *
+     */
+    public com.megatravel.agentbackend.ws.GetAllReviewResponse createGetAllReviewResponse() {
+        return new GetAllReviewResponse();
+    }
     /**
      * Create an instance of {@link ConfirmReservationResponse }
      * 

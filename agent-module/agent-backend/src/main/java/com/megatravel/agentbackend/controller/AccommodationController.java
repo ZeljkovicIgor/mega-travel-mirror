@@ -5,6 +5,7 @@ import com.megatravel.agentbackend.dto.AccommodationDto;
 import com.megatravel.agentbackend.model.*;
 import com.megatravel.agentbackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -48,8 +49,8 @@ public class AccommodationController {
         Accommodation acc = new Accommodation();
         User agent = (User) session.getAttribute("agent");
         if(agent!= null){
-            System.out.println("Ima agenta");
-            acc.setAccAgent(agent);
+            System.out.println("Ima agenta" + userService.getOneById(agent.getUserId()).getUserUsername());
+            acc.setAccAgent(userService.getOneById(agent.getUserId()));
         }else {
             System.out.println("nema agenta");
             acc.setAccAgent(userService.getOneByUsername("agent"));
@@ -83,11 +84,18 @@ public class AccommodationController {
             addServiceList.add(addServiceService.getOneById(addService.getServiceId()));
         }
         acc.setAccServices(addServiceList);
-        Accommodation added = accommodationService.addOne(accommodation);
-        Accommodation fromWS = soapService.sendOneAccommodation(added);
+        Accommodation added = accommodationService.addOne(acc);
+        try {
+            Accommodation fromWS = soapService.sendOneAccommodation(added);
+            acc.setAccDbId(fromWS.getAccDbId());
+            added = accommodationService.addOne(added);
+        }catch (Exception e){
+            System.out.println("Neuspesna sinhronizacija");
+        }
 
-        System.out.println(fromWS);
-        return new ResponseEntity<Accommodation>(accommodationService.addOne(accommodation), HttpStatus.OK);
+
+
+        return new ResponseEntity<Accommodation>(added, HttpStatus.OK);
     }
 
     @GetMapping
