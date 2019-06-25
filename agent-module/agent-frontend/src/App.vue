@@ -8,8 +8,8 @@
             <router-link class="btn btn-light" to="/add">Dodaj novi smestaj</router-link>
             <router-link class="btn btn-light" to="/reservation">Rezervacije</router-link>
             <router-link class="btn btn-light" to="/message">Poruke</router-link>
-            <router-link v-if="!isLoggedIn()" class="btn btn-light"  to="/login">Prijavi se</router-link>
-            <router-link v-if="isLoggedIn()" class="btn btn-light"  to="/logout">Odjavi se</router-link>
+            <router-link v-if=!logged class="btn btn-light"  to="/login">Prijavi se</router-link>
+            <router-link v-if=logged class="btn btn-light"  to="/logout">Odjavi se</router-link>
         </nav>
         <br/>
         <router-view/>
@@ -29,7 +29,7 @@ export default {
     methods:{
         isLoggedIn(){
             http
-                .get("/isLogged", {credentials:true})
+                .get("/isLogged", {withCredentials:true})
                 .then(response => {
                     console.log(response.status);
 

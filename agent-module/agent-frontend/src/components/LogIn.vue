@@ -39,7 +39,7 @@ export default {
       };
       console.log(this.user.userUsername);
       http
-        .post("/login", data,{credentials: true})
+        .post("/login", data,{withCredentials: true})
         .then(response => {
           console.log(response.status);
           localStorage.setItem('agent', response.data);
