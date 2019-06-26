@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -49,16 +54,33 @@ public class AccommodationController {
 		addService.setServiceName("WIFI");
 		addService = addServiceService.save(addService);
 
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date datum1 = null;
+		Date datum2 = null;
+		Date datum3 = null;
+		Date datum4 = null;
+		Date datum5=null;
+		try {
+			datum1 = dateFormat.parse("2019-07-25 00:00");
+			datum2 = dateFormat.parse("2019-07-30 00:00");
+			datum3 = dateFormat.parse("2019-08-25 00:00");
+			datum4 = dateFormat.parse("2019-08-27 00:00");
+			datum5 = dateFormat.parse("2019-06-25 00:00");
+		} catch (ParseException e) {
+		
+			e.printStackTrace();
+		}
+		
 		AccPrice accPrice = new AccPrice();
 		Date startDate = new Date();
-		accPrice.setPriceStartDate(startDate);
-		accPrice.setPriceEndDate(startDate);
+		accPrice.setPriceStartDate(datum1);
+		accPrice.setPriceEndDate(datum2);
 		accPrice.setPriceValue(5000);
-		//accPrice = accPriceService.save(accPrice);
+		accPrice = accPriceService.save(accPrice);
 
 		AccPrice accPrice2 = new AccPrice();
-		accPrice2.setPriceStartDate(startDate);
-		accPrice2.setPriceEndDate(startDate);
+		accPrice2.setPriceStartDate(datum3);
+		accPrice2.setPriceEndDate(datum4);
 		accPrice2.setPriceValue(10000);
 		accPrice2 = accPriceService.save(accPrice2);
 

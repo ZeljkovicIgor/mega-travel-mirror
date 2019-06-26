@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 			return null;
 		
 		user.setDeleted(true);
-		
+		user.setActivated(false);
 		return userRepository.save(user);
 	}
 
@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void registerAgent(User agent) {
-		//agent.setActivated(false);
+		agent.setActivated(true);
 		agent.setUserType(UserType.AGENT);
 		agent.setDeleted(false);
 		userRepository.save(agent);
