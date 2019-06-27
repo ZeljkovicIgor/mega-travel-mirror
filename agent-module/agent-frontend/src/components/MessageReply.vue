@@ -66,7 +66,7 @@
                     messageRecieverUsername: this.messageData.messageSender.userUsername,
                     messageSenderId: this.messageData.messageReciever.userId,
                     messageSenderUsername: this.messageData.messageReciever.userUsername,
-                    messageReservationId: this.messageData.messageReservationId,
+                    messageReservationId: this.messageData.messageReservation.rid,
                     messageDate: '',
                     messageContent: ''
                 }

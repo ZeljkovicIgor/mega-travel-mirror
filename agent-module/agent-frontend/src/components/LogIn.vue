@@ -1,11 +1,14 @@
 <template>
-    <form @submit.prevent="logInUser" class="loginForm">
+    <form @submit.prevent="logInUser" class="col-4">
         <h1 class="h3 mb-3 font-weight-normal">Prijava</h1>
-        <label for="userUsername" class="sr-only">Email adreas</label>
+        <label for="userUsername" class="sr-only">Korisnicko ime</label>
+
         <input type="text" id="userUsername" class="form-control" v-model="user.userUsername" placeholder="Korisnicko ime" required autofocus>
+        <br>
         <label for="userPassword" class="sr-only">Lozinka</label>
         <input type="password" id="userPassword" class="form-control" v-model="user.userPassword" placeholder="Lozinka" required>
-
+        <p class="error">{{error}}</p>
+        <br>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Prijavi se</button>
 
@@ -24,8 +27,8 @@ export default {
         userUsername: "",
         userPassword: ""
       },
-      logedIn: false,
-      isLogged: false
+      isLoggedIn: false,
+      error: ""
     }
 
   },
@@ -42,12 +45,14 @@ export default {
         .post("/login", data,{withCredentials: true})
         .then(response => {
           console.log(response.status);
-          localStorage.setItem('agent', response.data);
-          this.logedIn = true;
-          this.$router.push('home');
+              localStorage.setItem('agent', response.data);
+              this.isLoggedIn = true;
+              this.$router.push('home');
+
         })
         .catch(e => {
           console.log(e);
+          this.error = "Neispravno korisnicko ime/ili lozinka."
         });
     },
     /* eslint-enable no-console */
@@ -55,3 +60,8 @@ export default {
 
 };
 </script>
+<style>
+.error{
+    color: red;
+}
+</style>

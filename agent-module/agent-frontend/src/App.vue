@@ -5,9 +5,8 @@
         </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <router-link class="btn btn-light" to="/">Smestajne jednice</router-link>
-            <router-link class="btn btn-light" to="/add">Dodaj novi smestaj</router-link>
+            <router-link class="btn btn-light" to="/add-accommodation">Dodaj novi smestaj</router-link>
             <router-link class="btn btn-light" to="/reservation">Rezervacije</router-link>
-            <router-link class="btn btn-light" to="/message">Poruke</router-link>
             <router-link v-if=!logged class="btn btn-light"  to="/login">Prijavi se</router-link>
             <router-link v-if=logged class="btn btn-light"  to="/logout">Odjavi se</router-link>
         </nav>
@@ -23,25 +22,25 @@ export default {
     name: "app",
     data(){
         return {
-        logged: true
+        logged: false
         }
     },
     methods:{
         isLoggedIn(){
             http
-                .get("/isLogged", {withCredentials:true})
+                .get("/isLogged")
                 .then(response => {
                     console.log(response.status);
 
                     if (response.status === 200)
-                        return true;
+                        this.logged = true
                     else
-                        return false;
+                        this.logged =  false;
 
                 })
                 .catch(e => {
                     console.log(e);
-                    return false;
+                    this.logged =  false;
                 });
         }
     },
@@ -57,9 +56,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.btn-primary {
-  margin-right: 5px;
-}
+
 
 
 </style>

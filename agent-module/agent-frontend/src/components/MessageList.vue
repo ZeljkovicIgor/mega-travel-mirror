@@ -39,11 +39,8 @@
 
 <script>
     import http from "../http-common";
-    import MessageAgent from "./MessageAgent.vue";
-    import MessageNesto from "./MessageNesto.vue";
     export default {
         name: "message-list",
-        components: {MessageAgent,MessageNesto},
         props: ["reservationData"],
         data() {
             return {

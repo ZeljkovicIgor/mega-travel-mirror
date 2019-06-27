@@ -58,7 +58,7 @@ export default new Router({
       props: true
     },
     {
-      path: "/reservation/messages",
+      path: "/messages",
       name: "reservation-message-list",
       component: ReservationMessagesList,
       props: true

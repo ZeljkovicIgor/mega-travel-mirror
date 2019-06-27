@@ -8,7 +8,12 @@
                     {{ row.detailsShowing ? 'Sakrij' : 'Prikazi'}}
                 </b-button>
                 <b-button size="sm" class="btn-danger mr-2" @click="deleteAccommodation(row.item)">Izbrisi</b-button>
-
+                    <router-link :to="{
+                                       name: 'add-reservation',
+                                       params: {accommodation: row.item}
+                    }">
+                        <b-button size="sm" class="btn mr-2">Rezervisi</b-button>
+                    </router-link>
                 <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change
                 <b-form-checkbox v-model="row.detailsShowing" @change="row.toggleDetails">
                     Details via check
@@ -195,8 +200,7 @@
                 http
                     .get("review/accommodation/" + value.accId)
                     .then(response => {
-                        this.accs = response.data;
-                        console.log(response.data);
+
                         return response.data;
                     })
                     .catch(e => {
