@@ -4,19 +4,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.megatravel.mainbackend.dto.SearchAccommodationDTO;
-import com.megatravel.mainbackend.model.AccPrice;
-import com.megatravel.mainbackend.model.Accommodation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.megatravel.mainbackend.dto.SearchAccommodationDTO;
+import com.megatravel.mainbackend.model.AccPrice;
+import com.megatravel.mainbackend.model.AccUnavailable;
+import com.megatravel.mainbackend.model.Accommodation;
+import com.megatravel.mainbackend.model.AddService;
+import com.megatravel.mainbackend.model.Reservation;
 import com.megatravel.mainbackend.repository.AccommodationRepository;
+import com.megatravel.mainbackend.repository.ReservationRepository;
+import com.megatravel.mainbackend.util.MyDatatypeConverter;
 
 @Service
 public class AccommodationServiceImpl implements AccommodationService {
 
 	@Autowired
 	public AccommodationRepository accommodationRepository;
+	
+	@Autowired
+	public ReservationRepository reservationRepository;
 	
 	@Override
 	public List<Accommodation> findAll() {
@@ -86,8 +94,85 @@ public class AccommodationServiceImpl implements AccommodationService {
 	@Override
 	public List<Accommodation> search(SearchAccommodationDTO search) {
 		
-		return accommodationRepository.findByAccLocationCityIgnoreCase(search.getCity());
+		List<Accommodation> cityAndCapacity = accommodationRepository
+				.findByAccLocationCityIgnoreCaseContainingAndAccCapacityGreaterThanEqual(search.getCity(), search.getPeople());
 		
+		Date startDate = MyDatatypeConverter.parseDate(search.getStartDate());
+		Date endDate = MyDatatypeConverter.parseDate(search.getEndDate());
+		
+		for(int i = 0; i < cityAndCapacity.size(); i++) {
+			List<AccUnavailable> unavailables = cityAndCapacity.get(i).getAccUnavailable();
+			for(int j = 0; j < unavailables.size(); j++) {
+				AccUnavailable un = unavailables.get(j);
+				
+				if(
+					(startDate.before(un.getUnavailableStart()) && endDate.after(un.getUnavailableStart()))
+						||
+					(startDate.before(un.getUnavailableEnd()) && endDate.after(un.getUnavailableEnd()))
+						||
+					(startDate.after(un.getUnavailableStart()) && endDate.before(un.getUnavailableEnd()))
+				) {
+					cityAndCapacity.remove(i);
+				}
+			}
+		}
+		
+		List<Reservation> reservations = reservationRepository.findAll();
+		
+		List<Accommodation> accommodations = new ArrayList<>();
+		
+		for(Reservation res : reservations) {
+			for(Accommodation acc : cityAndCapacity) {
+				if(acc.getAccId() != res.getRAccommodation().getAccId()) {
+					accommodations.add(acc);
+				}else if(
+					(startDate.before(res.getRStartDate()) && endDate.before(res.getRStartDate()))
+						||
+					(startDate.after(res.getREndDate()) && endDate.after(res.getREndDate()))
+						) {
+					accommodations.add(acc);
+				}
+			}
+		}
+		
+		if(!reservations.isEmpty())
+			return accommodations;
+		return cityAndCapacity;
+		
+	}
+
+	@Override
+	public List<Accommodation> advancedSearch(SearchAccommodationDTO search) {
+		
+		List<Accommodation> basicSearch = search(search);
+		
+		List<Accommodation> accommodations = new ArrayList<>();
+		
+		for(Accommodation bs : basicSearch) {
+			if(
+				bs.getAccType().getAccTypeId() == search.getAccTypeId()
+					&&
+				bs.getAccCategory().getCategoryId() == search.getCategoryId()
+			) {
+				accommodations.add(bs);
+			}
+		}
+		
+		for(int i = 0; i < accommodations.size(); i++) {
+			List<AddService> services = accommodations.get(i).getAccServices();
+			List<Long> accServiceIds = new ArrayList<>();
+			for(AddService service : services) {
+				accServiceIds.add(service.getServiceId());
+			}
+			
+			for(Long serviceId : search.getAddServices()) {
+				if(!accServiceIds.contains(serviceId)) {
+					accommodations.remove(i);
+				}
+			}
+		}
+		
+		return accommodations;
 	}
 
 }

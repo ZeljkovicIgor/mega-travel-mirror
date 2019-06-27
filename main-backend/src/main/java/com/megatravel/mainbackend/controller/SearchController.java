@@ -117,9 +117,14 @@ public class SearchController {
 	 }
 	
 	
-	@RequestMapping(value="searchAccommodation", method=RequestMethod.GET)
+	@RequestMapping(value="searchAccommodation", method=RequestMethod.POST)
 	public ResponseEntity<List<Accommodation>> searchAccommodation(@RequestBody SearchAccommodationDTO searchAccommodation){
 		return new ResponseEntity<>(accommodationService.search(searchAccommodation), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="advancedSearchAccommodation", method=RequestMethod.POST)
+	public ResponseEntity<List<Accommodation>> advancedSearchAccommodation(@RequestBody SearchAccommodationDTO search){
+		return new ResponseEntity<>(accommodationService.advancedSearch(search), HttpStatus.OK);
 	}
 		 
 }

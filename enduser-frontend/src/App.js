@@ -8,6 +8,7 @@ import AppHeader from './components/AppHeader';
 import LoginForm from './components/LoginForm';
 import NonAuthenticatedRoute from './components/NonAuthenticatedRoute';
 import RegisterForm from './components/RegisterForm';
+import AccommodationList from './components/AccommodationList'
 
 
 class App extends Component {
@@ -27,6 +28,10 @@ class App extends Component {
               path='/register'
               user={this.props.user}
               component={RegisterForm}
+            />
+            <Route
+              path='/searchAccommodations'
+              component={AccommodationList}
             />
             <Route
               exact

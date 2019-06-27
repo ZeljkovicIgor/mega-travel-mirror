@@ -1,12 +1,20 @@
 import Axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Container, Form, InputGroup } from 'react-bootstrap';
+import { getAccommodations } from '../store/accommodations/actionCreators';
+import { connect } from 'react-redux'
 
 class AccommodationSearch extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            searchField: ''
+            city: '',
+            startDate: '',
+            endDate: '',
+            people: '',
+            accTypeId: '',
+            categoryId: '',
+            addServices: []
         }
     }
 
@@ -19,14 +27,26 @@ class AccommodationSearch extends Component {
         console.log(data);
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const searchDTO = this.state;
+        
+        this.props.searchAccommodations(searchDTO).then(() => {
+            this.props.history.push('/searchAccommodations');
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
     render () {
         return (
             <Container style={{width:"50rem", marginTop:"3rem"}}>
                 <h2>Find accommodations</h2>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                     <Form.Group>
                         <Form.Label>Where are you going?</Form.Label>
                         <Form.Control
+                            onInput={ event => { this.setState({ city: event.target.value })}}
                             size='lg'
                             type='text'
                             placeholder='Search places...'
@@ -38,10 +58,12 @@ class AccommodationSearch extends Component {
                         <InputGroup>
                             <InputGroup.Prepend><InputGroup.Text>From</InputGroup.Text></InputGroup.Prepend>
                             <Form.Control
+                                onInput={ event => { this.setState({ startDate: event.target.value })}}
                                 type='date'
                             />
                             <InputGroup.Prepend><InputGroup.Text>To</InputGroup.Text></InputGroup.Prepend>
                             <Form.Control
+                                onInput={ event => { this.setState({ endDate: event.target.value })}}
                                 type='date'
                             />
                         </InputGroup>
@@ -49,6 +71,7 @@ class AccommodationSearch extends Component {
                     <Form.Group>
                         <Form.Label>How many people?</Form.Label>
                         <Form.Control
+                            onInput={ event => { this.setState({ people: event.target.value })}}
                             style={{width:"5rem"}}
                             size='lg'
                             type='number'
@@ -68,4 +91,10 @@ class AccommodationSearch extends Component {
     }
 }
 
-export default AccommodationSearch;
+function mapDispatchToProps (dispatch) {
+    return {
+        searchAccommodations: search => dispatch(getAccommodations(search))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(AccommodationSearch);

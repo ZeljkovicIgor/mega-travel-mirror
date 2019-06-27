@@ -1,13 +1,16 @@
 package com.megatravel.mainbackend.dto;
 
-import java.util.Date;
+import java.util.List;
 
 public class SearchAccommodationDTO {
 	
 	private String city;
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	private int people;
+	private Long accTypeId;
+	private Long categoryId;
+	private List<Long> addServices;
 	
 	public SearchAccommodationDTO() {
 		super();
@@ -21,19 +24,19 @@ public class SearchAccommodationDTO {
 		this.city = city;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 
@@ -43,6 +46,30 @@ public class SearchAccommodationDTO {
 
 	public void setPeople(int people) {
 		this.people = people;
+	}
+
+	public Long getAccTypeId() {
+		return accTypeId;
+	}
+
+	public void setAccTypeId(Long accTypeId) {
+		this.accTypeId = accTypeId;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public List<Long> getAddServices() {
+		return addServices;
+	}
+
+	public void setAddServices(List<Long> addServices) {
+		this.addServices = addServices;
 	}
 	
 }
