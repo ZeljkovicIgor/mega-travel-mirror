@@ -18,7 +18,7 @@
               <label for="country">Drzava</label>
               <input type="text" class="form-control" id="country" v-model="accommodation.accLocation.country"   name="country">
             </div> 
-            <div class="form-group">
+            <div  class="form-group">
               <label for="city">Grad</label>
               <input type="text" class="form-control" id="city" v-model="accommodation.accLocation.city"  name="city">
             </div>

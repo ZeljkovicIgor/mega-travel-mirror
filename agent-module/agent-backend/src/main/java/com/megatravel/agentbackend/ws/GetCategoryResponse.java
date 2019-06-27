@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="category" type="{http://megatravel.com/booking/ws}add_serviceSoap" maxOccurs="unbounded"/>
+ *         &lt;element name="category" type="{http://megatravel.com/booking/ws}categorySoap" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetCategoryResponse {
 
     @XmlElement(required = true)
-    protected List<AddServiceSoap> category;
+    protected List<CategorySoap> category;
 
     /**
      * Gets the value of the category property.
@@ -57,13 +57,13 @@ public class GetCategoryResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link AddServiceSoap }
+     * {@link CategorySoap }
      * 
      * 
      */
-    public List<AddServiceSoap> getCategory() {
+    public List<CategorySoap> getCategory() {
         if (category == null) {
-            category = new ArrayList<AddServiceSoap>();
+            category = new ArrayList<CategorySoap>();
         }
         return this.category;
     }

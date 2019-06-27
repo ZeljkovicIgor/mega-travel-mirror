@@ -1,6 +1,8 @@
 
 package com.megatravel.agentbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -18,7 +20,7 @@ import java.util.Date;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="review_id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="acc_date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="acc_date"  type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="review_grade">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
@@ -49,6 +51,7 @@ import java.util.Date;
     "reviewAccommodation"
 })
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Review {
 
     @Id
@@ -105,6 +108,7 @@ public class Review {
      *     {@link String }
      *     
      */
+
     public Date getAccDate() {
         return accDate;
     }

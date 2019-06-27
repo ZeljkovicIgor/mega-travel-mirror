@@ -10,6 +10,7 @@ public interface ReviewService {
     Review getOneById(Long id);
     Review addOne(Review review);
     Review editOne(Review review);
+    List<Review> getAccommodationReviews(long accommodationId);
     boolean deleteOne(Review review);
     boolean deleteById(Long id);
     //convertFromDto();

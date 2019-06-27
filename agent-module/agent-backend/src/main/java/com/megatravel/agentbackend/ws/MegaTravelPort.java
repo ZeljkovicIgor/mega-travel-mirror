@@ -3,6 +3,10 @@ package com.megatravel.agentbackend.ws;
 
 import com.megatravel.agentbackend.ws.CreateReservationRequest;
 import com.megatravel.agentbackend.ws.CreateReservationResponse;
+import com.megatravel.agentbackend.ws.GetAllReviewRequest;
+import com.megatravel.agentbackend.ws.GetAllReviewResponse;
+import com.megatravel.agentbackend.ws.GetAllUserRequest;
+import com.megatravel.agentbackend.ws.GetAllUserResponse;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -85,7 +89,17 @@ public interface MegaTravelPort {
     public AddAccommodationsResponse addAccommodations(
         @WebParam(name = "addAccommodationsRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "addAccommodationsRequest")
         AddAccommodationsRequest addAccommodationsRequest);
-
+    /**
+     *
+     * @param getAllUserRequest
+     * @return
+     *     returns com.megatravel.agentbackend.ws.GetAllUserResponse
+     */
+    @WebMethod
+    @WebResult(name = "getAllUserResponse", targetNamespace = "http://megatravel.com/booking/ws", partName = "getAllUserResponse")
+    public GetAllUserResponse getAllUser(
+            @WebParam(name = "getAllUserRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "getAllUserRequest")
+                    GetAllUserRequest getAllUserRequest);
     /**
      * 
      * @param deleteAccommodationsRequest
@@ -150,7 +164,7 @@ public interface MegaTravelPort {
      *
      * @param createReservationRequest
      * @return
-     *     returns com.megatravel.agentbackend.ws.test.CreateReservationResponse
+     *     returns com.megatravel.agentbackend.ws.CreateReservationResponse
      */
     @WebMethod
     @WebResult(name = "createReservationResponse", targetNamespace = "http://megatravel.com/booking/ws", partName = "createReservationResponse")
@@ -181,7 +195,17 @@ public interface MegaTravelPort {
     public SendMessageResponse sendMessage(
         @WebParam(name = "sendMessageRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "sendMessageRequest")
         SendMessageRequest sendMessageRequest);
-
+    /**
+     *
+     * @param getAllReviewRequest
+     * @return
+     *     returns com.megatravel.agentbackend.ws.asd.GetAllReviewResponse
+     */
+    @WebMethod
+    @WebResult(name = "getAllReviewResponse", targetNamespace = "http://megatravel.com/booking/ws", partName = "getAllReviewResponse")
+    public GetAllReviewResponse getAllReview(
+            @WebParam(name = "getAllReviewRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "getAllReviewRequest")
+                    GetAllReviewRequest getAllReviewRequest);
     /**
      * 
      * @param getOneAccommodationRequest

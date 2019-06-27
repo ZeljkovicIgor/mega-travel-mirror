@@ -5,7 +5,6 @@ import java.util.Date;
 public class ReservationDto {
 
     private long rId;
-
     private long rAccommodationId;
     private String rAccommodationName;
     private float rPrice;
@@ -20,6 +19,22 @@ public class ReservationDto {
     private Boolean cancelled;
 
     public ReservationDto() {
+    }
+
+    public String getrAccommodationName() {
+        return rAccommodationName;
+    }
+
+    public void setrAccommodationName(String rAccommodationName) {
+        this.rAccommodationName = rAccommodationName;
+    }
+
+    public String getrEndUserUsername() {
+        return rEndUserUsername;
+    }
+
+    public void setrEndUserUsername(String rEndUserUsername) {
+        this.rEndUserUsername = rEndUserUsername;
     }
 
     public long getrId() {

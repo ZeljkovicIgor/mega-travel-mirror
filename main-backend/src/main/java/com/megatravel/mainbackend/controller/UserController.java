@@ -21,6 +21,7 @@ import com.megatravel.mainbackend.dto.ReservationDto;
 import com.megatravel.mainbackend.dto.UserDto;
 import com.megatravel.mainbackend.model.Reservation;
 import com.megatravel.mainbackend.model.User;
+import com.megatravel.mainbackend.model.UserType;
 import com.megatravel.mainbackend.service.ReservationService;
 import com.megatravel.mainbackend.service.UserService;
 
@@ -37,7 +38,21 @@ public class UserController {
 	public ResponseEntity<List<User>> getUsers(){
 		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
 	}
-	
+	@RequestMapping(value = "/allUsersEndUsers", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getUsersEnd(){
+		List<User> all = userService.getAllUsers();
+		List<User> ret = new ArrayList<User>();
+		for(User u: all) {
+			System.out.println("vFOR" +u.getUserType().equals(UserType.ENDUSER));
+			System.out.println("vFOR" +u.getUserType());
+			System.out.println("vFOR" +UserType.ENDUSER);
+			if(u.getUserType().equals(UserType.ENDUSER) && u.isDeleted()==false) {
+				ret.add(u);
+			}
+		}
+		System.out.println("vraca ret" +ret.size());
+		return new ResponseEntity<>(ret, HttpStatus.OK);
+	}
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<User> getUser(@PathVariable("id") Long id){
 		User user=userService.findOne(id);
@@ -177,5 +192,19 @@ public class UserController {
 		userService.registerAgent(agent);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+	@CrossOrigin
+	@RequestMapping(value="/loginA",method=RequestMethod.POST)
+	public ResponseEntity<User> loginUserA(@RequestBody UserDto userDto,HttpSession session,HttpServletRequest request){
+		User logged=userService.signIn(userDto);
+		
+		if(logged!=null && logged.getUserType()==UserType.ADMIN){
+			HttpSession newSession = request.getSession();
+		    newSession.setAttribute("logged", logged);
+			return new ResponseEntity<>(logged,HttpStatus.OK);
+			
+		}
+		
+		
+		return new ResponseEntity<>(logged,HttpStatus.NOT_FOUND);
+	}
 }

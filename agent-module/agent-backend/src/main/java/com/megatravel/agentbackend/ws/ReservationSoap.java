@@ -86,6 +86,7 @@ public class ReservationSoap {
     @XmlAttribute(name = "cancelled")
     protected Boolean cancelled;
 
+
     /**
      * Gets the value of the rId property.
      * 

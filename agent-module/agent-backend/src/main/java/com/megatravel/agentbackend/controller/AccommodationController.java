@@ -5,6 +5,7 @@ import com.megatravel.agentbackend.dto.AccommodationDto;
 import com.megatravel.agentbackend.model.*;
 import com.megatravel.agentbackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,17 +44,14 @@ public class AccommodationController {
     SoapService soapService;
 
     @PostMapping
-    ResponseEntity<Accommodation> addNewAcccommodation(@RequestBody Accommodation accommodation, HttpSession session, HttpServletRequest request){
+    ResponseEntity<Accommodation> addNewAcccommodation(@RequestBody Accommodation accommodation, HttpServletRequest request){
         //uraditi validaciju ulaznih podataka
         Accommodation acc = new Accommodation();
-        User agent = (User) session.getAttribute("agent");
-        if(agent!= null){
-            System.out.println("Ima agenta");
-            acc.setAccAgent(agent);
-        }else {
-            System.out.println("nema agenta");
-            acc.setAccAgent(userService.getOneByUsername("agent"));
-        }
+        User agent = (User) request.getSession().getAttribute("agent");
+        if(agent == null)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        acc.setAccAgent(userService.getOneByUsername(agent.getUserUsername()));
         acc.setAccName(accommodation.getAccName());
         acc.setAccDescription(accommodation.getAccDescription());
         acc.setAccCancelPeriod(accommodation.getAccCancelPeriod());
@@ -83,15 +81,25 @@ public class AccommodationController {
             addServiceList.add(addServiceService.getOneById(addService.getServiceId()));
         }
         acc.setAccServices(addServiceList);
-        Accommodation added = accommodationService.addOne(accommodation);
-        Accommodation fromWS = soapService.sendOneAccommodation(added);
+        Accommodation added = accommodationService.addOne(acc);
+        try {
+            Accommodation fromWS = soapService.sendOneAccommodation(added);
+            acc.setAccDbId(fromWS.getAccDbId());
+            added = accommodationService.addOne(added);
+        }catch (Exception e){
+            System.out.println("Neuspesna sinhronizacija");
+        }
 
-        System.out.println(fromWS);
-        return new ResponseEntity<Accommodation>(accommodationService.addOne(accommodation), HttpStatus.OK);
+
+
+        return new ResponseEntity<Accommodation>(added, HttpStatus.OK);
     }
 
     @GetMapping
-    ResponseEntity<List<Accommodation>> getAllAccommodation(){
+    ResponseEntity<List<Accommodation>> getAllAccommodation(HttpServletRequest request){
+        User agent = (User) request.getSession().getAttribute("agent");
+        if (agent == null)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         System.out.println("Get all");
         return new ResponseEntity<>(accommodationService.getAll(), HttpStatus.OK);
     }
@@ -112,6 +120,7 @@ public class AccommodationController {
     }
     @DeleteMapping(value = "/{id}")
     ResponseEntity<String> deleteAcccommodation(@PathVariable("id") long id){
+
         if(accommodationService.deleteAccById(id))
             return new ResponseEntity<String>("Uspesno obrisan.", HttpStatus.OK);
         else

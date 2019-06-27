@@ -12,6 +12,11 @@ public class UserDto {
 	
 	private String userEmail;
 
+	public UserDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public UserDto(String userUsername, String userPassword, String userFirstName, String userLastName,
 			String userEmail) {
 		super();

@@ -5,11 +5,10 @@
         </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <router-link class="btn btn-light" to="/">Smestajne jednice</router-link>
-            <router-link class="btn btn-light" to="/add">Dodaj novi smestaj</router-link>
+            <router-link class="btn btn-light" to="/add-accommodation">Dodaj novi smestaj</router-link>
             <router-link class="btn btn-light" to="/reservation">Rezervacije</router-link>
-            <router-link class="btn btn-light" to="/reservation">Poruke</router-link>
-            <router-link v-if=!isLoggedIn() class="btn btn-light" to="/login">Prijavi se</router-link>
-            <router-link v-if=isLoggedIn() class="btn btn-light" to="/logout">Odjavi se</router-link>
+            <router-link v-if=!logged class="btn btn-light"  to="/login">Prijavi se</router-link>
+            <router-link v-if=logged class="btn btn-light"  to="/logout">Odjavi se</router-link>
         </nav>
         <br/>
         <router-view/>
@@ -21,23 +20,32 @@ import http from "./http-common";
     /* eslint-disable */
 export default {
     name: "app",
+    data(){
+        return {
+        logged: false
+        }
+    },
     methods:{
         isLoggedIn(){
             http
                 .get("/isLogged")
                 .then(response => {
-                    console.log(response.data);
-                    if (response.data === undefined)
-                        return false;
+                    console.log(response.status);
+
+                    if (response.status === 200)
+                        this.logged = true
                     else
-                        return true;
+                        this.logged =  false;
 
                 })
                 .catch(e => {
                     console.log(e);
-                    return false;
+                    this.logged =  false;
                 });
         }
+    },
+    mounted() {
+        this.isLoggedIn();
     }
 };
 </script>
@@ -48,9 +56,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.btn-primary {
-  margin-right: 5px;
-}
+
 
 
 </style>

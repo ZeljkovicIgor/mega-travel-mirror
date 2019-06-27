@@ -12,8 +12,7 @@ public class MessageDto {
     private String messageRecieverUsername;
     private long messageSenderId;
     private long messageReservationId;
-    private String messageReservationName;
-    private String messageReservationUsername;
+    private String messageSenderUsername;
     private Date messageDate;
     private MessageStatus status;
 
@@ -33,20 +32,13 @@ public class MessageDto {
         this.messageRecieverUsername = messageRecieverUsername;
     }
 
-    public String getMessageReservationName() {
-        return messageReservationName;
+
+    public String getMessageSenderUsername() {
+        return messageSenderUsername;
     }
 
-    public void setMessageReservationName(String messageReservationName) {
-        this.messageReservationName = messageReservationName;
-    }
-
-    public String getMessageReservationUsername() {
-        return messageReservationUsername;
-    }
-
-    public void setMessageReservationUsername(String messageReservationUsername) {
-        this.messageReservationUsername = messageReservationUsername;
+    public void setMessageSenderUsername(String messageSenderUsername) {
+        this.messageSenderUsername = messageSenderUsername;
     }
 
     public void setMessageId(long messageId) {
