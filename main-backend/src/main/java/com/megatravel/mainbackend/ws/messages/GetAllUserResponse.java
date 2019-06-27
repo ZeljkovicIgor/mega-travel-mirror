@@ -1,15 +1,11 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
-import com.megatravel.mainbackend.ws.model.CategorySoap;
+import com.megatravel.mainbackend.ws.model.UserSoap;
 
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -22,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="category" type="{http://megatravel.com/booking/ws}categorySoap" maxOccurs="unbounded"/>
+ *         &lt;element name="user" type="{http://megatravel.com/booking/ws}userSoap" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,41 +29,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "category"
+    "user"
 })
-@XmlRootElement(name = "getCategoryResponse", namespace = "http://megatravel.com/booking/ws")
-public class GetCategoryResponse {
+@XmlRootElement(name = "getAllUserResponse", namespace = "http://megatravel.com/booking/ws")
+public class GetAllUserResponse {
 
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected List<CategorySoap> category;
+    protected List<UserSoap> user;
 
     /**
-     * Gets the value of the category property.
+     * Gets the value of the user property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the category property.
+     * This is why there is not a <CODE>set</CODE> method for the user property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getCategory().add(newItem);
+     *    getUser().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CategorySoap }
+     * {@link UserSoap }
      * 
      * 
      */
-    public List<CategorySoap> getCategory() {
-        if (category == null) {
-            category = new ArrayList<CategorySoap>();
+    public List<UserSoap> getUser() {
+        if (user == null) {
+            user = new ArrayList<UserSoap>();
         }
-        return this.category;
+        return this.user;
     }
 
 }

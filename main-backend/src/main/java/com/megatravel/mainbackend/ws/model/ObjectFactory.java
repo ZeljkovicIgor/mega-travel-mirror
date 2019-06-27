@@ -112,7 +112,13 @@ public class ObjectFactory {
     public DeleteAccommodationsRequest createDeleteAccommodationsRequest() {
         return new DeleteAccommodationsRequest();
     }
-
+    /**
+     * Create an instance of {@link com.megatravel.mainbackend.ws.messages.GetAllUserRequest }
+     *
+     */
+    public com.megatravel.mainbackend.ws.messages.GetAllUserRequest createGetAllUserRequest() {
+        return new com.megatravel.mainbackend.ws.messages.GetAllUserRequest();
+    }
     /**
      * Create an instance of {@link EditOneAccommodationRequest }
      *
@@ -277,6 +283,13 @@ public class ObjectFactory {
      */
     public CheckAgentRequest createCheckAgentRequest() {
         return new CheckAgentRequest();
+    }
+    /**
+     * Create an instance of {@link com.megatravel.mainbackend.ws.messages.GetAllUserResponse }
+     *
+     */
+    public com.megatravel.mainbackend.ws.messages.GetAllUserResponse createGetAllUserResponse() {
+        return new com.megatravel.mainbackend.ws.messages.GetAllUserResponse();
     }
     /**
      * Create an instance of {@link com.megatravel.mainbackend.ws.messages.GetAllReviewResponse }
