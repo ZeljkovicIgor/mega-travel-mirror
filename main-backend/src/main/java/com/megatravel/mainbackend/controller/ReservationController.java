@@ -55,6 +55,7 @@ public class ReservationController {
 		if(checkReservation(accPrice,newReservation.getRStartDate(),newReservation.getREndDate())
 				&& !checkUnavailable(allUnavailable,newReservation.getRStartDate(),newReservation.getREndDate())) {
 			newReservation.setRDate(new Date());
+			newReservation.setCancelled(false);
 			newReservation.setREndUser(logged);
 			reservationService.save(newReservation);
 			return new ResponseEntity<>(HttpStatus.OK);
