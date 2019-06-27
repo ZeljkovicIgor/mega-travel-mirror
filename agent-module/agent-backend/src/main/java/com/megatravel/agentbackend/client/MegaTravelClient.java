@@ -31,12 +31,12 @@ public class MegaTravelClient extends WebServiceGatewaySupport {
         return (EditOneAccommodationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
     //Messages
-    GetMessageResponse getAllMessages(UserSoap agent){
+    public GetMessageResponse getAllMessages(User agent){
         GetMessageRequest request = new GetMessageRequest();
-        request.setAgentId(agent.getUserId());
+        request.setAgentId(agent.getUserDbId());
         return (GetMessageResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
-    SendMessageResponse sendMessage(MessageSoap messageSoap){
+    public SendMessageResponse sendMessage(MessageSoap messageSoap){
         SendMessageRequest request = new SendMessageRequest();
         request.setMessage(messageSoap);
         return (SendMessageResponse) getWebServiceTemplate().marshalSendAndReceive(request);
@@ -59,14 +59,14 @@ public class MegaTravelClient extends WebServiceGatewaySupport {
 
     //Accomodation type
 
-    GetAccTypeResponse getAllAccommodationTypes(User agent){
+    public GetAccTypeResponse getAllAccommodationTypes(User agent){
         GetAccTypeRequest request = new GetAccTypeRequest();
         request.setAgentId(agent.getUserDbId());
         return(GetAccTypeResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
 
     //Accommodation category
-    GetCategoryResponse getAllCategories(User agent){
+    public GetCategoryResponse getAllCategories(User agent){
         GetCategoryRequest request = new GetCategoryRequest();
         request.setAgentId(agent.getUserDbId());
         return (GetCategoryResponse) getWebServiceTemplate().marshalSendAndReceive(request);
@@ -74,7 +74,7 @@ public class MegaTravelClient extends WebServiceGatewaySupport {
 
     //Adtional services
 
-    GetAddServicesResponse getAllAddServices(User agent){
+    public GetAddServicesResponse getAllAddServices(User agent){
         GetAddServicesRequest request = new GetAddServicesRequest();
         request.setAgentId(agent.getUserDbId());
         return  (GetAddServicesResponse) getWebServiceTemplate().marshalSendAndReceive(request);
@@ -89,13 +89,18 @@ public class MegaTravelClient extends WebServiceGatewaySupport {
         return response;
     }
 
-    public GetAllAccommodationResponse getAccommodation(Long agentId){
+    public GetAllAccommodationResponse getAccommodation(User agent){
 
         GetAllAccommodationRequest request = new GetAllAccommodationRequest();
-        request.setUserId(agentId);
-        GetAllAccommodationResponse response = new GetAllAccommodationResponse();
-        response = (GetAllAccommodationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        request.setUserId(agent.getUserDbId());
+        GetAllAccommodationResponse response = (GetAllAccommodationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         System.out.println(response);
+        return response;
+    }
+    public GetAllUserResponse getAllUsers(User agent){
+        GetAllUserRequest request = new GetAllUserRequest();
+        request.setUserId(agent.getUserDbId());
+        GetAllUserResponse response = (GetAllUserResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         return response;
     }
 

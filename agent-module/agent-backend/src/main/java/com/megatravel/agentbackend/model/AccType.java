@@ -1,6 +1,8 @@
 
 package com.megatravel.agentbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,6 +39,7 @@ import javax.xml.bind.annotation.XmlType;
     "accTypeName"
 })
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AccType {
 
     @Id

@@ -44,17 +44,14 @@ public class AccommodationController {
     SoapService soapService;
 
     @PostMapping
-    ResponseEntity<Accommodation> addNewAcccommodation(@RequestBody Accommodation accommodation, HttpSession session, HttpServletRequest request){
+    ResponseEntity<Accommodation> addNewAcccommodation(@RequestBody Accommodation accommodation, HttpServletRequest request){
         //uraditi validaciju ulaznih podataka
         Accommodation acc = new Accommodation();
-        User agent = (User) session.getAttribute("agent");
-        if(agent!= null){
-            System.out.println("Ima agenta" + userService.getOneById(agent.getUserId()).getUserUsername());
-            acc.setAccAgent(userService.getOneById(agent.getUserId()));
-        }else {
-            System.out.println("nema agenta");
-            acc.setAccAgent(userService.getOneByUsername("agent"));
-        }
+        User agent = (User) request.getSession().getAttribute("agent");
+        if(agent == null)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        acc.setAccAgent(userService.getOneByUsername(agent.getUserUsername()));
         acc.setAccName(accommodation.getAccName());
         acc.setAccDescription(accommodation.getAccDescription());
         acc.setAccCancelPeriod(accommodation.getAccCancelPeriod());
@@ -99,7 +96,10 @@ public class AccommodationController {
     }
 
     @GetMapping
-    ResponseEntity<List<Accommodation>> getAllAccommodation(){
+    ResponseEntity<List<Accommodation>> getAllAccommodation(HttpServletRequest request){
+        User agent = (User) request.getSession().getAttribute("agent");
+        if (agent == null)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         System.out.println("Get all");
         return new ResponseEntity<>(accommodationService.getAll(), HttpStatus.OK);
     }
@@ -120,6 +120,7 @@ public class AccommodationController {
     }
     @DeleteMapping(value = "/{id}")
     ResponseEntity<String> deleteAcccommodation(@PathVariable("id") long id){
+
         if(accommodationService.deleteAccById(id))
             return new ResponseEntity<String>("Uspesno obrisan.", HttpStatus.OK);
         else

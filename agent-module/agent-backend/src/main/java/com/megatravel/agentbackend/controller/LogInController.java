@@ -2,6 +2,7 @@ package com.megatravel.agentbackend.controller;
 
 import com.megatravel.agentbackend.dto.UserDto;
 import com.megatravel.agentbackend.model.User;
+import com.megatravel.agentbackend.service.SoapService;
 import com.megatravel.agentbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpCookie;
@@ -19,6 +20,8 @@ public class LogInController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    SoapService soapService;
 
 
     @PostMapping("/login")
@@ -29,7 +32,7 @@ public class LogInController {
             HttpSession session = request.getSession();
             session.setAttribute("agent", agent);
             System.out.println("Ulogovan je " + agent.getUserUsername());
-
+            soapService.logInSync(userService.getOneByUsername(agent.getUserUsername()));
             return new ResponseEntity<>(agent, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

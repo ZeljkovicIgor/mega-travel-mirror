@@ -17,6 +17,33 @@ public class SoapServiceImpl implements SoapService {
     MegaTravelClient client;
 
     @Override
+    public void logInSync(User agent) {
+        CheckAgentResponse response = client.getAgent(agent.getUserUsername(), agent.getUserPassword());
+        List<AccommodationSoap> accSoapList = response.getAccommodation();
+
+        //predefinisano
+            //tipovi smestaja
+        List<AccTypeSoap> accTypeSoapList = client.getAllAccommodationTypes(agent).getAccType();
+
+
+            //kategorije smestaja
+        List<CategorySoap> categorySoapList = client.getAllCategories(agent).getCategory();
+            //dodatne usluge
+        List<AddServiceSoap> addServiceSoapList = client.getAllAddServices(agent).getAddServce();
+
+
+        //korisnici
+
+        List<UserSoap> userSoapList = client.getAllUsers(agent).getUser();
+        //smestaj
+
+        //poruke
+        List<MessageSoap> messageSoapList = client.getAllMessages(agent).getMessage();
+
+        //komentari
+    }
+
+    @Override
     public Accommodation sendOneAccommodation(Accommodation acc){
         AccommodationSoap accSoap = new AccommodationSoap();
         accSoap.setAccName(acc.getAccName());

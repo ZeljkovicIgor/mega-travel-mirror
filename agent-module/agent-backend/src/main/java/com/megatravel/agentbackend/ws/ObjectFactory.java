@@ -3,6 +3,8 @@ package com.megatravel.agentbackend.ws;
 
 import com.megatravel.agentbackend.ws.GetAllReviewRequest;
 import com.megatravel.agentbackend.ws.GetAllReviewResponse;
+import com.megatravel.agentbackend.ws.GetAllUserRequest;
+import com.megatravel.agentbackend.ws.GetAllUserResponse;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
@@ -114,7 +116,13 @@ public class ObjectFactory {
     public GetAccTypeResponse createGetAccTypeResponse() {
         return new GetAccTypeResponse();
     }
-
+    /**
+     * Create an instance of {@link com.megatravel.agentbackend.ws.GetAllUserRequest }
+     *
+     */
+    public com.megatravel.agentbackend.ws.GetAllUserRequest createGetAllUserRequest() {
+        return new GetAllUserRequest();
+    }
     /**
      * Create an instance of {@link AccTypeSoap }
      * 
@@ -272,7 +280,13 @@ public class ObjectFactory {
     public CheckAgentRequest createCheckAgentRequest() {
         return new CheckAgentRequest();
     }
-
+    /**
+     * Create an instance of {@link com.megatravel.agentbackend.ws.GetAllUserResponse }
+     *
+     */
+    public com.megatravel.agentbackend.ws.GetAllUserResponse createGetAllUserResponse() {
+        return new GetAllUserResponse();
+    }
     /**
      * Create an instance of {@link GetOneAccommodationResponse }
      * 
