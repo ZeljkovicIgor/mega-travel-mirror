@@ -38,6 +38,7 @@ class RegisterForm extends Component {
                             type='email'
                             placeholder='Email'
                             onInput={ event => { this.setState({ email: event.target.value })}}
+                            autoFocus
                         />
                     </Form.Group>
                     <Form.Group>
@@ -49,7 +50,7 @@ class RegisterForm extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Control
-                            type='text'
+                            type='password'
                             placeholder='Password'
                             onInput={ event => { this.setState({ password: event.target.value })}}
                         />

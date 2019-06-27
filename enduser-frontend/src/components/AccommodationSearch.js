@@ -1,5 +1,6 @@
+import Axios from 'axios';
 import React, { Component } from 'react';
-import { Form, Container } from 'react-bootstrap';
+import { Button, Container, Form, InputGroup } from 'react-bootstrap';
 
 class AccommodationSearch extends Component {
     constructor (props) {
@@ -9,15 +10,58 @@ class AccommodationSearch extends Component {
         }
     }
 
+    async componentDidMount() {
+        const { data } = await Axios.get(
+            'http://localhost:8080/user/getLogged',
+            {withCredentials: true}
+        )
+
+        console.log(data);
+    }
+
     render () {
         return (
-            <Container style={{width:"50rem", marginTop:"10rem"}}>
+            <Container style={{width:"50rem", marginTop:"3rem"}}>
+                <h2>Find accommodations</h2>
                 <Form>
-                    <Form.Control
-                        size='lg'
-                        type='text'
-                        placeholder='Search accommodation'
-                    />
+                    <Form.Group>
+                        <Form.Label>Where are you going?</Form.Label>
+                        <Form.Control
+                            size='lg'
+                            type='text'
+                            placeholder='Search places...'
+                            autoFocus
+                        />
+                        </Form.Group>
+                    <Form.Group>
+                        <Form.Label>How much are you staying?</Form.Label>
+                        <InputGroup>
+                            <InputGroup.Prepend><InputGroup.Text>From</InputGroup.Text></InputGroup.Prepend>
+                            <Form.Control
+                                type='date'
+                            />
+                            <InputGroup.Prepend><InputGroup.Text>To</InputGroup.Text></InputGroup.Prepend>
+                            <Form.Control
+                                type='date'
+                            />
+                        </InputGroup>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>How many people?</Form.Label>
+                        <Form.Control
+                            style={{width:"5rem"}}
+                            size='lg'
+                            type='number'
+                            min='1'
+                        />
+                    </Form.Group>
+                    <Button
+                        variant='primary'
+                        type='submit'
+
+                    >
+                        Search
+                    </Button>
                 </Form>
             </Container>
         )

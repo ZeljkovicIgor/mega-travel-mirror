@@ -16,5 +16,6 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, Lo
 	List<Accommodation> findByAccLocationCityIgnoreCaseContainingAndAccCapacityAndAccTypeAccTypeNameIgnoreCaseContainingAndAccCategoryCategoryNameIgnoreCaseContaining(String city,Integer accCapacity,String accType,String accCategory);	
 	List<Accommodation> findByAccUnavailableUnavailableStartBetweenAndAccUnavailableUnavailableEndBetween(Date startDate,Date endDate,Date startDate1,Date endDate1);
 	
+	List<Accommodation> findByAccLocationCityIgnoreCase(String city);
 	
 }

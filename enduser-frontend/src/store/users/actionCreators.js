@@ -18,7 +18,6 @@ export function setUser(user){
 export function login(email, password){
     return async function(dispatch){
         const { data : user } = await userService.login(email, password);
-        console.log(user);
         user && dispatch(setUser(user));
     }
 }

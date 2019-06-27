@@ -33,6 +33,7 @@ class LoginForm extends Component {
                             type="email"
                             placeholder="Enter email"
                             onInput={ event => { this.setState({ email: event.target.value })}}
+                            autoFocus
                         />
                     </Form.Group>
                     <Form.Group>

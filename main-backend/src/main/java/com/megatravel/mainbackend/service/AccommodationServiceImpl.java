@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.megatravel.mainbackend.dto.SearchAccommodationDTO;
 import com.megatravel.mainbackend.model.AccPrice;
 import com.megatravel.mainbackend.model.Accommodation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,13 @@ public class AccommodationServiceImpl implements AccommodationService {
 			Date endDate, Date startDate1, Date endDate1) {
 		// TODO Auto-generated method stub
 		return accommodationRepository.findByAccUnavailableUnavailableStartBetweenAndAccUnavailableUnavailableEndBetween(startDate, endDate, startDate1, endDate1);
+		
+	}
+
+	@Override
+	public List<Accommodation> search(SearchAccommodationDTO search) {
+		
+		return accommodationRepository.findByAccLocationCityIgnoreCase(search.getCity());
 		
 	}
 

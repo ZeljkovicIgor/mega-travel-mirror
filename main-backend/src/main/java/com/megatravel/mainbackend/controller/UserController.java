@@ -70,6 +70,7 @@ public class UserController {
 		if(logged!=null ){
 			HttpSession newSession = request.getSession();
 		    newSession.setAttribute("logged", logged);
+		    System.out.println("\n ovo je id sesije: " + newSession.getId());
 			return new ResponseEntity<>(logged,HttpStatus.OK);
 			
 		}
@@ -103,6 +104,14 @@ public class UserController {
 		
 		return new ResponseEntity<>(reservationsDto,HttpStatus.OK);
 	}
+	
+	
+	@RequestMapping(value="/getLogged", method=RequestMethod.GET)
+	public ResponseEntity<User> getLogged(HttpServletRequest request){
+		User logged = (User) request.getSession().getAttribute("logged");
+		return new ResponseEntity<>(logged, HttpStatus.OK);
+	}
+	
 	/**
 	 * 		BLOKIRANJE, AKTIVIRANJE i BRISANJE obicnih korisnika
 	 */

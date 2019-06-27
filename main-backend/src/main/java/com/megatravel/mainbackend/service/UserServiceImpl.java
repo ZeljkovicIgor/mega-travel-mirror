@@ -106,15 +106,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User signIn(UserDto userDto) {
 		// TODO Auto-generated method stub
-		User user1 = new User();
+//		User user1 = new User();
 		if(userExist(userDto.getUserEmail(),userDto.getUserPassword())) {
-			//firstName,LastName,Email,Username,Password
-			user1 = convertFromDTO(userDto);
-			user1.setUserId(findByEmail(userDto.getUserEmail()).getUserId());
-			user1.setUserType(findByEmail(userDto.getUserEmail()).getUserType());
-			user1.setActivated(findByEmail(userDto.getUserEmail()).isActivated());
-			user1.setDeleted(findByEmail(userDto.getUserEmail()).isDeleted());
-			return user1;
+//			firstName,LastName,Email,Username,Password
+//			user1 = convertFromDTO(userDto);
+			
+//			user1.setUserId(findByEmail(userDto.getUserEmail()).getUserId());
+//			user1.setUserType(findByEmail(userDto.getUserEmail()).getUserType());
+//			user1.setActivated(findByEmail(userDto.getUserEmail()).isActivated());
+//			user1.setDeleted(findByEmail(userDto.getUserEmail()).isDeleted());
+			return findByEmail(userDto.getUserEmail());
 		}
 		return null;
 	}

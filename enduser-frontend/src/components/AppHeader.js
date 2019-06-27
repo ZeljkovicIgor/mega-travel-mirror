@@ -1,27 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { userSelector, logout } from '../store/users';
+import { Navbar, NavDropdown } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Navbar, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
+import { logout, userSelector } from '../store/users';
 
 function AppHeader ({ user, onLogout }) {
     return (
         <Navbar>
             <Navbar.Brand>
-                <Link to="/" className="navbar-brand">mega-travel<img src={logo} className="App-logo" alt="logo" /></Link>
+                <Link to="/" className="navbar-brand">
+                    <h1>mega-travel<img src={logo} className="App-logo" alt="logo" /></h1>
+                </Link>
             </Navbar.Brand>
             {
                 user
                 ? 
                 <Navbar.Collapse className="justify-content-end">
-                    <Button
-                        variant="outline-danger"
-                        type='button'
-                        onClick={onLogout}
-                    >
-                        Logout
-                    </Button>
+                    <NavDropdown title={ user.userFirstName + ' ' + user.userLastName } alignRight>
+                        
+                        <NavDropdown.Item
+                            onClick={onLogout}
+                            as="button"
+                        >
+                            Logout
+                        </NavDropdown.Item>
+                    </NavDropdown>
                 </Navbar.Collapse>
                 :
                 <Navbar.Collapse className="justify-content-end">

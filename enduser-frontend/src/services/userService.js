@@ -7,7 +7,7 @@ function login(email, password){
     return axios.post(url + "login", {
         userEmail: email,
         userPassword: password
-    })
+    }, {withCredentials: true})
 }
 
 function logout(){
@@ -21,7 +21,7 @@ function register(user){
         userUsername: user.username,
         userFirstName: user.firstName,
         userLastName: user.lastName
-    })
+    }, {withCredentials: true})
 }
 
 const userService = { login, logout, register };

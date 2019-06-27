@@ -1,10 +1,11 @@
 package com.megatravel.mainbackend.service;
 
-import com.megatravel.mainbackend.model.AccPrice;
-import com.megatravel.mainbackend.model.Accommodation;
-
 import java.util.Date;
 import java.util.List;
+
+import com.megatravel.mainbackend.dto.SearchAccommodationDTO;
+import com.megatravel.mainbackend.model.AccPrice;
+import com.megatravel.mainbackend.model.Accommodation;
 
 public interface AccommodationService {
 	
@@ -14,6 +15,8 @@ public interface AccommodationService {
 	Accommodation findOne(Long id);
 	List<Accommodation> findByAgentId(Long agentId);
 	List<AccPrice> getPricePlan(Long accId);
+	
+	List<Accommodation> search(SearchAccommodationDTO search);
 
 
 	List<Accommodation> findByCityAndAccCapacity(String city,Integer accCapacity, String accType, String accCategory);
