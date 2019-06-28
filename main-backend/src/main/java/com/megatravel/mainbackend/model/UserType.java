@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  * 
  */
-@XmlType(name = "user_type", namespace = "http://megatravel.com/booking")
+@XmlType(name = "user_type", namespace = "http://megatravel.com/booking/ws")
 @XmlEnum
 public enum UserType {
 

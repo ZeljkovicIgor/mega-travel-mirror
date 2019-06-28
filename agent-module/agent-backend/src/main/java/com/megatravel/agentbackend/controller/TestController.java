@@ -31,6 +31,8 @@ public class TestController {
 	AddServiceService addServiceService;
 	@Autowired
 	ReservationService reservationService;
+	@Autowired
+	SoapService soapService;
 
 	@GetMapping(value="/test")
 	public ResponseEntity<Accommodation> test() {
@@ -46,16 +48,23 @@ public class TestController {
 		acc.setAccName(response.getAccommodation().getAccName());
 		return new ResponseEntity<Accommodation>(acc, HttpStatus.OK);
 	}
-	@GetMapping(value="/all")
+/*	@GetMapping(value="/all")
 	public ResponseEntity<List<AccommodationSoap>> getAll() {
 
 		return new ResponseEntity<List<AccommodationSoap>>(client.getAccommodation(3L).getAccommodation(),HttpStatus.OK);
 	}
+*/
 	@GetMapping(value="/one")
-	public String getOne() {
+	public List<AddService> get(){
+		System.out.println("Test controller one");
 
+		User agent = new User();
+		agent.setUserDbId(1L);
+		agent.setUserId(1L);
+		//salje request na glavni backend i response cuva u bazi
+		soapService.getAddServices(agent);
 
-		return "one";
+		return addServiceService.getAll();
 	}
 
 	@GetMapping(value="/addTestData")

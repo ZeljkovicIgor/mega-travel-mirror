@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "acc_unavailable", namespace = "http://megatravel.com/booking", propOrder = {
+@XmlType(name = "acc_unavailable", namespace = "http://megatravel.com/booking/ws", propOrder = {
     "unavId",
     "unavailableStart",
     "unavailableEnd"
@@ -46,13 +46,13 @@ public class AccUnavailable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement(name = "unav_id", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "unav_id", namespace = "http://megatravel.com/booking/ws")
     protected long unavId;
-    @XmlElement(name = "unavailable_start", namespace = "http://megatravel.com/booking", required = true, type = String.class)
+    @XmlElement(name = "unavailable_start", namespace = "http://megatravel.com/booking/ws", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date unavailableStart;
-    @XmlElement(name = "unavailable_end", namespace = "http://megatravel.com/booking", required = true, type = String.class)
+    @XmlElement(name = "unavailable_end", namespace = "http://megatravel.com/booking/ws", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date unavailableEnd;

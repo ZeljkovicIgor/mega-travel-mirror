@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.AddService;
 import com.megatravel.mainbackend.ws.model.AddServiceSoap;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetAddServicesResponse {
 
     @XmlElement(name = "add_servce", namespace = "http://megatravel.com/booking/ws", required = true)
-    protected List<AddServiceSoap> addServce;
+    protected List<AddService> addServce;
 
     /**
      * Gets the value of the addServce property.
@@ -63,9 +64,9 @@ public class GetAddServicesResponse {
      * 
      * 
      */
-    public List<AddServiceSoap> getAddServce() {
+    public List<AddService> getAddServce() {
         if (addServce == null) {
-            addServce = new ArrayList<AddServiceSoap>();
+            addServce = new ArrayList<AddService>();
         }
         return this.addServce;
     }

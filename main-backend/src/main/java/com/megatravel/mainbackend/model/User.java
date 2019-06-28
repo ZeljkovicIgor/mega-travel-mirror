@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="user_business_id" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="user_business_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="user_address" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="user_type" type="{http://megatravel.com/booking}user_type"/>
+ *         &lt;element name="user_type" type="{http://megatravel.com/booking/ws}user_type"/>
  *       &lt;/sequence>
  *       &lt;attribute name="deleted" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
  *       &lt;attribute name="activated" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "user", namespace = "http://megatravel.com/booking", propOrder = {
+@XmlType(name = "user", namespace = "http://megatravel.com/booking/ws", propOrder = {
     "userId",
     "userUsername",
     "userFirstName",
@@ -61,25 +61,25 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement(name = "user_id", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "user_id", namespace = "http://megatravel.com/booking/ws")
     protected long userId;
-    @XmlElement(name = "user_username", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "user_username", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String userUsername;
-    @XmlElement(name = "user_first_name", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "user_first_name", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String userFirstName;
-    @XmlElement(name = "user_last_name", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "user_last_name", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String userLastName;
-    @XmlElement(name = "user_password", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "user_password", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String userPassword;
-    @XmlElement(name = "user_email", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "user_email", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String userEmail;
-    @XmlElement(name = "user_business_id", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "user_business_id", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String userBusinessId;
-    @XmlElement(name = "user_business_name", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "user_business_name", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String userBusinessName;
-    @XmlElement(name = "user_address", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "user_address", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String userAddress;
-    @XmlElement(name = "user_type", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "user_type", namespace = "http://megatravel.com/booking/ws", required = true)
     @XmlSchemaType(name = "string")
     protected UserType userType;
     @XmlAttribute(name = "deleted")

@@ -24,14 +24,14 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Reservation_QNAME = new QName("http://megatravel.com/booking", "reservation");
-    private final static QName _Accommodation_QNAME = new QName("http://megatravel.com/booking", "accommodation");
-    private final static QName _User_QNAME = new QName("http://megatravel.com/booking", "user");
-    private final static QName _Message_QNAME = new QName("http://megatravel.com/booking", "message");
-    private final static QName _Category_QNAME = new QName("http://megatravel.com/booking", "category");
-    private final static QName _AccType_QNAME = new QName("http://megatravel.com/booking", "acc_type");
-    private final static QName _AddService_QNAME = new QName("http://megatravel.com/booking", "add_service");
-    private final static QName _Review_QNAME = new QName("http://megatravel.com/booking", "review");
+    private final static QName _Reservation_QNAME = new QName("http://megatravel.com/booking/ws", "reservation");
+    private final static QName _Accommodation_QNAME = new QName("http://megatravel.com/booking/ws", "accommodation");
+    private final static QName _User_QNAME = new QName("http://megatravel.com/booking/ws/ws", "user");
+    private final static QName _Message_QNAME = new QName("http://megatravel.com/booking/ws", "message");
+    private final static QName _Category_QNAME = new QName("http://megatravel.com/booking/ws", "category");
+    private final static QName _AccType_QNAME = new QName("http://megatravel.com/booking/ws", "acc_type");
+    private final static QName _AddService_QNAME = new QName("http://megatravel.com/booking/ws", "add_service");
+    private final static QName _Review_QNAME = new QName("http://megatravel.com/booking/ws", "review");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.megatravel.mainbackend.model
@@ -132,7 +132,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Reservation }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://megatravel.com/booking", name = "reservation")
+    @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "reservation")
     public JAXBElement<Reservation> createReservation(Reservation value) {
         return new JAXBElement<Reservation>(_Reservation_QNAME, Reservation.class, null, value);
     }
@@ -141,7 +141,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Accommodation }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://megatravel.com/booking", name = "accommodation")
+    @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "accommodation")
     public JAXBElement<Accommodation> createAccommodation(Accommodation value) {
         return new JAXBElement<Accommodation>(_Accommodation_QNAME, Accommodation.class, null, value);
     }
@@ -150,7 +150,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link User }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://megatravel.com/booking", name = "user")
+    @XmlElementDecl(namespace = "http://megatravel.com/booking/ws/ws", name = "user")
     public JAXBElement<User> createUser(User value) {
         return new JAXBElement<User>(_User_QNAME, User.class, null, value);
     }
@@ -159,7 +159,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Message }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://megatravel.com/booking", name = "message")
+    @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "message")
     public JAXBElement<Message> createMessage(Message value) {
         return new JAXBElement<Message>(_Message_QNAME, Message.class, null, value);
     }
@@ -168,7 +168,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Category }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://megatravel.com/booking", name = "category")
+    @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "category")
     public JAXBElement<Category> createCategory(Category value) {
         return new JAXBElement<Category>(_Category_QNAME, Category.class, null, value);
     }
@@ -177,7 +177,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link AccType }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://megatravel.com/booking", name = "acc_type")
+    @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "acc_type")
     public JAXBElement<AccType> createAccType(AccType value) {
         return new JAXBElement<AccType>(_AccType_QNAME, AccType.class, null, value);
     }
@@ -186,7 +186,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link AddService }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://megatravel.com/booking", name = "add_service")
+    @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "add_service")
     public JAXBElement<AddService> createAddService(AddService value) {
         return new JAXBElement<AddService>(_AddService_QNAME, AddService.class, null, value);
     }
@@ -195,7 +195,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Review }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://megatravel.com/booking", name = "review")
+    @XmlElementDecl(namespace = "http://megatravel.com/booking/ws", name = "review")
     public JAXBElement<Review> createReview(Review value) {
         return new JAXBElement<Review>(_Review_QNAME, Review.class, null, value);
     }

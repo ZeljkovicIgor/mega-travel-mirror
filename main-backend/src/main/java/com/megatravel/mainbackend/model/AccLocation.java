@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "acc_location", namespace = "http://megatravel.com/booking", propOrder = {
+@XmlType(name = "acc_location", namespace = "http://megatravel.com/booking/ws", propOrder = {
     "locId",
     "address",
     "city",
@@ -48,17 +48,17 @@ import javax.xml.bind.annotation.XmlType;
 public class AccLocation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement(name = "loc_id", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "loc_id", namespace = "http://megatravel.com/booking/ws")
     protected long locId;
-    @XmlElement(namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
     protected String address;
-    @XmlElement(namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
     protected String city;
-    @XmlElement(namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
     protected String country;
-    @XmlElement(name = "x_coordinate", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "x_coordinate", namespace = "http://megatravel.com/booking/ws")
     protected float xCoordinate;
-    @XmlElement(name = "y_coordinate", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "y_coordinate", namespace = "http://megatravel.com/booking/ws")
     protected float yCoordinate;
 
     /**

@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="r_id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="r_accommodation" type="{http://megatravel.com/booking}accommodation"/>
+ *         &lt;element name="r_accommodation" type="{http://megatravel.com/booking/ws}accommodation"/>
  *         &lt;element name="r_price" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *         &lt;element name="r_start_date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="r_end_date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="r_end_user" type="{http://megatravel.com/booking}user"/>
+ *         &lt;element name="r_end_user" type="{http://megatravel.com/booking/ws}user"/>
  *       &lt;/sequence>
  *       &lt;attribute name="realized" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
  *       &lt;attribute name="cancelled" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "reservation", namespace = "http://megatravel.com/booking", propOrder = {
+@XmlType(name = "reservation", namespace = "http://megatravel.com/booking/ws", propOrder = {
     "rId",
     "rAccommodation",
     "rPrice",
@@ -64,28 +64,28 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement(name = "r_id", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "r_id", namespace = "http://megatravel.com/booking/ws")
     protected long rId;
-    @XmlElement(name = "r_accommodation", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "r_accommodation", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne
     protected Accommodation rAccommodation;
-    @XmlElement(name = "r_price", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "r_price", namespace = "http://megatravel.com/booking/ws")
     protected float rPrice;
-    @XmlElement(name = "r_start_date", namespace = "http://megatravel.com/booking", required = true, type = String.class)
+    @XmlElement(name = "r_start_date", namespace = "http://megatravel.com/booking/ws", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date rStartDate;
-    @XmlElement(name = "r_end_date", namespace = "http://megatravel.com/booking", required = true, type = String.class)
+    @XmlElement(name = "r_end_date", namespace = "http://megatravel.com/booking/ws", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date rEndDate;
-    @XmlElement(name = "r_date", namespace = "http://megatravel.com/booking", required = true, type = String.class)
+    @XmlElement(name = "r_date", namespace = "http://megatravel.com/booking/ws", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date rDate;
-    @XmlElement(name = "r_people", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "r_people", namespace = "http://megatravel.com/booking/ws", required = true)
     protected int rPeople;
-    @XmlElement(name = "r_end_user", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "r_end_user", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne
     protected User rEndUser;
     @XmlAttribute(name = "realized")

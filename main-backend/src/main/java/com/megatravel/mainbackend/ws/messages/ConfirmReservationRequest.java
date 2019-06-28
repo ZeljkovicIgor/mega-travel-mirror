@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.Reservation;
 import com.megatravel.mainbackend.ws.model.ReservationSoap;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -37,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 public class ConfirmReservationRequest {
 
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected ReservationSoap reservation;
+    protected Reservation reservation;
 
     /**
      * Gets the value of the reservation property.
@@ -47,7 +48,7 @@ public class ConfirmReservationRequest {
      *     {@link ReservationSoap }
      *     
      */
-    public ReservationSoap getReservation() {
+    public Reservation getReservation() {
         return reservation;
     }
 
@@ -59,7 +60,7 @@ public class ConfirmReservationRequest {
      *     {@link ReservationSoap }
      *     
      */
-    public void setReservation(ReservationSoap value) {
+    public void setReservation(Reservation value) {
         this.reservation = value;
     }
 

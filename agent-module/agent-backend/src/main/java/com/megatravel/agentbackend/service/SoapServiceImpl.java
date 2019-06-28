@@ -15,32 +15,103 @@ public class SoapServiceImpl implements SoapService {
 
     @Autowired
     MegaTravelClient client;
+    @Autowired
+    SoapConverterService converterService;
+    @Autowired
+    AddServiceService addServiceService;
+    @Autowired
+    CategoryService categoryService;
+    @Autowired
+    AccTypeService accTypeService;
+    @Autowired
+    UserService userService;
 
     @Override
-    public void logInSync(User agent) {
-        CheckAgentResponse response = client.getAgent(agent.getUserUsername(), agent.getUserPassword());
+    public void logInSync(String username, String password) {
+        CheckAgentResponse response = client.getAgent(username, password);
         List<AccommodationSoap> accSoapList = response.getAccommodation();
-
+        User agent = converterService.userConverter(response.getAgent());
+        userService.addOne(agent);
+        //getAccTypes(agent);
+        getAddServices(agent);
+        //getCategories(agent);
         //predefinisano
-            //tipovi smestaja
-        List<AccTypeSoap> accTypeSoapList = client.getAllAccommodationTypes(agent).getAccType();
+
+        //tipovi smestaja
+        //List<AccTypeSoap> accTypeSoapList = client.getAllAccommodationTypes(agent).getAccType();
 
 
             //kategorije smestaja
-        List<CategorySoap> categorySoapList = client.getAllCategories(agent).getCategory();
+        //List<CategorySoap> categorySoapList = client.getAllCategories(agent).getCategory();
             //dodatne usluge
-        List<AddServiceSoap> addServiceSoapList = client.getAllAddServices(agent).getAddServce();
+        //List<AddServiceSoap> addServiceSoapList = client.getAllAddServices(agent).getAddServce();
 
 
         //korisnici
 
-        List<UserSoap> userSoapList = client.getAllUsers(agent).getUser();
+        //List<UserSoap> userSoapList = client.getAllUsers(agent).getUser();
         //smestaj
 
         //poruke
-        List<MessageSoap> messageSoapList = client.getAllMessages(agent).getMessage();
+        //List<MessageSoap> messageSoapList = client.getAllMessages(agent).getMessage();
 
         //komentari
+    }
+
+    @Override
+    public List<User> getUsers(User agent) {
+        return null;
+    }
+
+    @Override
+    public List<AccTypeSoap> getAccTypes(User agent) {
+        GetAccTypeResponse response = client.getAllAccommodationTypes(agent);
+
+        System.out.println("Stigao odgovor" + response.getAccType());
+        for (AccTypeSoap accTypeSoap : response.getAccType()) {
+            System.out.println(accTypeSoap.getAccTypeName());
+        }
+        List<AccTypeSoap> accTypeSoapList = new ArrayList<>();
+        accTypeSoapList.addAll(response.getAccType());
+
+        for (AccTypeSoap accTypeSoap : accTypeSoapList) {
+            accTypeService.addOne(converterService.accTypeConverter(accTypeSoap));
+        }
+        return accTypeSoapList;
+    }
+
+    @Override
+    public List<CategorySoap> getCategories(User agent) {
+        GetCategoryResponse response = client.getAllCategories(agent);
+
+        System.out.println("Stigao odgovor" + response.getCategory());
+        for (CategorySoap categorySoap : response.getCategory()) {
+            System.out.println(categorySoap.getCategoryName());
+        }
+        List<CategorySoap> categorySoapList = new ArrayList<>();
+        categorySoapList.addAll(response.getCategory());
+
+        for (CategorySoap categorySoap : categorySoapList) {
+            categoryService.addOne(converterService.categoryConverter(categorySoap));
+        }
+        return categorySoapList;
+    }
+
+    @Override
+    public List<AddServiceSoap> getAddServices(User agent) {
+        GetAddServicesResponse response = client.getAllAddServices(agent);
+
+        System.out.println("Stigao odgovor" + response.getAddServce());
+        for (AddServiceSoap addServiceSoap : response.getAddServce()) {
+            System.out.println(addServiceSoap.getServiceName());
+        }
+        List<AddServiceSoap> serviceSoapList = new ArrayList<>();
+        serviceSoapList.addAll(response.getAddServce());
+
+        for (AddServiceSoap addServiceSoap : serviceSoapList) {
+            addServiceService.addOne(converterService.addServiceConverter(addServiceSoap));
+        }
+        return serviceSoapList;
     }
 
     @Override
