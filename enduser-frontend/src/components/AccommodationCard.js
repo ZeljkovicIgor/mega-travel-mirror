@@ -4,7 +4,7 @@ import { Card, Button } from 'react-bootstrap';
 
 export default function AccommodationCard ({ accommodation }) {
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '18rem', float: "left", margin: "10px"}}>
         <Card.Body>
             <Card.Title>{accommodation.accName}</Card.Title>
             <Card.Text>

@@ -6,9 +6,9 @@ const setAccommodations = accommodations => ({
   payload: accommodations
 });
 
-export function getAccommodations(search) {
+export function getAccommodations(search, advanced = false) {
   return async function(dispatch) {
-    const { data } = await accommodationsService.fetchAccommodations(search);
+    const { data } = await accommodationsService.fetchAccommodations(search, advanced);
     dispatch(setAccommodations(data));
   };
 }

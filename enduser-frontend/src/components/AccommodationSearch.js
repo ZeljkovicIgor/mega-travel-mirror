@@ -1,8 +1,9 @@
 import Axios from 'axios';
 import React, { Component } from 'react';
-import { Button, Container, Form, InputGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Container, Form, InputGroup } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getAccommodations } from '../store/accommodations/actionCreators';
-import { connect } from 'react-redux'
 
 class AccommodationSearch extends Component {
     constructor (props) {
@@ -24,7 +25,7 @@ class AccommodationSearch extends Component {
             {withCredentials: true}
         )
 
-        console.log(data);
+       // await this.props.getTypes();
     }
 
     handleSubmit = (event) => {
@@ -78,13 +79,19 @@ class AccommodationSearch extends Component {
                             min='1'
                         />
                     </Form.Group>
-                    <Button
-                        variant='primary'
-                        type='submit'
+                    <ButtonGroup>
+                        <Button
+                            variant='primary'
+                            type='submit'
 
-                    >
-                        Search
-                    </Button>
+                        >
+                            Search
+                        </Button>
+                        <Link className='btn btn-info' to='/advancedSearch'>
+                            Advanced Search
+                        </Link>
+                    </ButtonGroup>
+                    
                 </Form>
             </Container>
         )

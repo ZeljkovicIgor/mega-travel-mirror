@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const url = "http://localhost:8080/";
 
-function fetchAccommodations(searchDTO) {
+function fetchAccommodations(searchDTO, advanced = false) {
     return axios({
         method: 'post',
-        url: url + "search/searchAccommodation",
+        url: advanced ? url + "search/advancedSearchAccommodation" : url + "search/searchAccommodation",
         data: searchDTO,
         withCredentials: true
       });

@@ -9,6 +9,7 @@ import LoginForm from './components/LoginForm';
 import NonAuthenticatedRoute from './components/NonAuthenticatedRoute';
 import RegisterForm from './components/RegisterForm';
 import AccommodationList from './components/AccommodationList'
+import AdvancedSearch from "./components/AdvancedSearch";
 
 
 class App extends Component {
@@ -32,6 +33,10 @@ class App extends Component {
             <Route
               path='/searchAccommodations'
               component={AccommodationList}
+            />
+            <Route
+              path='/advancedSearch'
+              component={AdvancedSearch}
             />
             <Route
               exact
