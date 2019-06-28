@@ -135,12 +135,10 @@ public class AccommodationEndpoint {
     @ResponsePayload
     public AddOneAccommodationResponse addOneAccommodationResponse(@RequestPayload AddOneAccommodationRequest request){
         System.out.println("Stigao request " + request.getAccommodation());
-        List<AccommodationSoap> accommodationList = request.getAccommodation();
-        AccommodationSoap accommodationSoap = accommodationList.get(0);
-        System.out.println("Stigao smestaj "+ accommodationSoap.getAccName());
-        System.out.println("Plan cena "+ accommodationSoap.getAccPricePlan().get(0).getPriceStartDate());
-        Accommodation accommodation = new Accommodation();
-        accommodation.setAccName(accommodationSoap.getAccName());
+        List<Accommodation> accommodationList = request.getAccommodation();
+        Accommodation accommodation = accommodationList.get(0);
+        System.out.println("Stigao smestaj "+ accommodation.getAccName());
+        System.out.println("Plan cena "+ accommodation.getAccPricePlan().get(0).getPriceStartDate());
         Accommodation saved = accommodationService.save(accommodation);
         AddOneAccommodationResponse response = new AddOneAccommodationResponse();
         response.setAccDBId(saved.getAccId());
@@ -153,13 +151,29 @@ public class AccommodationEndpoint {
         //izmeniti da agent salje email ili PIB
         String username = request.getUsername();
         String password = request.getPassword();
-        System.out.println("username");
-        System.out.println("password");
-        User agent = userService.findByEmail(username + "@agent.com");
-
+        System.out.println(username);
+        System.out.println(password);
+        User agent = userService.findByUsername(username);
         System.out.println(agent);
         CheckAgentResponse response = new CheckAgentResponse();
         response.setAgent(agent);
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAddServicesRequest")
+    @ResponsePayload
+    @Transactional
+    public GetAddServicesResponse getAddServices(@RequestPayload GetAddServicesRequest request){
+        System.out.println("Stigao zahtev za dodatne usluge");
+        GetAddServicesResponse response = new GetAddServicesResponse();
+
+        User user = userService.findOne(request.getAgentId());
+        if (user.getUserType() != UserType.AGENT){
+            response.getAddServce().addAll(new ArrayList<>());
+        }else{
+            response.getAddServce().addAll(addServiceService.findAll());
+        }
+
         return response;
     }
 

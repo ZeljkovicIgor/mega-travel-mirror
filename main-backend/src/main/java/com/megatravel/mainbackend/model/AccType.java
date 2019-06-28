@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "acc_type", namespace = "http://megatravel.com/booking", propOrder = {
+@XmlType(name = "acc_type", namespace = "http://megatravel.com/booking/ws", propOrder = {
     "accTypeId",
     "accTypeName"
 })
@@ -41,9 +41,9 @@ public class AccType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement(name = "acc_type_id", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "acc_type_id", namespace = "http://megatravel.com/booking/ws")
     protected long accTypeId;
-    @XmlElement(name = "acc_type_name", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "acc_type_name", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String accTypeName;
 
     /**

@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "acc_price", namespace = "http://megatravel.com/booking", propOrder = {
+@XmlType(name = "acc_price", namespace = "http://megatravel.com/booking/ws", propOrder = {
     "priceId",
     "priceValue",
     "priceStartDate",
@@ -48,15 +48,15 @@ public class AccPrice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement(name = "price_id", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "price_id", namespace = "http://megatravel.com/booking/ws")
     protected long priceId;
-    @XmlElement(name = "price_value", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "price_value", namespace = "http://megatravel.com/booking/ws")
     protected float priceValue;
-    @XmlElement(name = "price_start_date", namespace = "http://megatravel.com/booking", required = true, type = String.class)
+    @XmlElement(name = "price_start_date", namespace = "http://megatravel.com/booking/ws", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date priceStartDate;
-    @XmlElement(name = "price_end_date", namespace = "http://megatravel.com/booking", required = true, type = String.class)
+    @XmlElement(name = "price_end_date", namespace = "http://megatravel.com/booking/ws", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date priceEndDate;

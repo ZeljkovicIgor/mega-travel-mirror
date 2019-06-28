@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 @Component
 public class TestData {
@@ -77,6 +78,97 @@ public class TestData {
 		r2.setReviewAccommodation(a1);
 		reviewService.save(r);
 		reviewService.save(r2);
+
+		//Test data Gema
+
+
+		User agent = new User();
+		agent.setUserType(UserType.AGENT);
+		agent.setUserFirstName("Mika");
+		agent.setUserLastName("Mikic");
+		agent.setUserUsername("agent");
+		agent.setUserPassword("password");
+		agent.setUserBusinessId("12345");
+		agent.setUserBusinessName("Apartmani MIKA");
+		agent.setUserAddress("Cirpanova 6");
+		agent.setUserEmail("agent@agent.com");
+		agent.setActivated(true);
+		userService.save(agent);
+
+		AddService addService1 = new AddService();
+		AddService addService2 = new AddService();
+		AddService addService3 = new AddService();
+		AddService addService4 = new AddService();
+		AddService addService5 = new AddService();
+		AddService addService6 = new AddService();
+		AddService addService7 = new AddService();
+		AddService addService8 = new AddService();
+		AddService addService9 = new AddService();
+
+		AddService addService = new AddService();
+		addService.setServiceName("Parking");
+		addServiceService.save(addService);
+		addService = new AddService();
+		addService.setServiceName("WiFi");
+		addServiceService.save(addService);
+		addService = new AddService();
+		addService.setServiceName("Dorucak");
+		addServiceService.save(addService);
+		addService = new AddService();
+		addService.setServiceName("Polupansion");
+		addServiceService.save(addService);
+		addService = new AddService();
+		addService.setServiceName("Pansion");
+		addServiceService.save(addService);
+		addService = new AddService();
+		addService.setServiceName("All inclusive");
+		addServiceService.save(addService);
+		addService = new AddService();
+		addService.setServiceName("Pet frendly");
+		addServiceService.save(addService);
+		addService = new AddService();
+		addService.setServiceName("TV");
+		addServiceService.save(addService);
+		addService = new AddService();
+		addService.setServiceName("Kuhinja");
+		addServiceService.save(addService);
+		addService = new AddService();
+		addService.setServiceName("Privatno kupatilo");
+		addServiceService.save(addService);
+
+
+		Category category = new Category();
+		Category category1 = new Category();
+		Category category2 = new Category();
+		Category category3 = new Category();
+		Category category4 = new Category();
+		Category category5 = new Category();
+
+		category.setCategoryName("0"); //ovo znaci da je nekategorisan
+		category1.setCategoryName("1"); //predstavlja broj zvezdica
+		category2.setCategoryName("2");
+		category3.setCategoryName("3");
+		category4.setCategoryName("4");
+		category5.setCategoryName("5");
+
+		categoryService.save(category);
+		categoryService.save(category1);
+		categoryService.save(category2);
+		categoryService.save(category3);
+		categoryService.save(category4);
+		categoryService.save(category5);
+
+		AccType accType = new AccType();
+		accType.setAccTypeName("Hotel");
+		accTypeService.save(accType);
+		accType = new AccType();
+		accType.setAccTypeName("Bed & Breakfast");
+		accTypeService.save(accType);
+		accType = new AccType();
+		accType.setAccTypeName("Apartman");
+		accTypeService.save(accType);
+
+
 	}
 	
 	

@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "add_service", namespace = "http://megatravel.com/booking", propOrder = {
+@XmlType(name = "add_service", namespace = "http://megatravel.com/booking/ws", propOrder = {
     "serviceId",
     "serviceName"
 })
@@ -40,10 +40,10 @@ import javax.xml.bind.annotation.XmlType;
 public class AddService {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement(name = "service_id", namespace = "http://megatravel.com/booking")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @XmlElement(name = "service_id", namespace = "http://megatravel.com/booking/ws")
     protected long serviceId;
-    @XmlElement(name = "service_name", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "service_name", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String serviceName;
 
     /**

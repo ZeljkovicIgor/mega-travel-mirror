@@ -24,12 +24,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *       &lt;sequence>
  *         &lt;element name="message_id" type="{http://www.w3.org/2001/XMLSchema}long"/>
  *         &lt;element name="message_content" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="message_reciever" type="{http://megatravel.com/booking}user"/>
- *         &lt;element name="message_sender" type="{http://megatravel.com/booking}user"/>
- *         &lt;element name="message_reservation" type="{http://megatravel.com/booking}reservation"/>
+ *         &lt;element name="message_reciever" type="{http://megatravel.com/booking/ws}user"/>
+ *         &lt;element name="message_sender" type="{http://megatravel.com/booking/ws}user"/>
+ *         &lt;element name="message_reservation" type="{http://megatravel.com/booking/ws}reservation"/>
  *         &lt;element name="message_date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *       &lt;/sequence>
- *       &lt;attribute name="status" type="{http://megatravel.com/booking}message_status" />
+ *       &lt;attribute name="status" type="{http://megatravel.com/booking/ws}message_status" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "message", namespace = "http://megatravel.com/booking", propOrder = {
+@XmlType(name = "message", namespace = "http://megatravel.com/booking/ws", propOrder = {
     "messageId",
     "messageContent",
     "messageReciever",
@@ -51,20 +51,20 @@ public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement(name = "message_id", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "message_id", namespace = "http://megatravel.com/booking/ws")
     protected long messageId;
-    @XmlElement(name = "message_content", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "message_content", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String messageContent;
-    @XmlElement(name = "message_reciever", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "message_reciever", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne
     protected User messageReciever;
-    @XmlElement(name = "message_sender", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "message_sender", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne
     protected User messageSender;
-    @XmlElement(name = "message_reservation", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "message_reservation", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne
     protected Reservation messageReservation;
-    @XmlElement(name = "message_date", namespace = "http://megatravel.com/booking", required = true, type = String.class)
+    @XmlElement(name = "message_date", namespace = "http://megatravel.com/booking/ws", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date messageDate;

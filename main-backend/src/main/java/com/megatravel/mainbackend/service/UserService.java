@@ -22,6 +22,7 @@ public interface UserService {
 	User signIn(UserDto userDto);
 
 	User findByEmail(String email);
+	User findByUsername(String username);
 	User blockActivateUser(Long id, boolean activated);
 	void registerAgent(User agent);
 

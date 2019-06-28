@@ -33,8 +33,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *           &lt;/simpleType>
  *         &lt;/element>
  *         &lt;element name="review_comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="review_end_user" type="{http://megatravel.com/booking}user"/>
- *         &lt;element name="review_accommodation" type="{http://megatravel.com/booking}accommodation"/>
+ *         &lt;element name="review_end_user" type="{http://megatravel.com/booking/ws}user"/>
+ *         &lt;element name="review_accommodation" type="{http://megatravel.com/booking/ws}accommodation"/>
  *       &lt;/sequence>
  *       &lt;attribute name="comment_approved" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
  *     &lt;/restriction>
@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "review", namespace = "http://megatravel.com/booking", propOrder = {
+@XmlType(name = "review", namespace = "http://megatravel.com/booking/ws", propOrder = {
     "reviewId",
     "accDate",
     "reviewGrade",
@@ -58,20 +58,20 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement(name = "review_id", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "review_id", namespace = "http://megatravel.com/booking/ws")
     protected long reviewId;
-    @XmlElement(name = "acc_date", namespace = "http://megatravel.com/booking", required = true, type = String.class)
+    @XmlElement(name = "acc_date", namespace = "http://megatravel.com/booking/ws", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date accDate;
-    @XmlElement(name = "review_grade", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "review_grade", namespace = "http://megatravel.com/booking/ws")
     protected int reviewGrade;
-    @XmlElement(name = "review_comment", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "review_comment", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String reviewComment;
-    @XmlElement(name = "review_end_user", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "review_end_user", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne
     protected User reviewEndUser;
-    @XmlElement(name = "review_accommodation", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "review_accommodation", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne
     protected Accommodation reviewAccommodation;
     @XmlAttribute(name = "comment_approved")

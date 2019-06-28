@@ -39,13 +39,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *           &lt;/simpleType>
  *         &lt;/element>
  *         &lt;element name="acc_pictures" type="{http://www.w3.org/2001/XMLSchema}base64Binary" maxOccurs="unbounded"/>
- *         &lt;element name="acc_price_plan" type="{http://megatravel.com/booking}acc_price" maxOccurs="unbounded"/>
- *         &lt;element name="acc_unavailable" type="{http://megatravel.com/booking}acc_unavailable"/>
- *         &lt;element name="acc_location" type="{http://megatravel.com/booking}acc_location"/>
- *         &lt;element name="acc_category" type="{http://megatravel.com/booking}category"/>
- *         &lt;element name="acc_type" type="{http://megatravel.com/booking}acc_type"/>
- *         &lt;element name="acc_services" type="{http://megatravel.com/booking}add_service" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="acc_agent" type="{http://megatravel.com/booking}user"/>
+ *         &lt;element name="acc_price_plan" type="{http://megatravel.com/booking/ws}acc_price" maxOccurs="unbounded"/>
+ *         &lt;element name="acc_unavailable" type="{http://megatravel.com/booking/ws}acc_unavailable"/>
+ *         &lt;element name="acc_location" type="{http://megatravel.com/booking/ws}acc_location"/>
+ *         &lt;element name="acc_category" type="{http://megatravel.com/booking/ws}category"/>
+ *         &lt;element name="acc_type" type="{http://megatravel.com/booking/ws}acc_type"/>
+ *         &lt;element name="acc_services" type="{http://megatravel.com/booking/ws}add_service" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="acc_agent" type="{http://megatravel.com/booking/ws}user"/>
  *         &lt;element name="acc_cancel_period">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
@@ -69,7 +69,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "accommodation", namespace = "http://megatravel.com/booking", propOrder = {
+@XmlType(name = "accommodation", namespace = "http://megatravel.com/booking/ws", propOrder = {
     "accId",
     "accName",
     "accDescription",
@@ -91,37 +91,37 @@ public class Accommodation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @XmlElement(name = "acc_id", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "acc_id", namespace = "http://megatravel.com/booking/ws")
     protected long accId;
-    @XmlElement(name = "acc_name", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "acc_name", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String accName;
-    @XmlElement(name = "acc_description", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "acc_description", namespace = "http://megatravel.com/booking/ws", required = true)
     protected String accDescription;
-    @XmlElement(name = "acc_date", namespace = "http://megatravel.com/booking", required = true, type = String.class)
+    @XmlElement(name = "acc_date", namespace = "http://megatravel.com/booking/ws", required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date accDate;
-    @XmlElement(name = "acc_capacity", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "acc_capacity", namespace = "http://megatravel.com/booking/ws")
     protected int accCapacity;
-    @XmlElement(name = "acc_pictures", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "acc_pictures", namespace = "http://megatravel.com/booking/ws", required = true)
     @Lob
     protected List<byte[]> accPictures;
-    @XmlElement(name = "acc_price_plan", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "acc_price_plan", namespace = "http://megatravel.com/booking/ws", required = true)
     @OneToMany(cascade = CascadeType.ALL)
     protected List<AccPrice> accPricePlan;
-    @XmlElement(name = "acc_unavailable", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "acc_unavailable", namespace = "http://megatravel.com/booking/ws")
     @OneToMany(cascade = CascadeType.ALL)
     protected List<AccUnavailable> accUnavailable;
     @ManyToOne
-    @XmlElement(name = "acc_location", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "acc_location", namespace = "http://megatravel.com/booking/ws", required = true)
     protected AccLocation accLocation;
-    @XmlElement(name = "acc_category", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "acc_category", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne
     protected Category accCategory;
-    @XmlElement(name = "acc_type", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "acc_type", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne
     protected AccType accType;
-    @XmlElement(name = "acc_services", namespace = "http://megatravel.com/booking")
+    @XmlElement(name = "acc_services", namespace = "http://megatravel.com/booking/ws")
     @ManyToMany
     @JoinTable(
             name="accommodation_service",
@@ -132,12 +132,12 @@ public class Accommodation {
             )
     )
     protected List<AddService> accServices;
-    @XmlElement(name = "acc_agent", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "acc_agent", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne
     protected User accAgent;
-    @XmlElement(name = "acc_cancel_period", namespace = "http://megatravel.com/booking", required = true)
+    @XmlElement(name = "acc_cancel_period", namespace = "http://megatravel.com/booking/ws", required = true)
     protected int accCancelPeriod;
-    @XmlElement(name = "acc_avg_rating", namespace = "http://megatravel.com/booking", defaultValue = "0")
+    @XmlElement(name = "acc_avg_rating", namespace = "http://megatravel.com/booking/ws", defaultValue = "0")
     protected float accAvgRating;
 
     /**
