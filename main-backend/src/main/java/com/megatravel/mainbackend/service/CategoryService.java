@@ -1,5 +1,6 @@
 package com.megatravel.mainbackend.service;
 
+import com.megatravel.mainbackend.model.Accommodation;
 import com.megatravel.mainbackend.model.Category;
 
 import java.util.List;
@@ -10,5 +11,8 @@ public interface CategoryService {
 	Category save(Category category);
 	void delete(Long id);
 	Category update(Long id, Category category);
+	
+	List<Category> sortCategoryByAsc();
+	List<Category> sortCategoryByDesc();
 	
 }

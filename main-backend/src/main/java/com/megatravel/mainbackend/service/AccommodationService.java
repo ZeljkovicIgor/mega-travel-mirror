@@ -18,11 +18,14 @@ public interface AccommodationService {
 	
 	List<Accommodation> search(SearchAccommodationDTO search);
 
-
+	
+	
 	List<Accommodation> findByCityAndAccCapacity(String city,Integer accCapacity, String accType, String accCategory);
 	List<Accommodation> findByCityAndAccCapacity2(String city,Integer accCapacity, String accType);
 	List<Accommodation> findByAccUnavailableDateStartBetweenAndAccUnavailableDateEndBetween(Date startDate, Date endDate,Date startDate1, Date endDate1);
 	List<Accommodation> advancedSearch(SearchAccommodationDTO search);
-
 	
+	List<Accommodation> sortPriceByAsc();
+	List<Accommodation> sortPriceByDesc();
+
 }

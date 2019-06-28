@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.megatravel.mainbackend.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.megatravel.mainbackend.repository.CategoryRepository;
@@ -37,5 +38,17 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		category.setCategoryId(id);
 		return categoryRepository.save(category);
+	}
+
+	@Override
+	public List<Category> sortCategoryByAsc() {
+		// TODO Auto-generated method stub
+		return categoryRepository.findAll(Sort.by(Sort.Direction.ASC, "CategoryName"));
+	}
+
+	@Override
+	public List<Category> sortCategoryByDesc() {
+		// TODO Auto-generated method stub
+		return categoryRepository.findAll(Sort.by(Sort.Direction.DESC, "CategoryName"));
 	}
 }

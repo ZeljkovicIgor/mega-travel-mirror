@@ -1,10 +1,12 @@
 package com.megatravel.mainbackend.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.megatravel.mainbackend.dto.SearchAccommodationDTO;
@@ -15,6 +17,7 @@ import com.megatravel.mainbackend.model.AddService;
 import com.megatravel.mainbackend.model.Reservation;
 import com.megatravel.mainbackend.repository.AccommodationRepository;
 import com.megatravel.mainbackend.repository.ReservationRepository;
+import com.megatravel.mainbackend.repository.ReviewRepository;
 import com.megatravel.mainbackend.util.MyDatatypeConverter;
 
 @Service
@@ -25,6 +28,8 @@ public class AccommodationServiceImpl implements AccommodationService {
 	
 	@Autowired
 	public ReservationRepository reservationRepository;
+	@Autowired
+	public ReviewRepository reviewRepository;
 	
 	@Override
 	public List<Accommodation> findAll() {
@@ -174,5 +179,22 @@ public class AccommodationServiceImpl implements AccommodationService {
 		
 		return accommodations;
 	}
+
+	@Override
+	public List<Accommodation> sortPriceByDesc() {
+		// TODO Auto-generated method stub
+		return accommodationRepository.findAll(Sort.by(Sort.Direction.DESC, "AccPricePlanPriceValue"));// accommodationRepository.findByOrderByAccPricePlanPriceValueDesc();
+	}
+
+	@Override
+	public List<Accommodation> sortPriceByAsc() {
+		// TODO Auto-generated method stub
+		return accommodationRepository.findAll(Sort.by(Sort.Direction.ASC, "AccPricePlanPriceValue"));
+	}
+
+
+	
+	
+	
 
 }
