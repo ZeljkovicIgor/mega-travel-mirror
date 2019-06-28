@@ -229,6 +229,82 @@ $(document).ready(function(){
 				});
 			
 		});
+		
+		$(document).on('click', '#accTypeSave', function(){
+			
+			 formData = JSON.stringify({
+				 accTypeName : $("#accTypeName").val()
+			
+			});
+			
+			 $.ajax({
+					method : 'POST',
+					url : urlBase + "accType/addAccType",
+					data: formData,
+					contentType: "application/json",
+					datatype: "json",
+					success : function(data){
+						alert("Sacuvan tip smestaj");
+						 $('#inputModalAccType').modal('toggle');
+					},
+					error : function(error) {
+						//alert("Neuspesna registracija ");
+					}
+				});
+			
+		});
+		
+		$(document).on('click', '#categorySave', function(){
+			
+			 formData = JSON.stringify({
+				 categoryName : $("#accCategory").val()
+			
+			});
+			
+			 $.ajax({
+					method : 'POST',
+					url : urlBase + "category/addCategory",
+					data: formData,
+					contentType: "application/json",
+					datatype: "json",
+					success : function(data){
+						alert("Sacuvan tip smestaj");
+						 $('#inputModalCategory').modal('toggle');
+					},
+					error : function(error) {
+						//alert("Neuspesna registracija ");
+					}
+				});
+			
+		});
+		
+
+		$(document).on('click', '#inputModaladdService', function(){
+			
+			 formData = JSON.stringify({
+				 serviceName : $("#addService").val()
+			
+			});
+			
+			 $.ajax({
+					method : 'POST',
+					url : urlBase + "service/addService",
+					data: formData,
+					contentType: "application/json",
+					datatype: "json",
+					success : function(data){
+						alert("Sacuvana dodatna usluga");
+						 $('#inputModaladdService').modal('toggle');
+					},
+					error : function(error) {
+						//alert("Neuspesna registracija ");
+					}
+				});
+			
+		});
+		
+		
+		
 	});
 
 

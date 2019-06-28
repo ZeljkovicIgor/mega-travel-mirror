@@ -99,7 +99,104 @@
 			</tbody>
 		</table>
 
+	 <h3>Kreiranje sifrarnika</h3>
+	 <h4>Dodavanje tipa smestaja</h4>
+	<button class="btn btn-primary" data-toggle="modal" data-target="#inputModalAccType">Dodaj Tip Smestaja</button> 
+	 
+	  <h4>Dodavanje kategorije  smestaja</h4>
+	<button class="btn btn-primary" data-toggle="modal" data-target="#inputModalCategory">Dodaj Kategoriju Smestaja</button> 
+	
+	 <h4>Dodavanje kategorije  smestaja</h4>
+	<button class="btn btn-primary" data-toggle="modal" data-target="#inputModalAddService">Dodaj dodatnu uslugu</button> 
+	 
 </div>
+<!-- AccType modal window -->
+<div class="modal fade" id="inputModalAccType" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Accommodation type</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <form id="inputAccTypeName" data-toggle="validator" role="form" data-disable="true">
+		      <div class="modal-body">
+					<input type="hidden" name="idR" id="idR" />
+					
+				<div class="form-group ">
+					<label for="accTypeName"  class="control-label">Type name:</label> <input type="text" class="form-control" name="accTypeName" id="accTypeName" placeholder="Enter accommodation Type Name" data-error="Unesite accTypeName" required/>
+					<div class="help-block with-errors"></div>
+				</div>
+
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="accTypeSave" >Save</button>
+		      </div>
+		     </div>
+		      </form>
+		     </div>
+		      </div>
+</div>
+
+<!-- AccCategory modal window -->
+<div class="modal fade" id="inputModalCategory" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Category</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <form id="inputAccTypeName" data-toggle="validator" role="form" data-disable="true">
+		      <div class="modal-body">
+					<input type="hidden" name="idR" id="idR" />
+					
+				<div class="form-group ">
+					<label for="accCategory"  class="control-label">Type name:</label> <input type="text" class="form-control" name="accCategory" id="accCategory" placeholder="Enter accommodation Category" data-error="Unesite accTypeName" required/>
+					<div class="help-block with-errors"></div>
+				</div>
+
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="categorySave" >Save</button>
+		      </div>
+		     </div>
+		      </form>
+		     </div>
+		      </div>
+</div>
+
+<!-- AddService y modal window -->
+<div class="modal fade" id="inputModaladdService" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Add Service</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <form id="inputAccTypeName" data-toggle="validator" role="form" data-disable="true">
+		      <div class="modal-body">
+					<input type="hidden" name="idR" id="idR" />
+					
+				<div class="form-group ">
+					<label for="addService"  class="control-label">Type name:</label> <input type="text" class="form-control" name="addService" id="addService" placeholder="Enter accommodation addService" data-error="Unesite addService" required/>
+					<div class="help-block with-errors"></div>
+				</div>
+
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="addServiceSave" >Save</button>
+		      </div>
+		     </div>
+		      </form>
+		     </div>
+		      </div>
+</div>
+
 
 <!-- Register modal window -->
 <div class="modal fade" id="inputModalRegister" tabindex="-1" role="dialog">
