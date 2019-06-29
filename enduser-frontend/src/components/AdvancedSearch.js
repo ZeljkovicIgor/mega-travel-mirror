@@ -27,16 +27,11 @@ class AccommodationSearch extends Component {
     }
 
     async componentDidMount(){
-        const types = await this.props.getAccommodationTypes()
-        const categories = await this.props.getCategories()
+        this.props.getAccommodationTypes()
+        this.props.getCategories()
         const { data : services } = await Axios.get('http://localhost:8080/addServices/')
         this.setState({
             ...this.state,
-            search: {
-                ...this.state.search,
-                accTypeId: types[0].accTypeId,
-                categoryId: categories[0].categoryId
-            },
             allServices: services.map(service => ({ value: service.serviceId, label: service.serviceName }))
         })
     }
@@ -122,6 +117,7 @@ class AccommodationSearch extends Component {
                             onInput={ event => this.handleInput(event, 'accTypeId')}
                             as='select'
                         >
+                            <option value=''></option>
                             {
                                 accTypes.map(type => (
                                     <option key={type.accTypeId} value={type.accTypeId}>{type.accTypeName}</option>
@@ -135,6 +131,7 @@ class AccommodationSearch extends Component {
                             onInput={ event => this.handleInput(event, 'categoryId')}
                             as='select'
                         >
+                            <option value=""></option>
                             {
                                 categories.map(category => (
                                     <option key={category.categoryId} value={category.categoryId}>{category.categoryName}</option>

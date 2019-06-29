@@ -148,28 +148,55 @@ public class AccommodationServiceImpl implements AccommodationService {
 		
 		List<Accommodation> accommodations = new ArrayList<>();
 		
+		List<Accommodation> categories = new ArrayList<>();
+		
 		for(Accommodation bs : basicSearch) {
-			if(
-				bs.getAccType().getAccTypeId() == search.getAccTypeId()
-					&&
-				bs.getAccCategory().getCategoryId() == search.getCategoryId()
-			) {
-				accommodations.add(bs);
+			if(search.getCategoryId() == null) {
+				categories = basicSearch;
+				break;
+			}
+			if(bs.getAccCategory().getCategoryId() == search.getCategoryId()) {
+				categories.add(bs);
 			}
 		}
 		
-		for(int i = 0; i < accommodations.size(); i++) {
+		for(Accommodation cat : categories) {
+			if(search.getAccTypeId() == null) {
+				accommodations = categories;
+				break;
+			}
+			if(cat.getAccType().getAccTypeId() == search.getAccTypeId()) {
+				accommodations.add(cat);
+			}
+		}
+		
+		
+		if(search.getAddServices().isEmpty())
+			return accommodations;
+		
+		for(int i = 0; i < accommodations.size();) {
 			List<AddService> services = accommodations.get(i).getAccServices();
 			List<Long> accServiceIds = new ArrayList<>();
 			for(AddService service : services) {
 				accServiceIds.add(service.getServiceId());
 			}
 			
+			int j = 0;
+			boolean flag = false;
+			
 			for(Long serviceId : search.getAddServices()) {
 				if(!accServiceIds.contains(serviceId)) {
 					accommodations.remove(i);
+					break;
 				}
+				if( j+1 == search.getAddServices().size() )
+					flag = true;
+				j++;
 			}
+			
+			if(flag == true)
+				i++;
+			
 		}
 		
 		return accommodations;
