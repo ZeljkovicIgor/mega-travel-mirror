@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.AccType;
 import com.megatravel.mainbackend.ws.model.AccTypeSoap;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetAccTypeResponse {
 
     @XmlElement(name = "acc_type", namespace = "http://megatravel.com/booking/ws", required = true)
-    protected List<AccTypeSoap> accType;
+    protected List<AccType> accType;
 
     /**
      * Gets the value of the accType property.
@@ -63,9 +64,9 @@ public class GetAccTypeResponse {
      * 
      * 
      */
-    public List<AccTypeSoap> getAccType() {
+    public List<AccType> getAccType() {
         if (accType == null) {
-            accType = new ArrayList<AccTypeSoap>();
+            accType = new ArrayList<AccType>();
         }
         return this.accType;
     }

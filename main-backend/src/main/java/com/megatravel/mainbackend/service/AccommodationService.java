@@ -7,6 +7,10 @@ import com.megatravel.mainbackend.dto.SearchAccommodationDTO;
 import com.megatravel.mainbackend.model.AccPrice;
 import com.megatravel.mainbackend.model.Accommodation;
 
+import javax.transaction.Transactional;
+
+
+@Transactional
 public interface AccommodationService {
 	
 	List<Accommodation> findAll();

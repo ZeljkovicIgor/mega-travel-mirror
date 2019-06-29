@@ -57,6 +57,16 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	public List<Review> getAgentAccReviews(Long id) {
+		List<Review> retList = new ArrayList<>();
+		for (Review r : findAll() ) {
+			if (r.getReviewAccommodation().getAccAgent().getUserId() == id){
+				retList.add(r);
+			}
+		}
+		return retList;
+	}
+	@Override
 	public List<Review> sortReviewByAsc() {
 		// TODO Auto-generated method stub
 		return reviewRepository.findAll(Sort.by(Sort.Direction.ASC, "reviewGrade"));

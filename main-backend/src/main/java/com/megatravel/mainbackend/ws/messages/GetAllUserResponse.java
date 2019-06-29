@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.User;
 import com.megatravel.mainbackend.ws.model.UserSoap;
 
 import javax.xml.bind.annotation.*;
@@ -35,7 +36,7 @@ import java.util.List;
 public class GetAllUserResponse {
 
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected List<UserSoap> user;
+    protected List<User> user;
 
     /**
      * Gets the value of the user property.
@@ -59,9 +60,9 @@ public class GetAllUserResponse {
      * 
      * 
      */
-    public List<UserSoap> getUser() {
+    public List<User> getUser() {
         if (user == null) {
-            user = new ArrayList<UserSoap>();
+            user = new ArrayList<User>();
         }
         return this.user;
     }

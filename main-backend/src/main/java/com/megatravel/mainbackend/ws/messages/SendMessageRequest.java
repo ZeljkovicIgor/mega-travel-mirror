@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.Message;
 import com.megatravel.mainbackend.ws.model.MessageSoap;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -37,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 public class SendMessageRequest {
 
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected MessageSoap message;
+    protected Message message;
 
     /**
      * Gets the value of the message property.
@@ -47,7 +48,7 @@ public class SendMessageRequest {
      *     {@link MessageSoap }
      *     
      */
-    public MessageSoap getMessage() {
+    public Message getMessage() {
         return message;
     }
 
@@ -59,7 +60,7 @@ public class SendMessageRequest {
      *     {@link MessageSoap }
      *     
      */
-    public void setMessage(MessageSoap value) {
+    public void setMessage(Message value) {
         this.message = value;
     }
 

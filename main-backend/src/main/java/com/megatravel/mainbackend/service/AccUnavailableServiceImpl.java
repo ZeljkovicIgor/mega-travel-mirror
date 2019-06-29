@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.megatravel.mainbackend.repository.AccUnavailableRepository;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class AccUnavailableServiceImpl implements AccUnavailableService {
 
 	@Autowired

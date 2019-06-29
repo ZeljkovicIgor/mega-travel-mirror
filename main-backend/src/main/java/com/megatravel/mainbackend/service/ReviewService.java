@@ -13,8 +13,10 @@ public interface ReviewService {
 	List<Review> unapprovedComments();
 	Review approveComment(Long reviewId);
 
+
 	
 	
 	List<Review> sortReviewByAsc();
 	List<Review> sortReviewByDesc();
+    List<Review> getAgentAccReviews(Long id);
 }

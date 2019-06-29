@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.Accommodation;
 import com.megatravel.mainbackend.ws.model.AccommodationSoap;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -37,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetOneAccommodationResponse {
 
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected AccommodationSoap accommodation;
+    protected Accommodation accommodation;
 
     /**
      * Gets the value of the accommodation property.
@@ -47,7 +48,7 @@ public class GetOneAccommodationResponse {
      *     {@link AccommodationSoap }
      *     
      */
-    public AccommodationSoap getAccommodation() {
+    public Accommodation getAccommodation() {
         return accommodation;
     }
 
@@ -59,7 +60,7 @@ public class GetOneAccommodationResponse {
      *     {@link AccommodationSoap }
      *     
      */
-    public void setAccommodation(AccommodationSoap value) {
+    public void setAccommodation(Accommodation value) {
         this.accommodation = value;
     }
 
