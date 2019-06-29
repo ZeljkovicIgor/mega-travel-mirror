@@ -67,8 +67,8 @@ public class ReservationController {
 			return new ResponseEntity<>(newReservation,HttpStatus.OK);
 		}
 
-		System.out.println("Nesto ne valjea");
-		return new ResponseEntity<>(HttpStatus.OK);
+		
+		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}
 	
 	@RequestMapping(value="/deleteReservation/{id}", method=RequestMethod.DELETE)
