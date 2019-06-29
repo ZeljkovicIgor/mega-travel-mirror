@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.Message;
 import com.megatravel.mainbackend.ws.model.MessageSoap;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetMessageResponse {
 
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected List<MessageSoap> message;
+    protected List<Message> message;
 
     /**
      * Gets the value of the message property.
@@ -63,9 +64,9 @@ public class GetMessageResponse {
      * 
      * 
      */
-    public List<MessageSoap> getMessage() {
+    public List<Message> getMessage() {
         if (message == null) {
-            message = new ArrayList<MessageSoap>();
+            message = new ArrayList<Message>();
         }
         return this.message;
     }

@@ -2,6 +2,8 @@
 package com.megatravel.mainbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -87,6 +89,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "accAvgRating"
 })
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Accommodation {
 
     @Id
@@ -107,10 +110,11 @@ public class Accommodation {
     @Lob
     protected List<byte[]> accPictures;
     @XmlElement(name = "acc_price_plan", namespace = "http://megatravel.com/booking/ws", required = true)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     protected List<AccPrice> accPricePlan;
     @XmlElement(name = "acc_unavailable", namespace = "http://megatravel.com/booking/ws")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany( cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     protected List<AccUnavailable> accUnavailable;
     @ManyToOne
     @XmlElement(name = "acc_location", namespace = "http://megatravel.com/booking/ws", required = true)
@@ -131,6 +135,7 @@ public class Accommodation {
                     name="serviceId"
             )
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
     protected List<AddService> accServices;
     @XmlElement(name = "acc_agent", namespace = "http://megatravel.com/booking/ws", required = true)
     @ManyToOne

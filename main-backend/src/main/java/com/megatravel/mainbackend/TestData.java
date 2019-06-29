@@ -7,6 +7,9 @@ import com.megatravel.mainbackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +66,7 @@ public class TestData {
 		userService.save(user3);
 		Accommodation a1= new Accommodation();
 		a1.setAccName("sMESTAJ 1");
+		a1.setAccAgent(user2);
 		accommodationService.save(a1);
 		
 		Review r = new Review();
@@ -95,22 +99,12 @@ public class TestData {
 		agent.setActivated(true);
 		userService.save(agent);
 
-		AddService addService1 = new AddService();
-		AddService addService2 = new AddService();
-		AddService addService3 = new AddService();
-		AddService addService4 = new AddService();
-		AddService addService5 = new AddService();
-		AddService addService6 = new AddService();
-		AddService addService7 = new AddService();
-		AddService addService8 = new AddService();
-		AddService addService9 = new AddService();
-
 		AddService addService = new AddService();
 		addService.setServiceName("Parking");
 		addServiceService.save(addService);
 		addService = new AddService();
 		addService.setServiceName("WiFi");
-		addServiceService.save(addService);
+		AddService wifi = addServiceService.save(addService);
 		addService = new AddService();
 		addService.setServiceName("Dorucak");
 		addServiceService.save(addService);
@@ -125,7 +119,7 @@ public class TestData {
 		addServiceService.save(addService);
 		addService = new AddService();
 		addService.setServiceName("Pet frendly");
-		addServiceService.save(addService);
+		AddService pets = addServiceService.save(addService);
 		addService = new AddService();
 		addService.setServiceName("TV");
 		addServiceService.save(addService);
@@ -166,7 +160,110 @@ public class TestData {
 		accTypeService.save(accType);
 		accType = new AccType();
 		accType.setAccTypeName("Apartman");
-		accTypeService.save(accType);
+		AccType apartman = accTypeService.save(accType);
+
+		Accommodation acc = new Accommodation();
+		acc.setAccName("Agentovi apartmani");
+		acc.setAccAgent(agent);
+
+		AccLocation accLocation = new AccLocation();
+		accLocation.setCountry("Srbija");
+		accLocation.setCity("Novi Sad");
+		accLocation.setAddress("Bulevar oslobobodjenja");
+		accLocationService.save(accLocation);
+
+		acc.setAccLocation(accLocation);
+		acc.setAccDescription("Opis agentovog smestaja");
+
+		acc.setAccCategory(category);
+		acc.setAccType(apartman);
+
+		acc.setAccCancelPeriod(7);
+		acc.setAccAvgRating(3);
+		acc.setAccCapacity(3);
+		acc.getAccServices().add(pets);
+		acc.getAccServices().add(wifi);
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date datum1 = null;
+		Date datum2 = null;
+		Date datum3 = null;
+		Date datum4 = null;
+		Date datum5=null;
+		try {
+			datum1 = dateFormat.parse("2019-07-25 00:00");
+			datum2 = dateFormat.parse("2019-07-30 00:00");
+			datum3 = dateFormat.parse("2019-08-25 00:00");
+			datum4 = dateFormat.parse("2019-08-27 00:00");
+			datum5 = dateFormat.parse("2019-06-25 00:00");
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+		}
+
+		AccPrice accPrice = new AccPrice();
+		accPrice.setPriceStartDate(datum1);
+		accPrice.setPriceEndDate(datum2);
+		accPrice.setPriceValue(5000);
+
+		AccPrice accPrice2 = new AccPrice();
+		accPrice2.setPriceStartDate(datum3);
+		accPrice2.setPriceEndDate(datum4);
+		accPrice2.setPriceValue(10000);
+
+		acc.getAccPricePlan().add(accPrice);
+		acc.getAccPricePlan().add(accPrice2);
+
+		AccUnavailable accUnavailable1 = new AccUnavailable();
+		accUnavailable1.setUnavailableStart(datum1);
+		accUnavailable1.setUnavailableEnd(datum2);
+		acc.getAccUnavailable().add(accUnavailable1);
+
+
+		accommodationService.save(acc);
+
+		Accommodation acc2 = new Accommodation();
+		acc2.setAccName("Agentovi apartmani");
+		acc2.setAccAgent(agent);
+
+		AccLocation accLocation2 = new AccLocation();
+		accLocation2.setCountry("Srbija");
+		accLocation2.setCity("Novi Sad");
+		accLocation2.setAddress("Bulevar oslobobodjenja");
+		accLocationService.save(accLocation2);
+
+		acc2.setAccLocation(accLocation2);
+		acc2.setAccDescription("Opis agentovog smestaja");
+
+		acc2.setAccCategory(category);
+		acc2.setAccType(apartman);
+
+		acc2.setAccCancelPeriod(7);
+		acc2.setAccAvgRating(3);
+		acc2.setAccCapacity(3);
+		acc2.getAccServices().add(pets);
+		acc2.getAccServices().add(wifi);
+
+
+		AccPrice accPrice3 = new AccPrice();
+		accPrice3.setPriceStartDate(datum1);
+		accPrice3.setPriceEndDate(datum2);
+		accPrice3.setPriceValue(5000);
+
+		AccPrice accPrice4 = new AccPrice();
+		accPrice4.setPriceStartDate(datum3);
+		accPrice4.setPriceEndDate(datum4);
+		accPrice4.setPriceValue(10000);
+
+		acc2.getAccPricePlan().add(accPrice3);
+		acc2.getAccPricePlan().add(accPrice4);
+
+		AccUnavailable accUnavailable2 = new AccUnavailable();
+		accUnavailable2.setUnavailableStart(datum1);
+		accUnavailable2.setUnavailableEnd(datum2);
+		acc2.getAccUnavailable().add(accUnavailable2);
+
+		accommodationService.save(acc2);
 
 
 	}

@@ -36,6 +36,13 @@ public class AccommodationEndpoint {
     @Autowired
     UserService userService;
     @Autowired
+    ReservationService reservationService;
+    @Autowired
+    ReviewService reviewService;
+    @Autowired
+    MessageService messageService;
+
+    @Autowired
     AccommodationRepository accommodationRepository;
 
     public AccommodationEndpoint(){}
@@ -46,21 +53,13 @@ public class AccommodationEndpoint {
     @ResponsePayload
     @Transactional
     public GetAllAccommodationResponse getAllAccommodationResponse(@RequestPayload GetAllAccommodationRequest request){
+        User agent = userService.findOne(request.getUserId());
         GetAllAccommodationResponse response = new GetAllAccommodationResponse();
-        List<Accommodation> accList = accommodationService.findByAgentId(request.getUserId());
-        List<AccommodationSoap> accommodationSoaps = new ArrayList<>();
-        AccommodationSoap accommodationSoap1 = new AccommodationSoap();
-        AccommodationSoap accommodationSoap2 = new AccommodationSoap();
-        AccommodationSoap accommodationSoap3 = new AccommodationSoap();
-        accommodationSoap1.setAccId(1l);
-        accommodationSoap2.setAccId(2l);
-        accommodationSoap3.setAccId(3l);
-        accommodationSoap1.setAccName("Smestaj 1");
-        accommodationSoap2.setAccName("Smestaj 2");
-        accommodationSoap3.setAccName("Smestaj 3");
-        accommodationSoaps.add(accommodationSoap1);
-        accommodationSoaps.add(accommodationSoap2);
-        accommodationSoaps.add(accommodationSoap3);
+
+        if (agent == null || agent.getUserType() != UserType.AGENT)
+            return response;
+
+
         /*
         for (Accommodation accommodation : accList) {
             List<AccPrice> pricePlan = accommodationService.getPricePlan(accommodation.getAccId());
@@ -101,7 +100,8 @@ public class AccommodationEndpoint {
             //accommodationSoapList.add(accommodationSoap);
         }
         */
-        response.setAccommodation(accommodationSoaps);
+        List<Accommodation> accList = accommodationService.findByAgentId(request.getUserId());
+        response.setAccommodation(accList);
 
         System.out.println("getAllAccEndpoint");
         return response;
@@ -127,12 +127,34 @@ public class AccommodationEndpoint {
         accommodation.setAccDescription("Neki opis smestaja");
         accommodation.setAccAgent(user);
 
-        response.setAccommodation(accommodation);
+        //response.setAccommodation(accommodation);
+        return response;
+    }
+
+
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllUserRequest")
+    @ResponsePayload
+    @Transactional
+    public GetAllUserResponse getAllUsers(@RequestPayload GetAllUserRequest request){
+        GetAllUserResponse response = new GetAllUserResponse();
+        response.getUser().addAll(userService.getAllUsers());
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllReviewRequest")
+    @ResponsePayload
+    @Transactional
+    public GetAllReviewResponse getAllReviews(@RequestPayload GetAllReviewRequest request){
+        GetAllReviewResponse response = new GetAllReviewResponse();
+        List<Review> reviews = reviewService.getAgentAccReviews(request.getUserId());
+        response.getReview().addAll(reviews);
         return response;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addOneAccommodationRequest")
     @ResponsePayload
+    @Transactional
     public AddOneAccommodationResponse addOneAccommodationResponse(@RequestPayload AddOneAccommodationRequest request){
         System.out.println("Stigao request " + request.getAccommodation());
         List<Accommodation> accommodationList = request.getAccommodation();
@@ -147,6 +169,7 @@ public class AccommodationEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "checkAgentRequest")
     @ResponsePayload
+    @Transactional
     public CheckAgentResponse checkAgent(@RequestPayload CheckAgentRequest request){
         //izmeniti da agent salje email ili PIB
         String username = request.getUsername();
@@ -154,9 +177,12 @@ public class AccommodationEndpoint {
         System.out.println(username);
         System.out.println(password);
         User agent = userService.findByUsername(username);
-        System.out.println(agent);
+        System.out.println(agent.getUserId());
+        List<Accommodation> accList =  accommodationService.findByAgentId(agent.getUserId());
+        System.out.println(accList);
         CheckAgentResponse response = new CheckAgentResponse();
         response.setAgent(agent);
+        response.getAccommodation().addAll(accList);
         return response;
     }
 
@@ -176,6 +202,103 @@ public class AccommodationEndpoint {
 
         return response;
     }
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAccTypeRequest")
+    @ResponsePayload
+    @Transactional
+    public GetAccTypeResponse getAddTypes(@RequestPayload GetAccTypeRequest request){
+        System.out.println("Stigao zahtev za tipove smestaja");
+        GetAccTypeResponse response = new GetAccTypeResponse();
 
+        User user = userService.findOne(request.getAgentId());
+        if (user.getUserType() != UserType.AGENT){
+            response.getAccType().addAll(new ArrayList<>());
+        }else{
+            response.getAccType().addAll(accTypeService.findAll());
+        }
+
+        return response;
+    }
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCategoryRequest")
+    @ResponsePayload
+    @Transactional
+    public GetCategoryResponse getCategories(@RequestPayload GetCategoryRequest request){
+        System.out.println("Stigao zahtev za kategorije");
+        GetCategoryResponse response = new GetCategoryResponse();
+
+        User user = userService.findOne(request.getAgentId());
+        if (user.getUserType() != UserType.AGENT){
+            response.getCategory().addAll(new ArrayList<>());
+        }else{
+            response.getCategory().addAll(categoryService.findAll());
+        }
+
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createReservationRequest")
+    @ResponsePayload
+    @Transactional
+    public CreateReservationResponse createReservation(@RequestPayload CreateReservationRequest request){
+        CreateReservationResponse response = new CreateReservationResponse();
+        Reservation reservation = response.getReservation();
+
+        //provera rezervacije
+
+        response.setReservation(reservation);
+        return response;
+
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "confirmReservationRequest")
+    @ResponsePayload
+    @Transactional
+    public ConfirmReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest request){
+        ConfirmReservationResponse response = new ConfirmReservationResponse();
+
+
+        Reservation reservation = request.getReservation();
+        Reservation res = reservationService.findOne(reservation.getRId());
+        if (res == null){
+            response.setStatus(false);
+        }else{
+            res.setRealized(true);
+            response.setStatus(true);
+        }
+        return response;
+
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteAccommodationRequest")
+    @ResponsePayload
+    @Transactional
+    public DeleteAccommodationsResponse deleteAccomodation(@RequestPayload DeleteAccommodationsRequest request){
+        DeleteAccommodationsResponse response = new DeleteAccommodationsResponse();
+        Accommodation accommodation = request.getAccommodation().get(0);
+        accommodationService.delete(accommodation.getAccId());
+        return  response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMessageRequest")
+    @ResponsePayload
+    @Transactional
+    public GetMessageResponse getMessages(@RequestPayload GetMessageRequest request){
+        GetMessageResponse response = new GetMessageResponse();
+        List<Message> agentSender = messageService.findBySender_id(request.getAgentId());
+        List<Message> agentReciever = messageService.findByReciever_id(request.getAgentId());
+        response.getMessage().addAll(agentSender);
+        response.getMessage().addAll(agentReciever);
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "sendMessageRequest")
+    @ResponsePayload
+    @Transactional
+    public SendMessageResponse sendMessage(@RequestPayload SendMessageRequest request){
+        SendMessageResponse response = new SendMessageResponse();
+        Message message = request.getMessage();
+        messageService.save(message);
+        response.setSent(true);
+        return response;
+    }
 
 }

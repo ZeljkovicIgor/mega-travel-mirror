@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.Category;
 import com.megatravel.mainbackend.ws.model.CategorySoap;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetCategoryResponse {
 
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected List<CategorySoap> category;
+    protected List<Category> category;
 
     /**
      * Gets the value of the category property.
@@ -63,9 +64,9 @@ public class GetCategoryResponse {
      * 
      * 
      */
-    public List<CategorySoap> getCategory() {
+    public List<Category> getCategory() {
         if (category == null) {
-            category = new ArrayList<CategorySoap>();
+            category = new ArrayList<Category>();
         }
         return this.category;
     }

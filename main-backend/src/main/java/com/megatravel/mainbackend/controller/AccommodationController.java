@@ -1,12 +1,15 @@
 package com.megatravel.mainbackend.controller;
 
+import com.megatravel.mainbackend.dto.SearchAccommodationDTO;
 import com.megatravel.mainbackend.model.*;
 import com.megatravel.mainbackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.DateFormat;
@@ -37,6 +40,8 @@ public class AccommodationController {
 	AccPriceService accPriceService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	private ReviewService reviewService;
 
 	@GetMapping(value = "/test1")
 	private ResponseEntity<Accommodation> test(){
@@ -134,5 +139,100 @@ public class AccommodationController {
 
 		List<Accommodation> accommodationList = accommodationService.findAll();
 		return new ResponseEntity<List<Accommodation>>(accommodationService.findAll(), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/sortByPriceAsc",method=RequestMethod.GET)
+	public ResponseEntity<List<Accommodation>> sortByPrice(@RequestBody SearchAccommodationDTO search){
+		List<Accommodation> searchList=accommodationService.search(search);
+		List<Accommodation> retListAll=accommodationService.sortPriceByAsc(); 
+		List<Accommodation> retListSearch=new ArrayList<>(); 
+		for(Accommodation a: retListAll) {
+			for(Accommodation s:searchList) {
+				if(a.getAccId()==s.getAccId()) {
+					retListSearch.add(a);
+				}
+				
+			}
+		}
+		
+		return new ResponseEntity<List<Accommodation>>(retListSearch, HttpStatus.OK);
+	}
+	@RequestMapping(value = "/sortByPriceDesc",method=RequestMethod.GET)
+	public ResponseEntity<List<Accommodation>> sortByPriceDesc(@RequestBody SearchAccommodationDTO search){
+		List<Accommodation> searchList=accommodationService.search(search);
+		List<Accommodation> retListAll=accommodationService.sortPriceByDesc(); 
+		List<Accommodation> retListSearch=new ArrayList<>(); 
+		for(Accommodation a: retListAll) {
+			for(Accommodation s:searchList) {
+				if(a.getAccId()==s.getAccId()) {
+					retListSearch.add(a);
+				}
+				
+			}
+		}
+		
+		return new ResponseEntity<List<Accommodation>>(retListSearch, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/sortByReviewGradeDesc",method=RequestMethod.GET)
+	public ResponseEntity<List<Accommodation>> sortBreviewGradeDesc(@RequestBody SearchAccommodationDTO search){
+		List<Accommodation> retListSearch=new ArrayList<Accommodation>();
+		List<Accommodation> searchList=accommodationService.search(search);
+		List<Review> reviewAllAsc =reviewService.sortReviewByDesc();
+		for(Review r: reviewAllAsc) {
+			for(Accommodation a: searchList ) {
+				if(a.getAccId()==r.getReviewAccommodation().getAccId()) {
+					retListSearch.add(a);
+				}
+			}
+		}
+		
+		return new ResponseEntity<List<Accommodation>>(retListSearch, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/sortByReviewGradeAsc",method=RequestMethod.GET)
+	public ResponseEntity<List<Accommodation>> sortBreviewGradeAsc(@RequestBody SearchAccommodationDTO search){
+		List<Accommodation> retListSearch=new ArrayList<Accommodation>();
+		List<Accommodation> searchList=accommodationService.search(search);
+		List<Review> reviewAllAsc =reviewService.sortReviewByAsc();
+		for(Review r: reviewAllAsc) {
+			for(Accommodation a: searchList ) {
+				if(a.getAccId()==r.getReviewAccommodation().getAccId()) {
+					retListSearch.add(a);
+				}
+			}
+		}
+		
+		return new ResponseEntity<List<Accommodation>>(retListSearch, HttpStatus.OK);
+	}
+	@RequestMapping(value = "/sortByCategoryAsc",method=RequestMethod.GET)
+	public ResponseEntity<List<Accommodation>> sortByCategoryAsc(@RequestBody SearchAccommodationDTO search){
+		List<Accommodation> retListSearch=new ArrayList<Accommodation>();
+		List<Accommodation> searchList=accommodationService.search(search);
+		List<Category> allCategorySort=categoryService.sortCategoryByAsc();
+		for(Category c: allCategorySort) {
+			for(Accommodation a: searchList) {
+				if(a.getAccCategory().getCategoryName().equals(c.getCategoryName()));
+				retListSearch.add(a);
+			}
+		}
+		
+		return new ResponseEntity<List<Accommodation>>(retListSearch, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/sortByCategoryDesc",method=RequestMethod.GET)
+	public ResponseEntity<List<Accommodation>> sortByCategoryDesc(@RequestBody SearchAccommodationDTO search){
+		List<Accommodation> retListSearch=new ArrayList<Accommodation>();
+		List<Accommodation> searchList=accommodationService.search(search);
+		List<Category> allCategorySort=categoryService.sortCategoryByDesc();
+		for(Category c: allCategorySort) {
+			for(Accommodation a: searchList) {
+				if(a.getAccCategory().getCategoryName().equals(c.getCategoryName()));
+				retListSearch.add(a);
+			}
+		}
+		
+		return new ResponseEntity<List<Accommodation>>(retListSearch, HttpStatus.OK);
 	}
 }

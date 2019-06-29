@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.Accommodation;
 import com.megatravel.mainbackend.ws.model.AccommodationSoap;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
 public class DeleteAccommodationsRequest {
 
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected List<AccommodationSoap> accommodation;
+    protected List<Accommodation> accommodation;
 
     /**
      * Gets the value of the accommodation property.
@@ -63,9 +64,9 @@ public class DeleteAccommodationsRequest {
      * 
      * 
      */
-    public List<AccommodationSoap> getAccommodation() {
+    public List<Accommodation> getAccommodation() {
         if (accommodation == null) {
-            accommodation = new ArrayList<AccommodationSoap>();
+            accommodation = new ArrayList<Accommodation>();
         }
         return this.accommodation;
     }

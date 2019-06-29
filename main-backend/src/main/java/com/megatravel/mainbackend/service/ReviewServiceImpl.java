@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.megatravel.mainbackend.model.Review;
@@ -53,5 +54,27 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		review.setCommentApproved(true);
 		return reviewRepository.save(review);
+	}
+
+	@Override
+	public List<Review> getAgentAccReviews(Long id) {
+		List<Review> retList = new ArrayList<>();
+		for (Review r : findAll() ) {
+			if (r.getReviewAccommodation().getAccAgent().getUserId() == id){
+				retList.add(r);
+			}
+		}
+		return retList;
+	}
+	@Override
+	public List<Review> sortReviewByAsc() {
+		// TODO Auto-generated method stub
+		return reviewRepository.findAll(Sort.by(Sort.Direction.ASC, "reviewGrade"));
+	}
+
+	@Override
+	public List<Review> sortReviewByDesc() {
+		// TODO Auto-generated method stub
+		return  reviewRepository.findAll(Sort.by(Sort.Direction.DESC, "reviewGrade"));
 	}
 }

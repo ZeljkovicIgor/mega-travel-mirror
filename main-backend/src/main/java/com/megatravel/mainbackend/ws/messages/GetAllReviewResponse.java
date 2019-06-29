@@ -1,6 +1,7 @@
 
 package com.megatravel.mainbackend.ws.messages;
 
+import com.megatravel.mainbackend.model.Review;
 import com.megatravel.mainbackend.ws.model.ReviewSoap;
 
 import javax.xml.bind.annotation.*;
@@ -35,7 +36,7 @@ import java.util.List;
 public class GetAllReviewResponse {
 
     @XmlElement(namespace = "http://megatravel.com/booking/ws", required = true)
-    protected List<ReviewSoap> review;
+    protected List<Review> review;
 
     /**
      * Gets the value of the review property.
@@ -59,9 +60,9 @@ public class GetAllReviewResponse {
      * 
      * 
      */
-    public List<ReviewSoap> getReview() {
+    public List<Review> getReview() {
         if (review == null) {
-            review = new ArrayList<ReviewSoap>();
+            review = new ArrayList<Review>();
         }
         return this.review;
     }
