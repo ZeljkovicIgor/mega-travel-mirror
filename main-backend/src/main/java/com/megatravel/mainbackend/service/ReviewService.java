@@ -19,4 +19,5 @@ public interface ReviewService {
 	List<Review> sortReviewByAsc();
 	List<Review> sortReviewByDesc();
     List<Review> getAgentAccReviews(Long id);
+    void deleteByAccommodation(Accommodation accommodation);
 }

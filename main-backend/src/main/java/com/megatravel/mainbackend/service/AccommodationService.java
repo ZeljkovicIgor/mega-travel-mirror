@@ -16,6 +16,7 @@ public interface AccommodationService {
 	List<Accommodation> findAll();
 	Accommodation save(Accommodation accommodation);
 	void delete(Long id);
+	void delete(Accommodation accommodation);
 	Accommodation findOne(Long id);
 	List<Accommodation> findByAgentId(Long agentId);
 	List<AccPrice> getPricePlan(Long accId);

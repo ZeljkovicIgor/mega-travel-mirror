@@ -50,8 +50,13 @@ public class AccommodationServiceImpl implements AccommodationService {
 	}
 
 	@Override
+	public void delete(Accommodation accommodation) {
+		accommodationRepository.delete(accommodation);
+	}
+
+	@Override
 	public Accommodation findOne(Long id) {
-		return accommodationRepository.getOne(id);
+		return accommodationRepository.findById(id).get();
 	}
 
 	@Override

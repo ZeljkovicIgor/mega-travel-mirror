@@ -3,6 +3,7 @@ package com.megatravel.mainbackend.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.megatravel.mainbackend.model.Accommodation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -76,5 +77,10 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Review> sortReviewByDesc() {
 		// TODO Auto-generated method stub
 		return  reviewRepository.findAll(Sort.by(Sort.Direction.DESC, "reviewGrade"));
+	}
+
+	@Override
+	public void deleteByAccommodation(Accommodation accommodation) {
+		reviewRepository.deleteAllByReviewAccommodation(accommodation);
 	}
 }

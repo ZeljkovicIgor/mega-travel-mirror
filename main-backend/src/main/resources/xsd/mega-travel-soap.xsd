@@ -53,6 +53,22 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="getAllReservationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllReservationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservation" type="tns:reservationSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="getAllUserRequest">
         <xs:complexType>
             <xs:sequence>
@@ -72,7 +88,7 @@
     <xs:element name="addOneAccommodationRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="accommodation" type="tns:accommodationSoap"/>
+                <xs:element name="accommodation" type="tns:accommodationSoap" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -203,7 +219,7 @@
     <xs:element name="sendMessageRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="message" type="tns:messageSoap"/>
+                <xs:element name="message" type="tns:messageSoap" maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -215,11 +231,26 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="sendReservationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservation" type="tns:reservationSoap" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="sendReservationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservation_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
     <xs:element name="confirmReservationRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="reservation" type="tns:reservationSoap"/>
+                <xs:element name="reservation" type="tns:reservationSoap" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -235,7 +266,7 @@
     <xs:element name="createReservationRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="reservation" type="tns:reservationSoap"/>
+                <xs:element name="reservation" type="tns:reservationSoap" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

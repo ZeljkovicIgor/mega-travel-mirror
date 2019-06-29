@@ -14,6 +14,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Endpoint
@@ -100,9 +101,8 @@ public class AccommodationEndpoint {
             //accommodationSoapList.add(accommodationSoap);
         }
         */
-        List<Accommodation> accList = accommodationService.findByAgentId(request.getUserId());
-        response.setAccommodation(accList);
-
+        List<Accommodation> accList = accommodationService.findByAgentId(agent.getUserId());
+        response.getAccommodation().addAll(accList);
         System.out.println("getAllAccEndpoint");
         return response;
 
@@ -142,6 +142,15 @@ public class AccommodationEndpoint {
         return response;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllReservationRequest")
+    @ResponsePayload
+    @Transactional
+    public GetAllReservationResponse getAllReservations(@RequestPayload GetAllReservationRequest request){
+        GetAllReservationResponse response = new GetAllReservationResponse();
+        response.getReservation().addAll(reservationService.getAgentReservations(request.getUserId()));
+        return response;
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllReviewRequest")
     @ResponsePayload
     @Transactional
@@ -158,7 +167,9 @@ public class AccommodationEndpoint {
     public AddOneAccommodationResponse addOneAccommodationResponse(@RequestPayload AddOneAccommodationRequest request){
         System.out.println("Stigao request " + request.getAccommodation());
         List<Accommodation> accommodationList = request.getAccommodation();
+
         Accommodation accommodation = accommodationList.get(0);
+        User agent = userService.findOne(accommodation.getAccAgent().getUserId());
         System.out.println("Stigao smestaj "+ accommodation.getAccName());
         System.out.println("Plan cena "+ accommodation.getAccPricePlan().get(0).getPriceStartDate());
         Accommodation saved = accommodationService.save(accommodation);
@@ -235,16 +246,26 @@ public class AccommodationEndpoint {
         return response;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createReservationRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "sendReservationRequest")
     @ResponsePayload
     @Transactional
-    public CreateReservationResponse createReservation(@RequestPayload CreateReservationRequest request){
-        CreateReservationResponse response = new CreateReservationResponse();
-        Reservation reservation = response.getReservation();
-
+    public SendReservationResponse createReservation(@RequestPayload SendReservationRequest request){
+        SendReservationResponse response = new SendReservationResponse();
+        Reservation reservation = request.getReservation().get(0);
+        Accommodation acc = accommodationService.findOne(reservation.getRAccommodation().getAccId());
+        List<AccPrice> accPrice = acc.getAccPricePlan();
+        List<AccUnavailable> allUnavailable = acc.getAccUnavailable();
         //provera rezervacije
 
-        response.setReservation(reservation);
+        if(reservationService.checkReservation(accPrice,reservation.getRStartDate(),reservation.getREndDate())
+                && !reservationService.checkUnavailable(allUnavailable,reservation.getRStartDate(),reservation.getREndDate())) {
+            reservation.setRDate(new Date());
+            reservation.setCancelled(false);
+            reservation.setREndUser(acc.getAccAgent());
+            reservationService.save(reservation);
+        }
+
+        response.setReservationId(reservation.getRId());
         return response;
 
     }
@@ -255,26 +276,32 @@ public class AccommodationEndpoint {
     public ConfirmReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest request){
         ConfirmReservationResponse response = new ConfirmReservationResponse();
 
-
-        Reservation reservation = request.getReservation();
+        System.out.println("Stigao za potvrdu " + request.getReservation().get(0).getRId());
+        Reservation reservation = request.getReservation().get(0);
         Reservation res = reservationService.findOne(reservation.getRId());
+
         if (res == null){
             response.setStatus(false);
         }else{
             res.setRealized(true);
+            reservationService.save(res);
             response.setStatus(true);
         }
         return response;
 
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteAccommodationRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteAccommodationsRequest")
     @ResponsePayload
     @Transactional
     public DeleteAccommodationsResponse deleteAccomodation(@RequestPayload DeleteAccommodationsRequest request){
+        System.out.println("Stigao za brisanje " + request.getAccommodation().get(0).getAccId());
         DeleteAccommodationsResponse response = new DeleteAccommodationsResponse();
-        Accommodation accommodation = request.getAccommodation().get(0);
-        accommodationService.delete(accommodation.getAccId());
+        Accommodation accommodation = accommodationService.findOne(request.getAccommodation().get(0).getAccId());
+        //reviewService.deleteByAccommodation(accommodation);
+        //reservationService.deleteByAccommodation(accommodation);
+        accommodationService.delete(accommodation);
+        response.setStatus(true);
         return  response;
     }
 
@@ -295,7 +322,7 @@ public class AccommodationEndpoint {
     @Transactional
     public SendMessageResponse sendMessage(@RequestPayload SendMessageRequest request){
         SendMessageResponse response = new SendMessageResponse();
-        Message message = request.getMessage();
+        Message message = request.getMessage().get(0);
         messageService.save(message);
         response.setSent(true);
         return response;

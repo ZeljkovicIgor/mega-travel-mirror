@@ -64,7 +64,13 @@ public class ObjectFactory {
     public AddServiceSoap createAddServiceSoap() {
         return new AddServiceSoap();
     }
-
+    /**
+     * Create an instance of {@link com.megatravel.mainbackend.ws.messages.SendReservationRequest }
+     *
+     */
+    public com.megatravel.mainbackend.ws.messages.SendReservationRequest createSendReservationRequest() {
+        return new com.megatravel.mainbackend.ws.messages.SendReservationRequest();
+    }
     /**
      * Create an instance of {@link CreateReservationRequest }
      *
@@ -216,6 +222,13 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link com.megatravel.mainbackend.ws.messages.GetAllReservationRequest }
+     *
+     */
+    public com.megatravel.mainbackend.ws.messages.GetAllReservationRequest createGetAllReservationRequest() {
+        return new com.megatravel.mainbackend.ws.messages.GetAllReservationRequest();
+    }
+    /**
      * Create an instance of {@link AddOneAccommodationRequest }
      *
      */
@@ -299,6 +312,14 @@ public class ObjectFactory {
         return new com.megatravel.mainbackend.ws.messages.GetAllReviewResponse();
     }
     /**
+     * Create an instance of {@link com.megatravel.mainbackend.ws.messages.SendReservationResponse }
+     *
+     */
+    public com.megatravel.mainbackend.ws.messages.SendReservationResponse createSendReservationResponse() {
+        return new com.megatravel.mainbackend.ws.messages.SendReservationResponse();
+    }
+
+    /**
      * Create an instance of {@link GetOneAccommodationResponse }
      *
      */
@@ -329,7 +350,13 @@ public class ObjectFactory {
     public GetAddServicesResponse createGetAddServicesResponse() {
         return new GetAddServicesResponse();
     }
-
+    /**
+     * Create an instance of {@link com.megatravel.mainbackend.ws.messages.GetAllReservationResponse }
+     *
+     */
+    public com.megatravel.mainbackend.ws.messages.GetAllReservationResponse createGetAllReservationResponse() {
+        return new com.megatravel.mainbackend.ws.messages.GetAllReservationResponse();
+    }
     /**
      * Create an instance of {@link AddOneAccommodationResponse }
      *
