@@ -66,8 +66,7 @@
 
 		   
 <div id="container">
-  <h3>Inverted Navbar</h3>
-  <p>An inverted navbar is black instead of gray.</p>
+ 
   <h3>Register Agent</h3>
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModalRegister">Register agent</button>
 	<br>
@@ -101,20 +100,138 @@
 
 	 <h3>Kreiranje sifrarnika</h3>
 	 <h4>Dodavanje tipa smestaja</h4>
-	<button class="btn btn-primary" data-toggle="modal" data-target="#inputModalAccType">Dodaj Tip Smestaja</button> 
-	 <h6>Tabela sa delete and update</h6>
-	  <h4>Dodavanje kategorije  smestaja</h4>
-	<button class="btn btn-primary" data-toggle="modal" data-target="#inputModalCategory">Dodaj Kategoriju Smestaja</button> 
+	<button class="btn btn-primary" data-toggle="modal" data-target="#inputModalAccType">Dodaj Tip Smestaja</button> 	<br>
 	
-	 <h4>Dodavanje kategorije  smestaja</h4>
-	<button class="btn btn-primary" data-toggle="modal" data-target="#inputModalAddService">Dodaj dodatnu uslugu</button> 
-	 
+	 <h6>Tabela sa delete and update</h6>
+	  	<br>
+	 <table id="formTableAccType" class="table table-striped table-bordered">
+			<tr>
+				<th>Name</th>
+				<th id="kolonaIzmeni">&nbsp;</th>
+				<th id="kolonaUklonitiTipSmestaja">&nbsp;</th>
+			</tr>
+			<tbody id="tableAccType" class="table table-striped ">
+			</tbody>
+	</table>
+	<br>
+	
+	
+	<h4>Dodavanje kategorije  smestaja</h4>
+	<button class="btn btn-primary" data-toggle="modal" data-target="#inputModalCategory">Dodaj Kategoriju Smestaja</button> 	<br>
+	<table id="formTableAccCategory" class="table table-striped table-bordered">
+			<tr>
+				<th>Name</th>
+				<th id="kolonaIzmeni">&nbsp;</th>
+				<th id="kolonaUklonitiTipSmestaja">&nbsp;</th>
+			</tr>
+			<tbody id="tableAccCategory" class="table table-striped ">
+			</tbody>
+	</table>
+	<br>
+	
+	<h4>Dodavanje Dodatne usluge smestaja</h4>
+	<button class="btn btn-primary" data-toggle="modal" data-target="#inputModaladdService">Dodaj dodatnu uslugu</button> 
+	<br>
+	<table id="formTableAddService" class="table table-striped table-bordered">
+			<tr>
+				<th>Name</th>
+				<th id="kolonaIzmeniAddService">&nbsp;</th>
+				<th id="kolonaUklonitiAddService">&nbsp;</th>
+			</tr>
+			<tbody id="tableAccService" class="table table-striped ">
+			
+			</tbody>
+	</table> 
 	 
 	 
 </div>
 
+<!-- UPDATE ACCTYPE modal window-->
+<div class="modal fade" id="inputModalAccTypeUPDATE" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Accommodation type UPDATE</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <form  data-toggle="validator" role="form" data-disable="true">
+		      <div class="modal-body">
+					<input type="hidden" name="idAccType" id="idAccType" />
+					
+				<div class="form-group ">
+					<label for="izmeniAccTypeName"  class="control-label">Type name:</label> <input type="text" class="form-control" name="izmeniAccTypeName" id="izmeniAccTypeNameId" placeholder="Enter accommodation Type Name" data-error="Unesite accTypeName" required/>
+					<div class="help-block with-errors"></div>
+				</div>
 
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="accTypeUpdate" >Update</button>
+		      </div>
+		     </div>
+		      </form>
+		     </div>
+		      </div>
+</div>
 
+<!-- UPDATE Category modal window-->
+<div class="modal fade" id="inputModalCategoryUPDATE" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Accommodation Caregory UPDATE</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <form  data-toggle="validator" role="form" data-disable="true">
+		      <div class="modal-body">
+					<input type="hidden" name="idCategory" id="idCategory" />
+					
+				<div class="form-group ">
+					<label for="category"  class="control-label">Type name:</label> <input type="text" class="form-control" name="izmeniAccCategory" id="izmeniAccCategory" placeholder="Enter accommodation Category" data-error="Unesite accTypeName" required/>
+					<div class="help-block with-errors"></div>
+				</div>
+
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="accCategoryUpdate" >Update</button>
+		      </div>
+		     </div>
+		      </form>
+		     </div>
+		      </div>
+</div>
+
+<!-- UPDATE Service modal window-->
+<div class="modal fade" id="inputModalServiceUPDATE" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Accommodation Service UPDATE</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <form  data-toggle="validator" role="form" data-disable="true">
+		      <div class="modal-body">
+					<input type="hidden" name="idService" id="idService" />
+					
+				<div class="form-group ">
+					<label for="category"  class="control-label">Service name:</label> <input type="text" class="form-control" name="izmeniAccService" id="izmeniAccService" placeholder="Enter accommodation Service" data-error="Unesite accTypeName" required/>
+					<div class="help-block with-errors"></div>
+				</div>
+
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="accServiceUpdate" >Update</button>
+		      </div>
+		     </div>
+		      </form>
+		     </div>
+		      </div>
+</div>
 <!-- AccType modal window -->
 <div class="modal fade" id="inputModalAccType" tabindex="-1" role="dialog">
 		  <div class="modal-dialog" role="document">
@@ -199,7 +316,7 @@
 		     </div>
 		      </form>
 		     </div>
-		      </div>
+		</div>
 </div>
 
 
