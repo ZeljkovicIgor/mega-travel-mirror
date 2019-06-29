@@ -23,6 +23,7 @@ public interface ReservationService {
 	long betweenDates(Date firstDate, Date secondDate);
 	boolean checkReservation(List<AccPrice> accPrice,Date startDate, Date endDate);
 	boolean checkUnavailable(List<AccUnavailable> allUnavailable,Date startDate, Date endDate);
+	float getAccPrice(List<AccPrice> accPrice,Date startDate, Date endDate) ;
 	List<Reservation> getAgentReservations(Long id);
 	void deleteByAccommodation(Accommodation accommodation);
 

@@ -136,6 +136,17 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
+	public float getAccPrice(List<AccPrice> accPrice, Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		for(AccPrice a: accPrice) {
+			if(startDate.after(a.getPriceStartDate()) && endDate.before(a.getPriceEndDate())) {
+				return a.getPriceValue();
+			}
+		}
+		return 0;
+	}
+
+	@Override
 	public void deleteByAccommodation(Accommodation accommodation) {
 		reservationRepository.deleteAllByRAccommodation(accommodation);
 	}

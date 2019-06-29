@@ -51,18 +51,24 @@ public class ReservationController {
 		List<AccUnavailable> allUnavailable =accUnavailableService.findAll();
 		List<AccPrice> accPrice = toReservate.getAccPricePlan();
 		
-	
 		if(reservationService.checkReservation(accPrice,newReservation.getRStartDate(),newReservation.getREndDate())
 				&& !reservationService.checkUnavailable(allUnavailable,newReservation.getRStartDate(),newReservation.getREndDate())) {
 			newReservation.setRDate(new Date());
 			newReservation.setCancelled(false);
 			newReservation.setREndUser(logged);
+			//kolkio je dana izmedju
+			int days=(int) reservationService.betweenDates(newReservation.getRStartDate(), newReservation.getREndDate());
+			float priceAcc =reservationService.getAccPrice(accPrice,newReservation.getRStartDate(),newReservation.getREndDate());
+	
+			newReservation.setRPeople(newReservation.getRPeople());
+			newReservation.setRPrice(priceAcc*days);
+			
 			reservationService.save(newReservation);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>(newReservation,HttpStatus.OK);
 		}
 
-		
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		System.out.println("Nesto ne valjea");
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/deleteReservation/{id}", method=RequestMethod.DELETE)
@@ -96,7 +102,7 @@ public class ReservationController {
 		//oduzmi od accCancelPeriod i proveri da li sme
 		//Date resDate
 		//if(acc.getAccCancelPeriod())
-		int days = (int) betweenDates(now,resToCancel.getRStartDate());
+		int days = (int)reservationService.betweenDates(now,resToCancel.getRStartDate());
 		
 		if(resToCancel.getREndUser().getUserId()==logged.getUserId() && now.before(resToCancel.getRStartDate()) && days>accCancelPeriod ) {
 			resToCancel.setCancelled(true);
@@ -107,7 +113,7 @@ public class ReservationController {
 		
 	}
 	
-	public long betweenDates(Date firstDate, Date secondDate) throws IOException
+	/*public long betweenDates(Date firstDate, Date secondDate) throws IOException
 	{
 	    return ChronoUnit.DAYS.between(firstDate.toInstant(), secondDate.toInstant());
 	}
@@ -121,14 +127,25 @@ public class ReservationController {
 		}
 		return false;
 	}
+	public float getAccPrice(List<AccPrice> accPrice,Date startDate, Date endDate) {
+		
+		for(AccPrice a: accPrice) {
+			if(startDate.after(a.getPriceStartDate()) && endDate.before(a.getPriceEndDate())) {
+				return a.getPriceValue();
+			}
+		}
+	
+		return 0;
+	}
 	
 	public boolean checkUnavailable(List<AccUnavailable> allUnavailable,Date startDate, Date endDate) {
+		
 		for(AccUnavailable a: allUnavailable) {
 			if(startDate.after(a.getUnavailableStart()) && endDate.before(a.getUnavailableEnd())) {
 				return true;
 			}
 		}
 		return false;
-	}
+	}*/
 	
 }
