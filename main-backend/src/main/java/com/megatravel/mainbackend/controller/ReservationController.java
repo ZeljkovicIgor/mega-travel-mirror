@@ -52,8 +52,8 @@ public class ReservationController {
 		List<AccPrice> accPrice = toReservate.getAccPricePlan();
 		
 	
-		if(checkReservation(accPrice,newReservation.getRStartDate(),newReservation.getREndDate())
-				&& !checkUnavailable(allUnavailable,newReservation.getRStartDate(),newReservation.getREndDate())) {
+		if(reservationService.checkReservation(accPrice,newReservation.getRStartDate(),newReservation.getREndDate())
+				&& !reservationService.checkUnavailable(allUnavailable,newReservation.getRStartDate(),newReservation.getREndDate())) {
 			newReservation.setRDate(new Date());
 			newReservation.setCancelled(false);
 			newReservation.setREndUser(logged);

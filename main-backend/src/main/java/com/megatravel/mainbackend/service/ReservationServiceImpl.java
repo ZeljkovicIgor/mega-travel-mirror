@@ -1,10 +1,14 @@
 package com.megatravel.mainbackend.service;
 
+import java.io.IOException;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.megatravel.mainbackend.dto.ReservationDto;
+import com.megatravel.mainbackend.model.AccPrice;
+import com.megatravel.mainbackend.model.AccUnavailable;
 import com.megatravel.mainbackend.model.Reservation;
 import com.megatravel.mainbackend.model.User;
 
@@ -92,5 +96,29 @@ public class ReservationServiceImpl implements ReservationService {
 		return retVal;
 	}
 	
+	@Override
+	public long betweenDates(Date firstDate, Date secondDate)
+	{
+	    return ChronoUnit.DAYS.between(firstDate.toInstant(), secondDate.toInstant());
+	}
 	
+	@Override
+	public boolean checkReservation(List<AccPrice> accPrice,Date startDate, Date endDate) {
+	
+		for(AccPrice a: accPrice) {
+			if(startDate.after(a.getPriceStartDate()) && endDate.before(a.getPriceEndDate())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	@Override
+	public boolean checkUnavailable(List<AccUnavailable> allUnavailable,Date startDate, Date endDate) {
+		for(AccUnavailable a: allUnavailable) {
+			if(startDate.after(a.getUnavailableStart()) && endDate.before(a.getUnavailableEnd())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
