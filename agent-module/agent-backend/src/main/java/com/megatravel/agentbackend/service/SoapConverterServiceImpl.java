@@ -2,6 +2,7 @@ package com.megatravel.agentbackend.service;
 
 import com.megatravel.agentbackend.model.*;
 import com.megatravel.agentbackend.ws.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -9,6 +10,21 @@ import java.util.List;
 
 @Service
 public class SoapConverterServiceImpl implements SoapConverterService{
+
+
+    @Autowired
+    AddServiceService addServiceService;
+    @Autowired
+    AccTypeService accTypeService;
+    @Autowired
+    CategoryService categoryService;
+    @Autowired
+    AccommodationService accommodationService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    ReservationService reservationService;
+
     @Override
     public User userConverter(UserSoap userSoap) {
         User user = new User();
@@ -30,7 +46,7 @@ public class SoapConverterServiceImpl implements SoapConverterService{
     @Override
     public UserSoap userConverter(User user) {
         UserSoap userSoap = new UserSoap();
-        userSoap.setUserId(user.getUserId());
+        userSoap.setUserId(user.getUserDbId());
         userSoap.setUserUsername(user.getUserUsername());
         userSoap.setUserEmail(user.getUserEmail());
         userSoap.setUserBusinessName(user.getUserBusinessName());
@@ -160,9 +176,9 @@ public class SoapConverterServiceImpl implements SoapConverterService{
     public Message messageConverter(MessageSoap messageSoap) {
         Message message = new Message();
         message.setMessageDbId(messageSoap.getMessageId());
-        message.setMessageReservation(reservationConverter(messageSoap.getMessageReservation()));
-        message.setMessageSender(userConverter(messageSoap.getMessageSender()));
-        message.setMessageReciever(userConverter(messageSoap.getMessageReciever()));
+        message.setMessageReservation(reservationService.getOneByDbId(messageSoap.getMessageReservation().getRId()));
+        message.setMessageSender(userService.getOneByDbId(messageSoap.getMessageSender().getUserId()));
+        message.setMessageReciever(userService.getOneByDbId(messageSoap.getMessageReciever().getUserId()));
         message.setMessageDate(messageSoap.getMessageDate());
         message.setMessageContent(messageSoap.getMessageContent());
         message.setStatus(messageStatusConverter(messageSoap.getStatus()));
@@ -187,8 +203,8 @@ public class SoapConverterServiceImpl implements SoapConverterService{
     public Reservation reservationConverter(ReservationSoap reservationSoap) {
         Reservation reservation = new Reservation();
         reservation.setrDbId(reservationSoap.getRId());
-        reservation.setREndUser(userConverter(reservationSoap.getREndUser()));
-        reservation.setRAccommodation(accommodationConverter(reservationSoap.getRAccommodation()));
+        reservation.setREndUser(userService.getOneByDbId(reservationSoap.getREndUser().getUserId()));
+        reservation.setRAccommodation(accommodationService.getOneByDbId(reservationSoap.getRAccommodation().getAccId()));
         reservation.setRPrice(reservationSoap.getRPrice());
         reservation.setRealized(reservationSoap.isRealized());
         reservation.setCancelled(reservationSoap.isCancelled());
@@ -202,7 +218,7 @@ public class SoapConverterServiceImpl implements SoapConverterService{
     @Override
     public ReservationSoap reservationConverter(Reservation reservation) {
         ReservationSoap reservationSoap = new ReservationSoap();
-        reservationSoap.setRId(reservation.getRId());
+        reservationSoap.setRId(reservation.getrDbId());
         reservationSoap.setREndUser(userConverter(reservation.getREndUser()));
         reservationSoap.setRAccommodation(accommodationConverter(reservation.getRAccommodation()));
         reservationSoap.setRPrice(reservation.getRPrice());
@@ -219,11 +235,11 @@ public class SoapConverterServiceImpl implements SoapConverterService{
     public Review reviewConverter(ReviewSoap reviewSoap) {
         Review review = new Review();
         review.setReviewDbId(reviewSoap.getReviewId());
-        review.setReviewAccommodation(accommodationConverter(reviewSoap.getReviewAccommodation()));
+        review.setReviewAccommodation(accommodationService.getOneByDbId(reviewSoap.getReviewAccommodation().getAccId()));
         review.setAccDate(reviewSoap.getAccDate());
         review.setCommentApproved(reviewSoap.isCommentApproved());
         review.setReviewComment(reviewSoap.getReviewComment());
-        review.setReviewEndUser(userConverter(reviewSoap.getReviewEndUser()));
+        review.setReviewEndUser(userService.getOneByDbId(reviewSoap.getReviewEndUser().getUserId()));
         review.setReviewGrade(reviewSoap.getReviewGrade());
         return review;
     }
@@ -299,6 +315,9 @@ public class SoapConverterServiceImpl implements SoapConverterService{
         accommodation.setAccCancelPeriod(accommodationSoap.getAccCancelPeriod());
         accommodation.setAccDate(accommodationSoap.getAccDate());
 
+        //Agent
+        accommodation.setAccAgent(userService.getOneByDbId(accommodationSoap.getAccAgent().getUserId()));
+
         //Lokacija
         AccLocation accLocation = new AccLocation();
         accLocation.setLocDbId(accommodationSoap.getAccLocation().getLocId());
@@ -313,23 +332,22 @@ public class SoapConverterServiceImpl implements SoapConverterService{
         List<AddServiceSoap> addServiceSoapList = accommodationSoap.getAccServices();
         AddService addService = null;
         for (AddServiceSoap addServiceSoap : addServiceSoapList){
-            addService = new AddService();
-            addService.setServiceDbId(addServiceSoap.getServiceId());
-            addService.setServiceName(addServiceSoap.getServiceName());
+            addService = addServiceService.getOneByDbId(addServiceSoap.getServiceId());
             accommodation.getAccServices().add(addService);
         }
 
 
         //Kategorija
-        Category category = new Category();
-        category.setCategoryDbId(accommodationSoap.getAccCategory().getCategoryId());
-        category.setCategoryName(accommodationSoap.getAccCategory().getCategoryName());
+        Category category = categoryService.getOneByDbId(accommodationSoap.getAccCategory().getCategoryId());
+        //category.setCategoryDbId(accommodationSoap.getAccCategory().getCategoryId());
+        //category.setCategoryName(accommodationSoap.getAccCategory().getCategoryName());
         accommodation.setAccCategory(category);
 
         //Tip
-        AccType accType = new AccType();
-        accType.setAccTypeDbId(accommodationSoap.getAccType().getAccTypeId());
-        accType.setAccTypeName(accommodationSoap.getAccType().getAccTypeName());
+        //AccType accType = new AccType();
+        //accType.setAccTypeDbId(accommodationSoap.getAccType().getAccTypeId());
+        //accType.setAccTypeName(accommodationSoap.getAccType().getAccTypeName());
+        AccType accType = accTypeService.getOneByDbId(accommodationSoap.getAccType().getAccTypeId());
         accommodation.setAccType(accType);
 
         //Plan cena
@@ -346,13 +364,16 @@ public class SoapConverterServiceImpl implements SoapConverterService{
         //Zauzetost
 
         AccUnavailable accUnavailable;
-        for (AccUnavailableSoap accUnavailableSoap : accommodationSoap.getAccUnavailable()) {
-            accUnavailable = new AccUnavailable();
-            accUnavailable.setUnavDbId(accUnavailableSoap.getUnavId());
-            accUnavailable.setUnavailableStart(accUnavailable.getUnavailableStart());
-            accUnavailable.setUnavailableEnd(accUnavailable.getUnavailableEnd());
-            accommodation.getAccUnavailable().add(accUnavailable);
+        if (accommodationSoap.getAccUnavailable() != null){
+            for (AccUnavailableSoap accUnavailableSoap : accommodationSoap.getAccUnavailable()) {
+                accUnavailable = new AccUnavailable();
+                accUnavailable.setUnavDbId(accUnavailableSoap.getUnavId());
+                accUnavailable.setUnavailableStart(accUnavailableSoap.getUnavailableStart());
+                accUnavailable.setUnavailableEnd(accUnavailableSoap.getUnavailableEnd());
+                accommodation.getAccUnavailable().add(accUnavailable);
+            }
         }
+
         return accommodation;
     }
 
@@ -366,6 +387,11 @@ public class SoapConverterServiceImpl implements SoapConverterService{
         accSoap.setAccCapacity(accommodation.getAccCapacity());
         accSoap.setAccCancelPeriod(accommodation.getAccCancelPeriod());
         accSoap.setAccDate(accommodation.getAccDate());
+
+        //user
+
+        UserSoap userSoap = userConverter(accommodation.getAccAgent());
+        accSoap.setAccAgent(userSoap);
 
         //Lokacija
         AccLocationSoap accLocationSoap = new AccLocationSoap();

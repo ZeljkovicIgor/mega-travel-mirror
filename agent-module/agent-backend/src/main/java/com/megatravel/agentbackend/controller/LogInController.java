@@ -26,16 +26,19 @@ public class LogInController {
 
     @PostMapping("/login")
     public ResponseEntity<User> logIn(@RequestBody UserDto userDto, HttpServletRequest request){
-        System.out.println("Stigao" + userDto.getUserEmail());
+        System.out.println("Stigao" + userDto.getUserUsername());
 
 
-        soapService.logInSync(userDto.getUserUsername(), userDto.getUserPassword());
+        if (!soapService.logInSync(userDto.getUserUsername(), userDto.getUserPassword()))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
         User agent = userService.getOneByUsername(userDto.getUserUsername());
 
         if (agent == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else{
             agent.setUserPassword("");
+            request.getSession().setAttribute("agent", agent);
             return new ResponseEntity<>(agent, HttpStatus.OK);
         }
 
@@ -44,7 +47,7 @@ public class LogInController {
     @PostMapping("/logout")
     public ResponseEntity<?> logOut(HttpServletRequest request){
         request.getSession().invalidate();
-        //userService.logOut();
+        userService.logOut();
 
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

@@ -1,6 +1,8 @@
 
 package com.megatravel.agentbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,6 +47,8 @@ import javax.xml.bind.annotation.XmlType;
     "yCoordinate"
 })
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class AccLocation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

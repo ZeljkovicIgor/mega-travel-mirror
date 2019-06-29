@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 
 @Repository
 public interface AddServiceRepository extends JpaRepository<AddService, Long> {
+    AddService findByServiceDbId(Long serviceDbId);
 }

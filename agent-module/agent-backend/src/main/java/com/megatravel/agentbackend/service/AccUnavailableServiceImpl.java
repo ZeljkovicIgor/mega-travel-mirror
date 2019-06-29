@@ -21,7 +21,7 @@ public class AccUnavailableServiceImpl implements AccUnavailableService {
 
     @Override
     public AccUnavailable getOneById(Long id) {
-        return accUnavailableRepository.getOne(id);
+        return accUnavailableRepository.findById(id).get();
     }
 
     @Override

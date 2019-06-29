@@ -10,6 +10,7 @@ public interface UserService {
 
     List<User> getAll();
     User getOneById(Long id);
+    User getOneByDbId(Long id);
     User getOneByUsername(String username);
     User addOne(User user);
     User editOne(User user);
@@ -21,6 +22,7 @@ public interface UserService {
     List<User> getAllUsers();
     User addUser(User user);
     User logInUser(UserDto userDto);
-    User logOut();
+    void logOut();
+    void deleteAll();
 
 }

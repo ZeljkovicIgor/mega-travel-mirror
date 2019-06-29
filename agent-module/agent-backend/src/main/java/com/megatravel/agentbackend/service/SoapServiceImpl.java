@@ -1,16 +1,19 @@
 package com.megatravel.agentbackend.service;
 
 import com.megatravel.agentbackend.client.MegaTravelClient;
+import com.megatravel.agentbackend.dto.ReservationDto;
 import com.megatravel.agentbackend.model.*;
 import com.megatravel.agentbackend.ws.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class SoapServiceImpl implements SoapService {
 
     @Autowired
@@ -25,16 +28,40 @@ public class SoapServiceImpl implements SoapService {
     AccTypeService accTypeService;
     @Autowired
     UserService userService;
+    @Autowired
+    AccommodationService accommodationService;
+    @Autowired
+    ReservationService reservationService;
+    @Autowired
+    MessageService messageService;
+    @Autowired
+    ReviewService reviewService;
+
 
     @Override
-    public void logInSync(String username, String password) {
+    public boolean logInSync(String username, String password) {
         CheckAgentResponse response = client.getAgent(username, password);
-        List<AccommodationSoap> accSoapList = response.getAccommodation();
+
         User agent = converterService.userConverter(response.getAgent());
-        userService.addOne(agent);
-        //getAccTypes(agent);
+        if (agent.getUserDbId() == 0)
+            return false;
+        //userService.addOne(agent);
+        getUsers(agent);
+        getAccTypes(agent);
         getAddServices(agent);
-        //getCategories(agent);
+        getCategories(agent);
+        List<AccommodationSoap> accommodationList = response.getAccommodation();
+        Accommodation acc;
+        for (AccommodationSoap accommodationSoap : accommodationList) {
+                acc = new Accommodation();
+                acc = converterService.accommodationConverter(accommodationSoap);
+                accommodationService.addOne(acc);
+        }
+        //getAllAccommodations(agent);
+        getAllReservations(agent);
+        getAllReviews(agent);
+        getAllMessages(agent);
+
         //predefinisano
 
         //tipovi smestaja
@@ -56,10 +83,19 @@ public class SoapServiceImpl implements SoapService {
         //List<MessageSoap> messageSoapList = client.getAllMessages(agent).getMessage();
 
         //komentari
+        return true;
     }
 
     @Override
     public List<User> getUsers(User agent) {
+        GetAllUserResponse response = client.getAllUsers(agent);
+        List<UserSoap> userSoapList = response.getUser();
+        User user;
+        for (UserSoap userSoap : userSoapList) {
+            user = new User();
+            user = converterService.userConverter(userSoap);
+            userService.addOne(user);
+        }
         return null;
     }
 
@@ -115,13 +151,68 @@ public class SoapServiceImpl implements SoapService {
     }
 
     @Override
-    public Accommodation sendOneAccommodation(Accommodation acc){
+    public List<Accommodation> getAllAccommodations(User agent) {
+        GetAllAccommodationResponse response = client.getAllAccommodations(agent);
+        List<AccommodationSoap> soapList = response.getAccommodation();
+        Accommodation acc;
+        for (AccommodationSoap accommodationSoap : soapList) {
+            acc = new Accommodation();
+            acc = converterService.accommodationConverter(accommodationSoap);
+            accommodationService.addOne(acc);
+        }
+        return accommodationService.getAll();
+    }
+
+    @Override
+    public List<Reservation> getAllReservations(User agent) {
+        GetAllReservationResponse response = client.getAllReservations(agent);
+        List<ReservationSoap> reservationSoapList = response.getReservation();
+        Reservation reservation;
+        for (ReservationSoap reservationSoap : reservationSoapList) {
+            reservation = new Reservation();
+            reservation = converterService.reservationConverter(reservationSoap);
+            reservationService.addOne(reservation);
+        }
+        return reservationService.getAll();
+    }
+
+    @Override
+    public List<Message> getAllMessages(User agent) {
+        GetMessageResponse response = client.getAllMessages(agent);
+        List<MessageSoap> messageSoapList = response.getMessage();
+        Message message;
+        for (MessageSoap messageSoap : messageSoapList) {
+            message = new Message();
+            message = converterService.messageConverter(messageSoap);
+            messageService.addOne(message);
+        }
+        return messageService.getAll();
+    }
+
+    @Override
+    public List<Review> getAllReviews(User agent) {
+        GetAllReviewResponse response = client.getAllReviews(agent);
+        List<ReviewSoap> reviewSoapList = response.getReview();
+        Review review;
+        for (ReviewSoap reviewSoap : reviewSoapList) {
+            review = converterService.reviewConverter(reviewSoap);
+            reviewService.addOne(review);
+        }
+        return reviewService.getAll();
+
+    }
+
+    @Override
+    public Accommodation createOneAccommodation(Accommodation acc){
         AccommodationSoap accSoap = new AccommodationSoap();
         accSoap.setAccName(acc.getAccName());
         accSoap.setAccDescription(acc.getAccDescription());
         accSoap.setAccCapacity(acc.getAccCapacity());
         accSoap.setAccCancelPeriod(acc.getAccCancelPeriod());
         accSoap.setAccDate(acc.getAccDate());
+
+        //Agent
+        accSoap.setAccAgent(converterService.userConverter(acc.getAccAgent()));
 
         //Lokacija
         AccLocationSoap accLocationSoap = new AccLocationSoap();
@@ -153,7 +244,7 @@ public class SoapServiceImpl implements SoapService {
         AccTypeSoap accTypeSoap = new AccTypeSoap();
         accTypeSoap.setAccTypeId(acc.getAccType().getAccTypeDbId());
         accTypeSoap.setAccTypeName(acc.getAccType().getAccTypeName());
-        accSoap.setAccCategory(categorySoap);
+        accSoap.setAccType(accTypeSoap);
 
         //Plan cena
         AccPriceSoap accPriceSoap = null;
@@ -189,13 +280,46 @@ public class SoapServiceImpl implements SoapService {
     }
 
     @Override
-    public Reservation sendReservation(Reservation reservation) {
+    public Reservation createReservation(Reservation reservation) {
         Reservation retVal = new Reservation();
 
+        ReservationSoap reservationSoap = converterService.reservationConverter(reservation);
+        ReservationSoap test = new ReservationSoap();
+        SendReservationResponse response = client.sendReservation(reservationSoap);
         //prilikom salje novu rezervaciju agenta na back
         //moguce da je termin vec rezervisan na glavnom backu pa rezervacija nece biti moguca
+        System.out.println(response.getReservationId());
+        if(response.getReservationId() != 0){
+            reservation.setrDbId(response.getReservationId());
+            return reservation;
 
+        }else
+            return null;
+    }
 
-        return retVal;
+    @Override
+    public boolean confirmReservation(Reservation reservation) {
+        ReservationSoap reservationSoap = converterService.reservationConverter(reservation);
+        ConfirmReservationResponse response = client.confirmReservation(reservationSoap);
+        return response.isStatus();
+    }
+
+    @Override
+    public Message sendMessage(Message message) {
+
+        MessageSoap messageSoap = converterService.messageConverter(message);
+
+        SendMessageResponse response = client.sendMessage(messageSoap);
+        return null;
+    }
+
+    @Override
+    public boolean deleteAccommodation(Accommodation accommodation) {
+        AccommodationSoap accommodationSoap = converterService.accommodationConverter(accommodation);
+        List<AccommodationSoap> soapList = new ArrayList<>();
+        soapList.add(accommodationSoap);
+
+        DeleteAccommodationsResponse response = client.deleteAccommodations(soapList);
+        return response.isStatus();
     }
 }

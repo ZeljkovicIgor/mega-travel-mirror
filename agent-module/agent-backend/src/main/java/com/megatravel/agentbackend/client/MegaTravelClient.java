@@ -18,6 +18,7 @@ public class MegaTravelClient extends WebServiceGatewaySupport {
     public GetOneAccommodationResponse getOneAccomodation(GetOneAccommodationRequest request){
         return (GetOneAccommodationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
+
     public DeleteAccommodationsResponse deleteAccommodations(List<AccommodationSoap> accommodationSoapList){
         //Salje listu smestaja za brisanje, u vecini slucajeva ce to biti lista sa jednim elementom jer se radi sinhronizacija
         //posle svakog brisanja.
@@ -25,10 +26,17 @@ public class MegaTravelClient extends WebServiceGatewaySupport {
         request.getAccommodation().addAll(accommodationSoapList);
         return (DeleteAccommodationsResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
+
     public EditOneAccommodationResponse editOneAccommodation(AccommodationSoap accommodationSoap){
         EditOneAccommodationRequest request = new EditOneAccommodationRequest();
         request.getAccommodation().add(accommodationSoap);
         return (EditOneAccommodationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+    }
+    //Accommodations
+    public GetAllAccommodationResponse getAllAccommodations(User agent){
+        GetAllAccommodationRequest request = new GetAllAccommodationRequest();
+        request.setUserId(agent.getUserDbId());
+        return (GetAllAccommodationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
     //Messages
     public GetMessageResponse getAllMessages(User agent){
@@ -38,7 +46,7 @@ public class MegaTravelClient extends WebServiceGatewaySupport {
     }
     public SendMessageResponse sendMessage(MessageSoap messageSoap){
         SendMessageRequest request = new SendMessageRequest();
-        request.setMessage(messageSoap);
+        request.getMessage().add(messageSoap);
         return (SendMessageResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
 
@@ -47,16 +55,27 @@ public class MegaTravelClient extends WebServiceGatewaySupport {
 
     public CreateReservationResponse createReservation(ReservationSoap reservationSoap){
         CreateReservationRequest request = new CreateReservationRequest();
-        request.setReservation(reservationSoap);
+        request.getReservation().add(reservationSoap);
         return (CreateReservationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+    }
+
+
+    public SendReservationResponse sendReservation(ReservationSoap reservationSoap){
+        SendReservationRequest request = new SendReservationRequest();
+        request.getReservation().add(reservationSoap);
+        return (SendReservationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
 
     public ConfirmReservationResponse confirmReservation(ReservationSoap reservationSoap){
         ConfirmReservationRequest request = new ConfirmReservationRequest();
-        request.setReservation(reservationSoap);
+        request.getReservation().add(reservationSoap);
         return (ConfirmReservationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
-
+    public GetAllReservationResponse getAllReservations(User agent){
+        GetAllReservationRequest request = new GetAllReservationRequest();
+        request.setUserId(agent.getUserDbId());
+        return (GetAllReservationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+    }
     //Accomodation type
 
     public GetAccTypeResponse getAllAccommodationTypes(User agent){
@@ -70,6 +89,12 @@ public class MegaTravelClient extends WebServiceGatewaySupport {
         GetCategoryRequest request = new GetCategoryRequest();
         request.setAgentId(agent.getUserDbId());
         return (GetCategoryResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+    }
+    //Reviews
+    public GetAllReviewResponse getAllReviews(User agent){
+        GetAllReviewRequest request = new GetAllReviewRequest();
+        request.setUserId(agent.getUserDbId());
+        return (GetAllReviewResponse) getWebServiceTemplate().marshalSendAndReceive(request);
     }
 
     //Adtional services

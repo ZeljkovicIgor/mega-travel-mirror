@@ -20,7 +20,12 @@ public class AccTypeServiceImpl implements AccTypeService {
 
     @Override
     public AccType getOneById(Long id) {
-        return accTypeRepository.getOne(id);
+        return accTypeRepository.findById(id).get();
+    }
+
+    @Override
+    public AccType getOneByDbId(Long id) {
+        return accTypeRepository.findByAccTypeDbId(id);
     }
 
     @Override
@@ -46,5 +51,10 @@ public class AccTypeServiceImpl implements AccTypeService {
     public boolean deleteById(Long id) {
         accTypeRepository.deleteById(id);
         return (accTypeRepository.existsById(id)?true:false);
+    }
+
+    @Override
+    public void deleteAll() {
+        accTypeRepository.deleteAll();
     }
 }

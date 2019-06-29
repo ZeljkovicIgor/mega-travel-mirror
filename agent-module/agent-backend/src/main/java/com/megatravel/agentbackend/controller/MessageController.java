@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,22 +25,22 @@ public class MessageController {
     HttpSession httpSession;
 
     @GetMapping
-    public ResponseEntity<List<Message>> getAll(){
-        /*
-        User agent = (User) httpSession.getAttribute("agent");
+    public ResponseEntity<List<Message>> getAll(HttpServletRequest request){
+
+        User agent = (User) request.getSession().getAttribute("agent");
         if (agent == null){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        */
+
 
         return new ResponseEntity<>(messageService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Message> getOne(@PathVariable(value = "id") long id){
-        User agent = (User) httpSession.getAttribute("agent");
-        //if (agent == null)
-          //  return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<Message> getOne(@PathVariable(value = "id") long id, HttpServletRequest request){
+        User agent = (User) request.getSession().getAttribute("agent");
+        if (agent == null)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         Message message = messageService.getOneById(id);
 
@@ -47,10 +48,10 @@ public class MessageController {
     }
 
     @GetMapping(value = "/reservation/{id}")
-    public ResponseEntity<List<Message>> getReservationMessages(@PathVariable(value = "id") long id){
-        User agent = (User) httpSession.getAttribute("agent");
-        //if (agent == null)
-        //  return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<List<Message>> getReservationMessages(@PathVariable(value = "id") long id, HttpServletRequest request){
+        User agent = (User) request.getSession().getAttribute("agent");
+        if (agent == null)
+          return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         List<Message> messageList = new ArrayList<>();
         messageList.addAll(messageService.getReservationMessagesById(id));
 
@@ -58,8 +59,13 @@ public class MessageController {
     }
 
     @PostMapping(value = "/send")
-    public ResponseEntity<MessageDto> sendMessage(@RequestBody MessageDto messageDto){
-        MessageDto message = messageService.sendMessage(messageDto);
+    public ResponseEntity<MessageDto> sendMessage(@RequestBody MessageDto messageDto, HttpServletRequest request){
+        User agent = (User) request.getSession().getAttribute("agent");
+
+        if (agent == null)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        MessageDto message = messageService.sendMessage(messageDto, agent);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

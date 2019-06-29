@@ -9,6 +9,7 @@ import java.util.List;
 public interface AccommodationService {
 
     Accommodation getOneById(Long id);
+    Accommodation getOneByDbId(Long id);
     List<Accommodation> getAll();
     Accommodation addOne(Accommodation accommodation);
     Accommodation addNewAccomodation(Accommodation accommodation);
@@ -16,4 +17,5 @@ public interface AccommodationService {
     boolean deleteOne(Accommodation accommodation);
     boolean deleteAccById(Long id);
     Accommodation convertFromDto(AccommodationDto accDto);
+    void deleteAll();
 }

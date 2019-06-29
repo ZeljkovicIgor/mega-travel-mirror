@@ -7,6 +7,8 @@ import com.megatravel.agentbackend.ws.GetAllReviewRequest;
 import com.megatravel.agentbackend.ws.GetAllReviewResponse;
 import com.megatravel.agentbackend.ws.GetAllUserRequest;
 import com.megatravel.agentbackend.ws.GetAllUserResponse;
+import com.megatravel.agentbackend.ws.SendReservationRequest;
+import com.megatravel.agentbackend.ws.SendReservationResponse;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -159,7 +161,17 @@ public interface MegaTravelPort {
     public GetCategoryResponse getCategory(
         @WebParam(name = "getCategoryRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "getCategoryRequest")
                 GetCategoryRequest getCategoryRequest);
-
+    /**
+     *
+     * @param sendReservationRequest
+     * @return
+     *     returns com.megatravel.agentbackend.ws.test.SendReservationResponse
+     */
+    @WebMethod
+    @WebResult(name = "sendReservationResponse", targetNamespace = "http://megatravel.com/booking/ws", partName = "sendReservationResponse")
+    public SendReservationResponse sendReservation(
+            @WebParam(name = "sendReservationRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "sendReservationRequest")
+                    SendReservationRequest sendReservationRequest);
     /**
      *
      * @param createReservationRequest
@@ -171,6 +183,18 @@ public interface MegaTravelPort {
     public CreateReservationResponse createReservation(
             @WebParam(name = "createReservationRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "createReservationRequest")
                     CreateReservationRequest createReservationRequest);
+
+    /**
+     *
+     * @param getAllReservationRequest
+     * @return
+     *     returns com.megatravel.agentbackend.ws.message.GetAllReservationResponse
+     */
+    @WebMethod
+    @WebResult(name = "getAllReservationResponse", targetNamespace = "http://megatravel.com/booking/ws", partName = "getAllReservationResponse")
+    public GetAllReservationResponse getAllReservation(
+            @WebParam(name = "getAllReservationRequest", targetNamespace = "http://megatravel.com/booking/ws", partName = "getAllReservationRequest")
+                    GetAllReservationRequest getAllReservationRequest);
 
     /**
      * 

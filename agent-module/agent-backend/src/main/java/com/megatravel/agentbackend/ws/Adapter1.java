@@ -17,4 +17,5 @@ public class Adapter1
         return (com.megatravel.agentbackend.util.MyDatatypeConverter.printDate(value));
     }
 
+
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccTypeRepository extends JpaRepository<AccType, Long> {
+    AccType findByAccTypeDbId (Long accTypeDbId);
 }

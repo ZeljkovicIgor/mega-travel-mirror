@@ -83,7 +83,7 @@ public class AccommodationController {
         acc.setAccServices(addServiceList);
         Accommodation added = accommodationService.addOne(acc);
         try {
-            Accommodation fromWS = soapService.sendOneAccommodation(added);
+            Accommodation fromWS = soapService.createOneAccommodation(added);
             acc.setAccDbId(fromWS.getAccDbId());
             added = accommodationService.addOne(added);
         }catch (Exception e){

@@ -10,11 +10,13 @@ import com.megatravel.agentbackend.ws.AccLocationSoap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class AccommodationServiceImpl implements AccommodationService {
 
     @Autowired
@@ -33,12 +35,22 @@ public class AccommodationServiceImpl implements AccommodationService {
     AddServiceService addServiceService;
     @Autowired
     UserService userService;
+    @Autowired
+    SoapService soapService;
+    @Autowired
+    ReservationService reservationService;
 
 
     @Override
     public Accommodation getOneById(Long id) {
 
-        return accRepository.getOne(id);
+
+        return accRepository.findById(id).get();
+    }
+
+    @Override
+    public Accommodation getOneByDbId(Long id) {
+        return accRepository.findByAccDbId(id);
     }
 
     @Override
@@ -72,7 +84,11 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public boolean deleteAccById(Long id) {
-        accRepository.deleteById(id);
+        Accommodation acc = getOneById(id);
+        if (soapService.deleteAccommodation(acc)) {
+            reservationService.deleteByAccommodation(acc);
+            accRepository.delete(acc);
+        }
         if (accRepository.existsById(id))
             return false;
         else
@@ -105,5 +121,10 @@ public class AccommodationServiceImpl implements AccommodationService {
 
 
         return acc;
+    }
+
+    @Override
+    public void deleteAll() {
+        accRepository.deleteAll();
     }
 }

@@ -41,36 +41,14 @@ public class ReservationController {
         if (agent == null)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
-        Accommodation acc = accommodationService.getOneById(reservationDto.getrAccommodationId());
-        if (acc.getAccAgent().getUserUsername() != agent.getUserUsername())
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        System.out.println(reservationDto.getrAccommodationId());
 
-        Reservation reservation = new Reservation();
-        reservation.setRAccommodation(acc);
-        reservation.setCancelled(false);
-        reservation.setRealized(false);
-        reservation.setRDate(reservationDto.getrDate());
-        reservation.setRStartDate(reservationDto.getrStartDate());
-        reservation.setREndDate(reservationDto.getrEndDate());
-        reservation.setRPeople(reservationDto.getrPeople());
-        reservation.setREndUser(userService.getOneById(agent.getUserId()));
-        float price;
-        Instant instantStart = new Instant(reservationDto.getrStartDate());
-        Instant instantEnd = new Instant(reservationDto.getrEndDate());
-        int days = Days.daysBetween(instantStart, instantEnd).getDays();
-        System.out.println(instantStart);
-        System.out.println(instantEnd);
-        System.out.println(days);
-        //proveriti da li je zauzet u terminu rezervacije
-        //na osnovu plana cena i termina (od - do) rezervacije izracunati ukupnu cenu
-        //proveriti da li je zauzet u tim
-        //uzeti prijavljenog agenta
-        //agent je enduser jer je on kreirao rezervaciju
-        reservation.setREndUser(userService.getOneById(reservationDto.getrEndUserId()));
 
-        Reservation saved = reservationService.addOne(reservation);
-        if (saved != null){
-            return new ResponseEntity<>(saved,HttpStatus.OK);
+        Reservation reservation = reservationService.createReservation(reservationDto , agent);
+
+
+        if (reservation != null){
+            return new ResponseEntity<>(reservation,HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -80,7 +58,7 @@ public class ReservationController {
     @PutMapping(value = "/confirm/{id}")
     public ResponseEntity<Reservation> confirmReservation(@PathVariable(value = "id") long id, HttpServletRequest request){
         User agent = (User) request.getSession().getAttribute("agent");
-        if (agent.getUserUsername() != reservationService.getOneById(id).getRAccommodation().getAccAgent().getUserUsername())
+        if (agent == null )
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         Reservation res = reservationService.confirmReservation(id);

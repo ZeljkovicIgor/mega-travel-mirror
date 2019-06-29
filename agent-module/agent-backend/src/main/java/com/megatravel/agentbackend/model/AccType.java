@@ -3,10 +3,7 @@ package com.megatravel.agentbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -46,6 +43,7 @@ public class AccType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "acc_type_id", namespace = "http://megatravel.com/booking")
     protected long accTypeId;
+    @Column(unique = true)
     protected long accTypeDbId;
     @XmlElement(name = "acc_type_name", namespace = "http://megatravel.com/booking", required = true)
     protected String accTypeName;

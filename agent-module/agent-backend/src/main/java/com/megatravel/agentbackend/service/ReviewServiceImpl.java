@@ -24,7 +24,12 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review getOneById(Long id) {
-        return reviewRepository.getOne(id);
+        return reviewRepository.findById(id).get();
+    }
+
+    @Override
+    public Review getOneByDbId(Long id) {
+        return reviewRepository.findByReviewDbId(id);
     }
 
     @Override
@@ -56,5 +61,10 @@ public class ReviewServiceImpl implements ReviewService {
     public boolean deleteById(Long id) {
         reviewRepository.deleteById(id);
         return (reviewRepository.existsById(id)?true:false);
+    }
+
+    @Override
+    public void deleteAll() {
+        reviewRepository.deleteAll();
     }
 }
