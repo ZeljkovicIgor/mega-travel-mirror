@@ -49,7 +49,7 @@ public class LogInController {
         request.getSession().invalidate();
         userService.logOut();
 
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/isLogged")
