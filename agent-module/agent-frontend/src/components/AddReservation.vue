@@ -9,7 +9,7 @@
             >
                 <b-form-input
                         id="input-1"
-                        v-model="reservation.rstartDate"
+                        v-model="reservation.rStartDate"
                         type="date"
                         required
                         placeholder="Izaberite datum pocetka"
@@ -22,7 +22,7 @@
             >
                 <b-form-input
                         id="input-1"
-                        v-model="reservation.rendDate"
+                        v-model="reservation.rEndDate"
                         type="date"
                         required
                         placeholder="Izaberite datum kraja"
@@ -32,7 +32,7 @@
             <b-form-group id="input-group-2" label="Broj osoba:" label-for="input-2">
                 <b-form-input
                         id="input-2"
-                        v-model="reservation.rpeope"
+                        v-model="reservation.rPeople"
                         type="number"
                         required
                         placeholder="Unesite broj osoba"
@@ -55,44 +55,50 @@
         data() {
             return {
                 reservation:{
-                    raccommodationId: this.accommodation.accId,
-                    rpeope: 0,
-                    rstartDate:'',
-                    rendDate:'',
-                    rdate: ''
+                    rAccommodationId: this.accommodation.accId,
+                    rPeople:0,
+                    rStartDate:'',
+                    rEndDate:'',
+                    rDate: ''
                 }
             }
         },
         methods: {
+            /* eslint-disable no-console */
+
             addReservation(evt) {
                 evt.preventDefault()
-                this.reservation.rdate = new Date();
-                alert(JSON.stringify(this.reservation))
+                this.reservation.rDate = new Date();
+                //JSON.stringify(this.reservation)
                 http
-                    .post("")
-                    .then()
-                    .catch()
-                /*
-                this.$bvModal.msgBoxOk('Rezervacija uspesna', {
-                    title: 'Rezervacija',
-                    size: 'sm',
-                    buttonSize: 'sm',
-                    okVariant: 'success',
-                    headerClass: 'p-2 border-bottom-0',
-                    footerClass: 'p-2 border-top-0',
-                    centered: true
-                })
-                */
-                this.$bvModal.msgBoxOk('Rezervacija nije uspesna', {
-                    title: 'Rezervacija',
-                    size: 'sm',
-                    buttonSize: 'sm',
-                    okVariant: 'danger',
-                    headerClass: 'p-2 border-bottom-0 danger',
-                    footerClass: 'p-2 border-top-0',
-                    headerBgVariant: 'danger',
-                    centered: true
-                })
+                    .post("/reservation", this.reservation)
+                    .then(response => {
+                        console.log(response.data);
+                        this.$bvModal.msgBoxOk('Rezervacija uspesna', {
+                            title: 'Rezervacija',
+                            size: 'sm',
+                            buttonSize: 'sm',
+                            okVariant: 'success',
+                            headerClass: 'p-2 border-bottom-0',
+                            footerClass: 'p-2 border-top-0',
+                            centered: true
+                        })
+                    })
+                    .catch(e => {
+                        console.log(e);
+                        this.$bvModal.msgBoxOk('Rezervacija nije uspesna', {
+                            title: 'Rezervacija',
+                            size: 'sm',
+                            buttonSize: 'sm',
+                            okVariant: 'danger',
+                            headerClass: 'p-2 border-bottom-0 danger',
+                            footerClass: 'p-2 border-top-0',
+                            headerBgVariant: 'danger',
+                            centered: true
+                        })
+                    })
+
+
                 //http zahtev
                 //ako je vec rezervisano u glavnoj bazi treba da vrati gresku
             }

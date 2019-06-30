@@ -47,7 +47,7 @@ export default {
           console.log(response.status);
               localStorage.setItem('agent', response.data);
               this.isLoggedIn = true;
-              this.$router.push('home');
+              this.$router.push('/');
 
         })
         .catch(e => {

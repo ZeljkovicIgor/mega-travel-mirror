@@ -16,4 +16,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findByMessageSenderAndMessageReciever(User messageSender, User messageReciever);
     List<Message> findByMessageReservation(Reservation messageReservation);
     List<Message> findByMessageSenderOrMessageReciever(User messageSender, User messageReciever);
+    Message findByMessageDbId(Long id);
+
 }

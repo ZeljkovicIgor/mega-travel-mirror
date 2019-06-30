@@ -21,7 +21,7 @@ public class AccPriceServiceImpl implements AccPriceService {
 
     @Override
     public AccPrice getOneById(Long id) {
-        return accPriceRepository.getOne(id);
+        return accPriceRepository.findById(id).get();
     }
 
     @Override

@@ -17,11 +17,13 @@ public interface MessageService {
     List<Message> getReservationMessages(Reservation reservation);
     List<Message> getReservationMessagesById(Long id);
     Message getOneById(Long id);
+    Message getOneByDbId(Long id);
     Message addOne(Message message);
     Message editOne(Message message);
-    MessageDto sendMessage(MessageDto messageDto);
+    MessageDto sendMessage(MessageDto messageDto, User agent);
     boolean deleteOne(Message message);
     boolean deleteById(Long id);
+    void deleteAll();
     //convertFromDto();
     //convertToDto();
 }

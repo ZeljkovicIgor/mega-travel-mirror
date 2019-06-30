@@ -49,7 +49,10 @@
                         <b-col sm="3" class="text-sm-right"><b>Otkazni rok:</b></b-col>
                         <b-col>{{ row.item.accCancelPeriod }}</b-col>
                     </b-row>
-
+                    <b-row class="mb-2">
+                        <b-col sm="3" class="text-sm-right"><b>Prosecna ocena:</b></b-col>
+                        <b-col>{{ row.item.accAvgRating }}</b-col>
+                    </b-row>
                     <b-row class="mb-2">
                         <b-col sm="3" class="text-sm-right"><b>Adresa:</b></b-col>
                         <b-col>{{ row.item.accLocation.address }} </b-col>
@@ -119,6 +122,8 @@
                     <b-row class="mb-2">
                         <b-col sm="3" class="text-sm-right"><b>Komentari:</b></b-col>
                         <b-col>
+                            <b-button size="sm" @click="retrieveAccommodationReviews(row.item)">Prikazi</b-button>
+
                             <table class="table table-sm">
                                 <thead>
                                 <tr>
@@ -128,11 +133,11 @@
                                     <th scope="col">Ocena:</th>
                                 </tr>
                                 </thead>
-                                <tbody v-for="(review, index) in retrieveAccommodationReviews(row.item)" :key="index">
+                                <tbody v-for="(review, index) in reviews" :key="index">
 
                                 <tr>
-                                    <td scope="row">{{parseDate(review.accDate)}}}</td>
-                                    <td>{{review.reviewEndUser}}</td>
+                                    <td scope="row">{{parseDate(review.accDate)}}</td>
+                                    <td>{{review.reviewEndUser.userUsername}}</td>
                                     <td>{{review.reviewComment}}</td>
                                     <td>
                                         <span v-for="(i, index) in review.reviewGrade" :key="index">
@@ -179,11 +184,17 @@
 
             }
         },
+        computed: {
 
+        },
         methods:{
             /* eslint-disable no-console */
             parseDate(value) {
-                return `${value.split('T')[0]}`
+                console.log(value)
+                console.log(value.split('T')[0])
+                console.log(value.slice(0,10))
+                return value.split('T')[0]
+
             },
             retrieveAccommodations() {
                 http
@@ -201,7 +212,7 @@
                     .get("review/accommodation/" + value.accId)
                     .then(response => {
 
-                        return response.data;
+                        this.reviews = response.data;
                     })
                     .catch(e => {
                         console.log(e);

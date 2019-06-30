@@ -20,7 +20,12 @@ public class AddServiceServiceImpl implements AddServiceService {
 
     @Override
     public AddService getOneById(Long id) {
-        return addServiceRepository.getOne(id);
+        return addServiceRepository.findById(id).get();
+    }
+
+    @Override
+    public AddService getOneByDbId(Long id) {
+        return addServiceRepository.findByServiceDbId(id);
     }
 
     @Override
@@ -43,5 +48,10 @@ public class AddServiceServiceImpl implements AddServiceService {
     public boolean deleteById(Long id) {
         addServiceRepository.deleteById(id);
         return (addServiceRepository.existsById(id)?true:false);
+    }
+
+    @Override
+    public void deleteAll() {
+        addServiceRepository.deleteAll();
     }
 }

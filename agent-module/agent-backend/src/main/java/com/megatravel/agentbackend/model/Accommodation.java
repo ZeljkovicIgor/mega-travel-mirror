@@ -90,6 +90,7 @@ public class Accommodation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "acc_id", namespace = "http://megatravel.com/booking")
     protected long accId;
+    @Column(unique = true)
     protected long accDbId;
     @XmlElement(name = "acc_name", namespace = "http://megatravel.com/booking", required = true)
     protected String accName;
@@ -328,7 +329,10 @@ public class Accommodation {
      *     
      */
     public List<AccUnavailable> getAccUnavailable() {
-        return accUnavailable;
+        if (accUnavailable == null) {
+            accUnavailable = new ArrayList<AccUnavailable>();
+        }
+        return this.accUnavailable;
     }
 
     /**

@@ -5,6 +5,8 @@ import com.megatravel.agentbackend.ws.GetAllReviewRequest;
 import com.megatravel.agentbackend.ws.GetAllReviewResponse;
 import com.megatravel.agentbackend.ws.GetAllUserRequest;
 import com.megatravel.agentbackend.ws.GetAllUserResponse;
+import com.megatravel.agentbackend.ws.SendReservationResponse;
+import com.megatravel.agentbackend.ws.SendReservationRequest;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
@@ -60,7 +62,13 @@ public class ObjectFactory {
     public GetCategoryResponse createGetCategoryResponse() {
         return new GetCategoryResponse();
     }
-
+    /**
+     * Create an instance of {@link com.megatravel.agentbackend.ws.SendReservationRequest }
+     *
+     */
+    public com.megatravel.agentbackend.ws.SendReservationRequest createSendReservationRequest() {
+        return new SendReservationRequest();
+    }
     /**
      * Create an instance of {@link AddServiceSoap }
      * 
@@ -218,6 +226,13 @@ public class ObjectFactory {
     public AddOneAccommodationRequest createAddOneAccommodationRequest() {
         return new AddOneAccommodationRequest();
     }
+    /**
+     * Create an instance of {@link com.megatravel.agentbackend.ws.GetAllReservationRequest }
+     *
+     */
+    public com.megatravel.agentbackend.ws.GetAllReservationRequest createGetAllReservationRequest() {
+        return new GetAllReservationRequest();
+    }
 
     /**
      * Create an instance of {@link DeleteAccommodationsResponse }
@@ -296,6 +311,13 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link com.megatravel.agentbackend.ws.SendReservationResponse }
+     *
+     */
+    public com.megatravel.agentbackend.ws.SendReservationResponse createSendReservationResponse() {
+        return new SendReservationResponse();
+    }
+    /**
      * Create an instance of {@link com.megatravel.agentbackend.ws.GetAllReviewResponse }
      *
      */
@@ -334,6 +356,13 @@ public class ObjectFactory {
         return new AddOneAccommodationResponse();
     }
 
+    /**
+     * Create an instance of {@link com.megatravel.agentbackend.ws.GetAllReservationResponse }
+     *
+     */
+    public com.megatravel.agentbackend.ws.GetAllReservationResponse createGetAllReservationResponse() {
+        return new GetAllReservationResponse();
+    }
     /**
      * Create an instance of {@link GetCategoryRequest }
      * 

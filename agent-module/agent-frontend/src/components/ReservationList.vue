@@ -41,11 +41,11 @@
 
                     <b-row class="mb-2">
                         <b-col sm="3" class="text-sm-right"><b>Od:</b></b-col>
-                        <b-col>{{ row.item.rstartDate }} </b-col>
+                        <b-col>{{ parseDate(row.item.rstartDate) }} </b-col>
                     </b-row>
                     <b-row class="mb-2">
                         <b-col sm="3" class="text-sm-right"><b>Do:</b></b-col>
-                        <b-col>{{ row.item.rendDate }} </b-col>
+                        <b-col>{{ parseDate(row.item.rendDate) }} </b-col>
                     </b-row>
                     <b-row class="mb-2">
                         <b-col sm="3" class="text-sm-right"><b>Otkazni rok:</b></b-col>

@@ -8,7 +8,9 @@
             <router-link class="btn btn-light" to="/add-accommodation">Dodaj novi smestaj</router-link>
             <router-link class="btn btn-light" to="/reservation">Rezervacije</router-link>
             <router-link v-if=!logged class="btn btn-light"  to="/login">Prijavi se</router-link>
-            <router-link v-if=logged class="btn btn-light"  to="/logout">Odjavi se</router-link>
+            <!--<router-link v-if=logged class="btn btn-light"  to="/logout">Odjavi se</router-link>
+            -->
+            <button v-if=logged @click="logOutUser" class="btn btn-link"> Odjavi se</button>
         </nav>
         <br/>
         <router-view/>
@@ -42,7 +44,23 @@ export default {
                     console.log(e);
                     this.logged =  false;
                 });
-        }
+        },
+        logOutUser(){
+
+            http
+                .post("/logout")
+                .then(response => {
+                    console.log(response.status);
+                    this.$router.push('/');
+
+                })
+                .catch(e => {
+                    console.log(e);
+                    //this.$router.push('/');
+
+                });
+        },
+        /* eslint-enable no-console */
     },
     mounted() {
         this.isLoggedIn();

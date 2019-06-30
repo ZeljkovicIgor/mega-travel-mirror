@@ -140,12 +140,9 @@
             <input type="file" class="form-control-file" id="accPicture">
         </div>
         /Izbor slike-->
-        <button v-on:click="saveAccommodation()" class="btn btn-success">Submit</button>
+        <button v-on:click="saveAccommodation()" class="btn btn-success">Dodaj</button>
     </div>
-    <div v-else>
-      <h4>Uspesno ste dodali!</h4>
-      <button class="btn btn-success" v-on:click="newAccommodation()">Dodaj</button>
-    </div>
+
   </div>
 
 </template>

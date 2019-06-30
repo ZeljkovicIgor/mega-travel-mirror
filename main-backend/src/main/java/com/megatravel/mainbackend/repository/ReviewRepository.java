@@ -1,9 +1,11 @@
 package com.megatravel.mainbackend.repository;
 
+import com.megatravel.mainbackend.model.Accommodation;
 import com.megatravel.mainbackend.model.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
+    void deleteAllByReviewAccommodation(Accommodation reviewAccommodation);
 }

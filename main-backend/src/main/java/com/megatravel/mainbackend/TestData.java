@@ -34,6 +34,11 @@ public class TestData {
 	AccPriceService accPriceService;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	ReservationService reservationService;
+	@Autowired
+	MessageService messageService;
+
 	
 	@PostConstruct
 	private void init(){
@@ -46,42 +51,19 @@ public class TestData {
 		user1.setUserEmail("a@a.com");
 		user1.setActivated(true);
 		
-		User user2=new User();
-		user2.setUserType(UserType.AGENT);
-		user2.setUserFirstName("Petae");
-		user2.setUserLastName("Petrovic");
-		user2.setUserPassword("sifra2");
-		user2.setUserEmail("p@p.com");
-		user2.setActivated(true);
-		
+
 		User user3=new User();
 		user3.setUserType(UserType.ENDUSER);
-		user3.setUserFirstName("Petae");
+		user3.setUserFirstName("Petar");
 		user3.setUserLastName("Petrovic");
+		user3.setUserUsername("pera");
 		user3.setUserPassword("sifra2");
-		user3.setUserEmail("p@p.com");
+		user3.setUserEmail("pera@p.com");
 		user3.setActivated(true);
 		userService.save(user1);
-		userService.save(user2);
 		userService.save(user3);
-		Accommodation a1= new Accommodation();
-		a1.setAccName("sMESTAJ 1");
-		a1.setAccAgent(user2);
-		accommodationService.save(a1);
-		
-		Review r = new Review();
-		r.setReviewComment("neki komentar");
-		r.setReviewEndUser(user3);
-		r.setCommentApproved(false);
-		r.setReviewAccommodation(a1);
-		//r.setReviewAccommodation(accommodationService.findOne(one));
-		Review r2 = new Review();
-		r2.setReviewComment("neki kom");
-		r2.setReviewEndUser(user3);
-		r2.setCommentApproved(false);
-		r2.setReviewAccommodation(a1);
-		reviewService.save(r);
-		reviewService.save(r2);
+
+
 
 		//Test data Gema
 
@@ -170,7 +152,6 @@ public class TestData {
 		accLocation.setCountry("Srbija");
 		accLocation.setCity("Novi Sad");
 		accLocation.setAddress("Bulevar oslobobodjenja");
-		accLocationService.save(accLocation);
 
 		acc.setAccLocation(accLocation);
 		acc.setAccDescription("Opis agentovog smestaja");
@@ -180,60 +161,83 @@ public class TestData {
 
 		acc.setAccCancelPeriod(7);
 		acc.setAccAvgRating(3);
-		acc.setAccCapacity(3);
+		acc.setAccCapacity(5);
 		acc.getAccServices().add(pets);
 		acc.getAccServices().add(wifi);
 
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Date datum1 = null;
-		Date datum2 = null;
-		Date datum3 = null;
-		Date datum4 = null;
-		Date datum5=null;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date od1 = null;
+		Date do1 = null;
+		Date od2 = null;
+		Date do2 = null;
+		Date od3 = null;
+		Date do3 = null;
+		Date unav1 = null;
+		Date unav2 = null;
+		Date unav3 = null;
+		Date unav4 = null;
+		Date accDate = null;
+		Date accDate2 = null;
+		Date rDate = null;
+		Date rStart = null;
+		Date rEnd = null;
+
+
 		try {
-			datum1 = dateFormat.parse("2019-07-25 00:00");
-			datum2 = dateFormat.parse("2019-07-30 00:00");
-			datum3 = dateFormat.parse("2019-08-25 00:00");
-			datum4 = dateFormat.parse("2019-08-27 00:00");
-			datum5 = dateFormat.parse("2019-06-25 00:00");
+			od1 = dateFormat.parse("2019-06-1");
+			do1 = dateFormat.parse("2019-06-30 ");
+			od2 = dateFormat.parse("2019-07-1");
+			do2 = dateFormat.parse("2019-07-31");
+			od3 = dateFormat.parse("2019-08-1");
+			do3 = dateFormat.parse("2019-08-31");
+			unav1 = dateFormat.parse("2019-07-5");
+			unav2 = dateFormat.parse("2019-07-10");
+			rDate = dateFormat.parse("2019-06-20");
+			rStart = dateFormat.parse("2019-07-1");
+			rEnd = dateFormat.parse("2019-07-5");
+
+			unav3 = dateFormat.parse("2019-08-10");
+			unav4 = dateFormat.parse("2019-08-20");
+			accDate = dateFormat.parse("2019-06-15");
+			accDate2 = dateFormat.parse("2019-06-25");
+
 		} catch (ParseException e) {
 
 			e.printStackTrace();
 		}
-
+		acc.setAccDate(accDate);
 		AccPrice accPrice = new AccPrice();
-		accPrice.setPriceStartDate(datum1);
-		accPrice.setPriceEndDate(datum2);
+		accPrice.setPriceStartDate(od1);
+		accPrice.setPriceEndDate(do1);
 		accPrice.setPriceValue(5000);
 
 		AccPrice accPrice2 = new AccPrice();
-		accPrice2.setPriceStartDate(datum3);
-		accPrice2.setPriceEndDate(datum4);
+		accPrice2.setPriceStartDate(od2);
+		accPrice2.setPriceEndDate(do2);
 		accPrice2.setPriceValue(10000);
 
 		acc.getAccPricePlan().add(accPrice);
 		acc.getAccPricePlan().add(accPrice2);
 
 		AccUnavailable accUnavailable1 = new AccUnavailable();
-		accUnavailable1.setUnavailableStart(datum1);
-		accUnavailable1.setUnavailableEnd(datum2);
+		accUnavailable1.setUnavailableStart(unav1);
+		accUnavailable1.setUnavailableEnd(unav2);
 		acc.getAccUnavailable().add(accUnavailable1);
 
 
 		accommodationService.save(acc);
 
 		Accommodation acc2 = new Accommodation();
-		acc2.setAccName("Agentovi apartmani");
+		acc2.setAccName("Agentovi apartmani 2");
 		acc2.setAccAgent(agent);
-
+		acc2.setAccDate(accDate2);
 		AccLocation accLocation2 = new AccLocation();
 		accLocation2.setCountry("Srbija");
 		accLocation2.setCity("Novi Sad");
 		accLocation2.setAddress("Bulevar oslobobodjenja");
-		accLocationService.save(accLocation2);
 
 		acc2.setAccLocation(accLocation2);
-		acc2.setAccDescription("Opis agentovog smestaja");
+		acc2.setAccDescription("Opis agentovog smestaja 2");
 
 		acc2.setAccCategory(category);
 		acc2.setAccType(apartman);
@@ -246,26 +250,46 @@ public class TestData {
 
 
 		AccPrice accPrice3 = new AccPrice();
-		accPrice3.setPriceStartDate(datum1);
-		accPrice3.setPriceEndDate(datum2);
-		accPrice3.setPriceValue(5000);
+		accPrice3.setPriceStartDate(od3);
+		accPrice3.setPriceEndDate(do3);
+		accPrice3.setPriceValue(3000);
 
-		AccPrice accPrice4 = new AccPrice();
-		accPrice4.setPriceStartDate(datum3);
-		accPrice4.setPriceEndDate(datum4);
-		accPrice4.setPriceValue(10000);
+
 
 		acc2.getAccPricePlan().add(accPrice3);
-		acc2.getAccPricePlan().add(accPrice4);
 
 		AccUnavailable accUnavailable2 = new AccUnavailable();
-		accUnavailable2.setUnavailableStart(datum1);
-		accUnavailable2.setUnavailableEnd(datum2);
+		accUnavailable2.setUnavailableStart(unav3);
+		accUnavailable2.setUnavailableEnd(unav4);
 		acc2.getAccUnavailable().add(accUnavailable2);
 
 		accommodationService.save(acc2);
 
+		Reservation reservation = new Reservation();
+		reservation.setRDate(rDate);
+		reservation.setREndUser(user3);
+		reservation.setRStartDate(rStart);
+		reservation.setREndDate(rEnd);
+		reservation.setRAccommodation(acc);
+		reservation.setRPeople(2);
+		reservationService.save(reservation);
 
+		Message  message = new Message();
+		message.setMessageDate(new Date());
+		message.setMessageReciever(agent);
+		message.setMessageSender(user3);
+		message.setMessageReservation(reservation);
+		message.setStatus(MessageStatus.SENT);
+		message.setMessageContent("Poruka za agenta");
+		messageService.save(message);
+
+		Review review = new Review();
+		review.setAccDate(new Date());
+		review.setReviewAccommodation(acc);
+		review.setReviewEndUser(user3);
+		review.setReviewComment("Komentar usera");
+		review.setReviewGrade(4);
+		reviewService.save(review);
 	}
 	
 	

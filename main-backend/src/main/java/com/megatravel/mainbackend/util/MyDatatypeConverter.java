@@ -28,22 +28,6 @@ public class MyDatatypeConverter {
 
 	}
 
-	public static Date parseDateTime(String value) {
-		try {
-			return dateTimeFormat.parse(value);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
 
-	}
-
-	public static String printDateTime(Date value) {
-		if (value != null)
-			return dateTimeFormat.format(value);
-		else
-			return null;
-
-	}
 
 }

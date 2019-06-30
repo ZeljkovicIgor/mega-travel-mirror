@@ -1,10 +1,15 @@
 package com.megatravel.mainbackend.service;
 
+import java.io.IOException;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.megatravel.mainbackend.dto.ReservationDto;
+import com.megatravel.mainbackend.model.AccPrice;
+import com.megatravel.mainbackend.model.AccUnavailable;
+import com.megatravel.mainbackend.model.Accommodation;
 import com.megatravel.mainbackend.model.Reservation;
 import com.megatravel.mainbackend.model.User;
 
@@ -18,7 +23,9 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	public ReservationRepository reservationRepository;
-	
+	@Autowired
+	AccommodationService accommodationService;
+
 	@Override
 	public List<Reservation> findAll() {
 		// TODO Auto-generated method stub
@@ -50,7 +57,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public Reservation findOne(Long id) {
 		// TODO Auto-generated method stub
-		return reservationRepository.getOne(id);
+		return reservationRepository.findById(id).get();
 	}
 
 	@Override
@@ -80,6 +87,16 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
+	public List<Reservation> getAgentReservations(Long id) {
+		List<Reservation> retList = new ArrayList<>();
+		List<Accommodation> accommodationList = accommodationService.findByAgentId(id);
+		for (Accommodation accommodation : accommodationList) {
+			retList.addAll(reservationRepository.findAllByRAccommodation(accommodation));
+		}
+		return retList;
+	}
+
+	@Override
 	public List<Reservation> findByUserId(Long id) {
 		// TODO Auto-generated method stub
 		List<Reservation> res = findAll();
@@ -92,5 +109,45 @@ public class ReservationServiceImpl implements ReservationService {
 		return retVal;
 	}
 	
-	
+	@Override
+	public long betweenDates(Date firstDate, Date secondDate)
+	{
+	    return ChronoUnit.DAYS.between(firstDate.toInstant(), secondDate.toInstant());
+	}
+
+	@Override
+	public boolean checkReservation(List<AccPrice> accPrice,Date startDate, Date endDate) {
+
+		for(AccPrice a: accPrice) {
+			if(startDate.after(a.getPriceStartDate()) && endDate.before(a.getPriceEndDate())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	@Override
+	public boolean checkUnavailable(List<AccUnavailable> allUnavailable,Date startDate, Date endDate) {
+		for(AccUnavailable a: allUnavailable) {
+			if(startDate.after(a.getUnavailableStart()) && endDate.before(a.getUnavailableEnd())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public float getAccPrice(List<AccPrice> accPrice, Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		for(AccPrice a: accPrice) {
+			if(startDate.after(a.getPriceStartDate()) && endDate.before(a.getPriceEndDate())) {
+				return a.getPriceValue();
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public void deleteByAccommodation(Accommodation accommodation) {
+		reservationRepository.deleteAllByRAccommodation(accommodation);
+	}
 }

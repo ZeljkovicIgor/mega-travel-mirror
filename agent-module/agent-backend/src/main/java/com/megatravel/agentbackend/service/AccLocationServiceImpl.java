@@ -20,7 +20,7 @@ public class AccLocationServiceImpl implements AccLocationService {
 
     @Override
     public AccLocation getOneById(Long id) {
-        return accLocationRepository.getOne(id);
+        return accLocationRepository.findById(id).get();
     }
 
     @Override

@@ -20,7 +20,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getOneById(Long id) {
-        return categoryRepository.getOne(id);
+        return categoryRepository.findById(id).get();
+    }
+
+    @Override
+    public Category getOneByDbId(Long id) {
+        return categoryRepository.findByCategoryDbId(id);
     }
 
     @Override
@@ -43,5 +48,10 @@ public class CategoryServiceImpl implements CategoryService {
     public boolean deleteById(Long id) {
         categoryRepository.deleteById(id);
         return (categoryRepository.existsById(id)?true:false);
+    }
+
+    @Override
+    public void deleteAll() {
+        categoryRepository.deleteAll();
     }
 }

@@ -16,6 +16,20 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    AddServiceService addServiceService;
+    @Autowired
+    CategoryService categoryService;
+    @Autowired
+    AccTypeService accTypeService;
+    @Autowired
+    AccommodationService accommodationService;
+    @Autowired
+    ReservationService reservationService;
+    @Autowired
+    MessageService messageService;
+    @Autowired
+    ReviewService reviewService;
 
 
     @Override
@@ -25,7 +39,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getOneById(Long id) {
-        return userRepository.getOne(id);
+        return userRepository.findById(id).get();
+    }
+
+    @Override
+    public User getOneByDbId(Long id) {
+        return userRepository.findByUserDbId(id);
     }
 
     @Override
@@ -77,9 +96,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User logOut() {
+    public void logOut() {
         //TODO: Odjaviti korisnika i pokrenuti sinhronizaciju sa glavnom bazom, ali mozda i nece biti potrebno ako se sinhronizuje u real time-u
+        messageService.deleteAll();
+        reservationService.deleteAll();
+        reviewService.deleteAll();
+        accommodationService.deleteAll();
 
-        return null;
+        accTypeService.deleteAll();
+        addServiceService.deleteAll();
+
+        categoryService.deleteAll();
+        deleteAll();
+
+    }
+
+    @Override
+    public void deleteAll() {
+        userRepository.deleteAll();
     }
 }

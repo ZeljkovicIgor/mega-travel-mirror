@@ -24,6 +24,8 @@ public class MessageServiceImpl implements MessageService {
     UserService userService;
     @Autowired
     HttpSession httpSession;
+    @Autowired
+    SoapService soapService;
 
     @Override
     public List<Message> getAll() {
@@ -66,7 +68,12 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message getOneById(Long id) {
-        return messageRepository.getOne(id);
+        return messageRepository.findById(id).get();
+    }
+
+    @Override
+    public Message getOneByDbId(Long id) {
+        return messageRepository.findByMessageDbId(id);
     }
 
     @Override
@@ -80,8 +87,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public MessageDto sendMessage(MessageDto messageDto) {
-        User agent = (User) httpSession.getAttribute("agent");
+    public MessageDto sendMessage(MessageDto messageDto, User agent) {
         agent = userService.getOneById(agent.getUserId());
         User user = userService.getOneByUsername(messageDto.getMessageRecieverUsername());
         Reservation res = reservationService.getOneById(messageDto.getMessageReservationId());
@@ -92,10 +98,12 @@ public class MessageServiceImpl implements MessageService {
         message.setMessageSender(agent);
         message.setMessageReservation(res);
         message.setStatus(MessageStatus.SENT);
-        message = messageRepository.save(message);
+        //message = messageRepository.save(message);
         messageDto.setMessageId(message.getMessageId());
         messageDto.setStatus(MessageStatus.SENT);
-        //TODO: poslati u glavnu bazu
+
+        soapService.sendMessage(message);
+
         return messageDto;
     }
 
@@ -109,5 +117,10 @@ public class MessageServiceImpl implements MessageService {
     public boolean deleteById(Long id) {
         messageRepository.deleteById(id);
         return (messageRepository.existsById(id)?true:false);
+    }
+
+    @Override
+    public void deleteAll() {
+        messageRepository.deleteAll();
     }
 }

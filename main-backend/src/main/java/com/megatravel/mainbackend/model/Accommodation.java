@@ -89,7 +89,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "accAvgRating"
 })
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Accommodation {
 
     @Id
@@ -116,7 +115,7 @@ public class Accommodation {
     @OneToMany( cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     protected List<AccUnavailable> accUnavailable;
-    @ManyToOne
+    @ManyToOne( cascade = CascadeType.ALL)
     @XmlElement(name = "acc_location", namespace = "http://megatravel.com/booking/ws", required = true)
     protected AccLocation accLocation;
     @XmlElement(name = "acc_category", namespace = "http://megatravel.com/booking/ws", required = true)
