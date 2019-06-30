@@ -47,12 +47,20 @@ public class ReservationController {
 	public ResponseEntity<Reservation> addReservation(@RequestBody Reservation newReservation,HttpServletRequest request){
 		User logged =(User) request.getSession().getAttribute("logged");
 		Accommodation toReservate =accommodationService.findOne(newReservation.getRAccommodation().getAccId());
-	
+		List<Reservation> findAllRes=reservationService.findAll();
+		
+		for(Reservation r: findAllRes) {
+			if(!newReservation.getRStartDate().before(r.getRStartDate())  && !newReservation.getREndDate().after(r.getREndDate()) ) {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
+			
+		
+		}
+		
 		List<AccUnavailable> allUnavailable =accUnavailableService.findAll();
 		List<AccPrice> accPrice = toReservate.getAccPricePlan();
-		
-		if(reservationService.checkReservation(accPrice,newReservation.getRStartDate(),newReservation.getREndDate())
-				&& !reservationService.checkUnavailable(allUnavailable,newReservation.getRStartDate(),newReservation.getREndDate())) {
+		if(checkReservation(accPrice,newReservation.getRStartDate(),newReservation.getREndDate())
+				&& !checkUnavailable(allUnavailable,newReservation.getRStartDate(),newReservation.getREndDate())) {
 			newReservation.setRDate(new Date());
 			newReservation.setCancelled(false);
 			newReservation.setREndUser(logged);
@@ -67,7 +75,7 @@ public class ReservationController {
 			return new ResponseEntity<>(newReservation,HttpStatus.OK);
 		}
 
-		
+	
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}
 	
@@ -111,6 +119,45 @@ public class ReservationController {
 		}
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		
+	}
+	public long betweenDates(Date firstDate, Date secondDate) throws IOException
+	{
+	    return ChronoUnit.DAYS.between(firstDate.toInstant(), secondDate.toInstant());
+	}
+	
+	public boolean checkReservation(List<AccPrice> accPrice,Date startDate, Date endDate) {
+	
+		for(AccPrice a: accPrice) {
+			//a > b ⇔ ¬ (a ≤ b)
+			if(!startDate.before(a.getPriceStartDate())  && !endDate.after(a.getPriceEndDate()) ) {
+				
+				
+				return true;
+			}
+		}
+		return false;
+	}
+	public float getAccPrice(List<AccPrice> accPrice,Date startDate, Date endDate) {
+		
+		for(AccPrice a: accPrice) {
+			//a > b ⇔ ¬ (a ≤ b)
+			//if(startDate.after(a.getPriceStartDate())  && endDate.before(a.getPriceEndDate())) {
+			if(!startDate.before(a.getPriceStartDate())  && !endDate.after(a.getPriceEndDate()) ) {
+				return a.getPriceValue();
+			}
+		}
+	
+		return 0;
+	}
+	
+	public boolean checkUnavailable(List<AccUnavailable> allUnavailable,Date startDate, Date endDate) {
+		
+		for(AccUnavailable a: allUnavailable) {
+			if(!startDate.before(a.getUnavailableStart()) && !endDate.after(a.getUnavailableEnd())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/*public long betweenDates(Date firstDate, Date secondDate) throws IOException
