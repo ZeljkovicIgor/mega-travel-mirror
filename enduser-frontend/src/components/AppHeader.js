@@ -17,6 +17,7 @@ function AppHeader ({ user, onLogout }) {
                 user
                 ? 
                 <Navbar.Collapse className="justify-content-end">
+                    <Link to='/reservations' className='nav-link'>Reservations</Link>
                     <NavDropdown title={ user.userFirstName + ' ' + user.userLastName } alignRight>
                         
                         <NavDropdown.Item

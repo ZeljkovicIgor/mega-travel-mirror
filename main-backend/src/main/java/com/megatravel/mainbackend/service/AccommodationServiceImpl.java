@@ -105,6 +105,9 @@ public class AccommodationServiceImpl implements AccommodationService {
 		Date startDate = MyDatatypeConverter.parseDate(search.getStartDate());
 		Date endDate = MyDatatypeConverter.parseDate(search.getEndDate());
 		
+		if(startDate == null || endDate == null)
+			return cityAndCapacity;
+		
 		for(int i = 0; i < cityAndCapacity.size(); i++) {
 			List<AccUnavailable> unavailables = cityAndCapacity.get(i).getAccUnavailable();
 			for(int j = 0; j < unavailables.size(); j++) {

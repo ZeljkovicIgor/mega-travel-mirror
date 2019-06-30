@@ -6,7 +6,11 @@ export default function AccommodationCard ({ accommodation }) {
   return (
     <Card style={{ width: '18rem', float: "left", margin: "10px"}}>
         <Card.Body>
-            <Card.Title>{accommodation.accName}</Card.Title>
+            <Card.Title>
+              <Link to={`/accommodations/${accommodation.accId}`}>
+                {accommodation.accName}
+              </Link>
+            </Card.Title>
             <Card.Text>
                 {accommodation.accDescription}
             </Card.Text>

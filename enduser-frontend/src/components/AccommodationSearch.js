@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Form, InputGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -17,15 +16,6 @@ class AccommodationSearch extends Component {
             categoryId: '',
             addServices: []
         }
-    }
-
-    async componentDidMount() {
-        const { data } = await Axios.get(
-            'http://localhost:8080/user/getLogged',
-            {withCredentials: true}
-        )
-
-       // await this.props.getTypes();
     }
 
     handleSubmit = (event) => {

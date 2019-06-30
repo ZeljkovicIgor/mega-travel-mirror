@@ -12,7 +12,7 @@ class AccommodationList extends Component {
             <div>
                 {
                     accommodations.map(accommodation => (
-                        <AccommodationCard accommodation={accommodation} />
+                        <AccommodationCard accommodation={accommodation} key={accommodation.accId}/>
                     ))
                 }
             </div>
