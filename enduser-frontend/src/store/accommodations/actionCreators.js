@@ -6,6 +6,13 @@ const setAccommodations = accommodations => ({
   payload: accommodations
 });
 
+export function sortAccommodations(accommodations){
+  return function(dispatch) {
+    console.log(accommodations)
+    dispatch(setAccommodations(accommodations))
+  }
+}
+
 export function getAccommodations(search, advanced = false) {
   return async function(dispatch) {
     const { data } = await accommodationsService.fetchAccommodations(search, advanced);

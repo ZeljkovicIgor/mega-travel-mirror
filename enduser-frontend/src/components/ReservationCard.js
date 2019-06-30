@@ -12,9 +12,14 @@ export default function ReservationCard ({ reservation }) {
               </Link>
             </Card.Title>
             <Card.Text>
-                opis
+                {reservation.rPeople} people are staying from&nbsp;
+                {reservation.rStartDate.split('T')[0]} to&nbsp;
+                {reservation.rEndDate.split('T')[0]} for only...
             </Card.Text>
         </Card.Body>
+        <Card.Footer style={{textAlign:'right'}}>
+          {reservation.rPrice}
+        </Card.Footer>
     </Card>
     )
 }

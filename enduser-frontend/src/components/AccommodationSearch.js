@@ -3,6 +3,7 @@ import { Button, ButtonGroup, Container, Form, InputGroup } from 'react-bootstra
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAccommodations } from '../store/accommodations/actionCreators';
+import { getSearch } from '../store/search/actionCreators';
 
 class AccommodationSearch extends Component {
     constructor (props) {
@@ -23,6 +24,7 @@ class AccommodationSearch extends Component {
         const searchDTO = this.state;
         
         this.props.searchAccommodations(searchDTO).then(() => {
+            this.props.setSearch(searchDTO);
             this.props.history.push('/searchAccommodations');
         }).catch((error) => {
             console.log(error);
@@ -90,7 +92,8 @@ class AccommodationSearch extends Component {
 
 function mapDispatchToProps (dispatch) {
     return {
-        searchAccommodations: search => dispatch(getAccommodations(search))
+        searchAccommodations: search => dispatch(getAccommodations(search)),
+        setSearch: search => dispatch(getSearch(search))
     }
 }
 

@@ -9,6 +9,7 @@ import { categoriesSelector } from '../store/categories';
 import { getCategories } from '../store/categories/actionCreators';
 import Axios from 'axios';
 import Select from 'react-select';
+import { getSearch } from '../store/search/actionCreators';
 
 class AccommodationSearch extends Component {
     
@@ -40,6 +41,7 @@ class AccommodationSearch extends Component {
         event.preventDefault();
         const searchDTO = this.state.search;
         this.props.searchAccommodations(searchDTO, true).then(() => {
+            this.props.setSearch(searchDTO);
             this.props.history.push('/searchAccommodations');
         }).catch((error) => {
             console.log(error);
@@ -177,7 +179,8 @@ function mapDispatchToProps (dispatch) {
     return {
         searchAccommodations: search => dispatch(getAccommodations(search, true)),
         getAccommodationTypes: () => dispatch(getAccommodationTypes()),
-        getCategories: () => dispatch(getCategories())
+        getCategories: () => dispatch(getCategories()),
+        setSearch: search => dispatch(getSearch(search))
     }
 }
 

@@ -141,7 +141,7 @@ public class AccommodationController {
 		return new ResponseEntity<List<Accommodation>>(accommodationService.findAll(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/sortByPriceAsc",method=RequestMethod.GET)
+	@RequestMapping(value = "/sortByPriceAsc",method=RequestMethod.POST)
 	public ResponseEntity<List<Accommodation>> sortByPrice(@RequestBody SearchAccommodationDTO search){
 		List<Accommodation> searchList=accommodationService.search(search);
 		List<Accommodation> retListAll=accommodationService.sortPriceByAsc(); 
@@ -157,7 +157,7 @@ public class AccommodationController {
 		
 		return new ResponseEntity<List<Accommodation>>(retListSearch, HttpStatus.OK);
 	}
-	@RequestMapping(value = "/sortByPriceDesc",method=RequestMethod.GET)
+	@RequestMapping(value = "/sortByPriceDesc",method=RequestMethod.POST)
 	public ResponseEntity<List<Accommodation>> sortByPriceDesc(@RequestBody SearchAccommodationDTO search){
 		List<Accommodation> searchList=accommodationService.search(search);
 		List<Accommodation> retListAll=accommodationService.sortPriceByDesc(); 
@@ -175,7 +175,7 @@ public class AccommodationController {
 	}
 	
 	
-	@RequestMapping(value = "/sortByReviewGradeDesc",method=RequestMethod.GET)
+	@RequestMapping(value = "/sortByReviewGradeDesc",method=RequestMethod.POST)
 	public ResponseEntity<List<Accommodation>> sortBreviewGradeDesc(@RequestBody SearchAccommodationDTO search){
 		List<Accommodation> retListSearch=new ArrayList<Accommodation>();
 		List<Accommodation> searchList=accommodationService.search(search);
@@ -191,7 +191,7 @@ public class AccommodationController {
 		return new ResponseEntity<List<Accommodation>>(retListSearch, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/sortByReviewGradeAsc",method=RequestMethod.GET)
+	@RequestMapping(value = "/sortByReviewGradeAsc",method=RequestMethod.POST)
 	public ResponseEntity<List<Accommodation>> sortBreviewGradeAsc(@RequestBody SearchAccommodationDTO search){
 		List<Accommodation> retListSearch=new ArrayList<Accommodation>();
 		List<Accommodation> searchList=accommodationService.search(search);
@@ -206,7 +206,7 @@ public class AccommodationController {
 		
 		return new ResponseEntity<List<Accommodation>>(retListSearch, HttpStatus.OK);
 	}
-	@RequestMapping(value = "/sortByCategoryAsc",method=RequestMethod.GET)
+	@RequestMapping(value = "/sortByCategoryAsc",method=RequestMethod.POST)
 	public ResponseEntity<List<Accommodation>> sortByCategoryAsc(@RequestBody SearchAccommodationDTO search){
 		List<Accommodation> retListSearch=new ArrayList<Accommodation>();
 		List<Accommodation> searchList=accommodationService.search(search);
@@ -221,7 +221,7 @@ public class AccommodationController {
 		return new ResponseEntity<List<Accommodation>>(retListSearch, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/sortByCategoryDesc",method=RequestMethod.GET)
+	@RequestMapping(value = "/sortByCategoryDesc",method=RequestMethod.POST)
 	public ResponseEntity<List<Accommodation>> sortByCategoryDesc(@RequestBody SearchAccommodationDTO search){
 		List<Accommodation> retListSearch=new ArrayList<Accommodation>();
 		List<Accommodation> searchList=accommodationService.search(search);
