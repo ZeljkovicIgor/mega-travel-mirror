@@ -85,8 +85,9 @@ public class AccommodationServiceImpl implements AccommodationService {
     @Override
     public boolean deleteAccById(Long id) {
         Accommodation acc = getOneById(id);
+        if(!reservationService.findByAccommodation(acc).isEmpty())
+            return false;
         if (soapService.deleteAccommodation(acc)) {
-            reservationService.deleteByAccommodation(acc);
             accRepository.delete(acc);
         }
         if (accRepository.existsById(id))

@@ -311,6 +311,9 @@ public class AccommodationEndpoint {
         System.out.println("Stigao za brisanje " + request.getAccommodation().get(0).getAccId());
         DeleteAccommodationsResponse response = new DeleteAccommodationsResponse();
         Accommodation accommodation = accommodationService.findOne(request.getAccommodation().get(0).getAccId());
+        response.setStatus(false);
+        if (!reservationService.findByAccommodation(accommodation).isEmpty())
+            return response;
         //reviewService.deleteByAccommodation(accommodation);
         //reservationService.deleteByAccommodation(accommodation);
         accommodationService.delete(accommodation);

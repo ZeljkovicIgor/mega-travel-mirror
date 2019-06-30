@@ -202,5 +202,11 @@ public class ReservationServiceImpl implements ReservationService {
 		reservation.setCancelled(false);
 		save(reservation);
 		return reservation;
+
+	}
+
+	@Override
+	public List<Reservation> findByAccommodation(Accommodation accommodation) {
+		return reservationRepository.findAllByRAccommodation(accommodation);
 	}
 }

@@ -104,4 +104,9 @@ public class ReservationServiceImpl implements ReservationService {
     public void deleteByAccommodation(Accommodation accommodation) {
         reservationRepository.deleteAllByRAccommodation(accommodation);
     }
+
+    @Override
+    public List<Reservation> findByAccommodation(Accommodation accommodation) {
+        return reservationRepository.findAllByRAccommodation(accommodation);
+    }
 }

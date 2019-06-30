@@ -20,6 +20,7 @@ public interface ReservationService {
     void deleteAll();
     void deleteByAccommodation(Accommodation accommodation);
     Reservation createReservation(ReservationDto reservationDto, User agent);
+    List<Reservation> findByAccommodation(Accommodation accommodation);
     //convertFromDto();
     //convertToDto();
 }

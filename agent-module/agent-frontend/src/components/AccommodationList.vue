@@ -222,11 +222,37 @@
                 http
                     .delete("/accommodation/" + value.accId)
                     .then(response => {
-                        console.log(response.data);
+                        console.log("ok");
+                        console.log(response.status);
+                        if (response.status == 200){
+                            this.$bvModal.msgBoxOk(response.data, {
+                                title: 'Rezervacija',
+                                size: 'sm',
+                                buttonSize: 'sm',
+                                okVariant: 'success',
+                                headerClass: 'p-2 border-bottom-0',
+                                footerClass: 'p-2 border-top-0',
+                                centered: true
+                            })
+                        } else{
+                            this.$bvModal.msgBoxOk("Neuspesno obrisan jer postoje rezervacije.", {
+                                title: 'Rezervacija',
+                                size: 'sm',
+                                buttonSize: 'sm',
+                                okVariant: 'danger',
+                                headerClass: 'p-2 border-bottom-0 danger',
+                                footerClass: 'p-2 border-top-0',
+                                headerBgVariant: 'danger',
+                                centered: true
+                            })
+                        }
+
                         this.$router.push('/');
+
                     })
                     .catch(e => {
-                        console.log(e);
+                        console.log(e.status);
+                        console.log("not ok");
                     });
             }
         },

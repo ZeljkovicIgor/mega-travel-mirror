@@ -88,7 +88,6 @@
                 <td>{{price.priceEndDate}}</td>
                 <td>{{price.priceValue}}</td>
                 <td>
-                   <button class="btn-sm btn-danger" type="button">Izbrisi</button> 
                 </td>
                 </tr>
              
@@ -125,7 +124,6 @@
                 <td>{{unav.unavailableStart}}</td>
                 <td>{{unav.unavailableEnd}}</td>
                 <td>
-                   <button class="btn-sm btn-danger" type="button">Izbrisi</button> 
                 </td>
                 </tr>
              

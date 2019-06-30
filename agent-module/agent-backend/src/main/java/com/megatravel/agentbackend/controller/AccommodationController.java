@@ -124,7 +124,7 @@ public class AccommodationController {
         if(accommodationService.deleteAccById(id))
             return new ResponseEntity<String>("Uspesno obrisan.", HttpStatus.OK);
         else
-            return new ResponseEntity<String>("Nije obrisan.", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("Neuspesno obrisan jer postoje rezervacije.", HttpStatus.NO_CONTENT);
 
 
     }

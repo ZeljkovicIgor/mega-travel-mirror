@@ -27,5 +27,6 @@ public interface ReservationService {
 	List<Reservation> getAgentReservations(Long id);
 	void deleteByAccommodation(Accommodation accommodation);
 	Reservation createReservation(Reservation reservation);
+	List<Reservation> findByAccommodation(Accommodation accommodation);
 
 }
