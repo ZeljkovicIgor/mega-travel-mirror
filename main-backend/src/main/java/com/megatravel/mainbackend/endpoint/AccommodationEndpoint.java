@@ -252,9 +252,20 @@ public class AccommodationEndpoint {
     public SendReservationResponse createReservation(@RequestPayload SendReservationRequest request){
         SendReservationResponse response = new SendReservationResponse();
         Reservation reservation = request.getReservation().get(0);
+        Reservation retRes = reservationService.createReservation(reservation);
+        if (retRes != null){
+            response.setReservationId(retRes.getRId());
+            response.setReservationPrice(retRes.getRPrice());
+        }else{
+            response.setReservationId(0);
+        }
+
+
+        /*
         Accommodation acc = accommodationService.findOne(reservation.getRAccommodation().getAccId());
         List<AccPrice> accPrice = acc.getAccPricePlan();
         List<AccUnavailable> allUnavailable = acc.getAccUnavailable();
+
         //provera rezervacije
 
         if(reservationService.checkReservation(accPrice,reservation.getRStartDate(),reservation.getREndDate())
@@ -266,7 +277,9 @@ public class AccommodationEndpoint {
         }
 
         response.setReservationId(reservation.getRId());
+        */
         return response;
+
 
     }
 
