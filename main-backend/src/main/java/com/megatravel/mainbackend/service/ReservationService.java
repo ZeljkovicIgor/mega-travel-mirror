@@ -26,5 +26,6 @@ public interface ReservationService {
 	float getAccPrice(List<AccPrice> accPrice,Date startDate, Date endDate) ;
 	List<Reservation> getAgentReservations(Long id);
 	void deleteByAccommodation(Accommodation accommodation);
+	Reservation createReservation(Reservation reservation);
 
 }

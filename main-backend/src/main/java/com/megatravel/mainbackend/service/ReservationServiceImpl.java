@@ -119,7 +119,7 @@ public class ReservationServiceImpl implements ReservationService {
 	public boolean checkReservation(List<AccPrice> accPrice,Date startDate, Date endDate) {
 
 		for(AccPrice a: accPrice) {
-			if(startDate.after(a.getPriceStartDate()) && endDate.before(a.getPriceEndDate())) {
+			if(!startDate.before(a.getPriceStartDate()) && endDate.after(a.getPriceEndDate())) {
 				return true;
 			}
 		}
@@ -128,7 +128,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public boolean checkUnavailable(List<AccUnavailable> allUnavailable,Date startDate, Date endDate) {
 		for(AccUnavailable a: allUnavailable) {
-			if(startDate.after(a.getUnavailableStart()) && endDate.before(a.getUnavailableEnd())) {
+			if(!startDate.before(a.getUnavailableStart()) && !endDate.after(a.getUnavailableEnd())) {
 				return true;
 			}
 		}
@@ -149,5 +149,58 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public void deleteByAccommodation(Accommodation accommodation) {
 		reservationRepository.deleteAllByRAccommodation(accommodation);
+	}
+
+	@Override
+	public Reservation createReservation(Reservation reservation) {
+		Accommodation accommodation = accommodationService.findOne(reservation.getRAccommodation().getAccId());
+		List<Reservation> reservationList = reservationRepository.findAllByRAccommodation(accommodation);
+		List<AccUnavailable> unavList = accommodation.getAccUnavailable();
+		List<AccPrice> priceList = accommodation.getAccPricePlan();
+		//rezervacija veca od kapaciteta
+		if (reservation.getRPeople() > accommodation.getAccCapacity() || reservation.getRStartDate().before(new Date()) || reservation.getRPeople() < 1 ){
+			return null;
+		}
+		boolean resOkFlag =  true;
+		boolean unavOkFlag = true;
+		float terminPrice = 0;
+		float reservationPrice = 0;
+		long days = ChronoUnit.DAYS.between(reservation.getRStartDate().toInstant(), reservation.getREndDate().toInstant());
+
+		for (Reservation res : reservationList) {
+			if((reservation.getRStartDate().before(res.getRStartDate()) && reservation.getREndDate().before(res.getREndDate())
+			) || (reservation.getRStartDate().after(res.getREndDate()) && reservation.getREndDate().after(res.getREndDate()))){
+				continue;
+			}else{
+				resOkFlag = false;
+			}
+		}
+
+		for (AccUnavailable accUnav : unavList) {
+			if((reservation.getRStartDate().before(accUnav.getUnavailableStart()) && reservation.getREndDate().before(accUnav.getUnavailableEnd())
+			) || (reservation.getRStartDate().after(accUnav.getUnavailableEnd()) && reservation.getREndDate().after(accUnav.getUnavailableEnd()))){
+				continue;
+			}else{
+				resOkFlag = false;
+			}
+		}
+		//ako je sve ok proveri cenu
+		if(resOkFlag && unavOkFlag){
+
+			for (AccPrice accPrice : priceList) {
+				if(reservation.getRStartDate().after(accPrice.getPriceStartDate()) && reservation.getREndDate().before(accPrice.getPriceEndDate()))
+					terminPrice = accPrice.getPriceValue();
+			}
+		}
+		//rezervacija van termina
+		if (terminPrice == 0){
+			return null;
+		}
+		reservationPrice = reservation.getRPeople() * terminPrice * days;
+		reservation.setRPrice(reservationPrice);
+		reservation.setRealized(false);
+		reservation.setCancelled(false);
+		save(reservation);
+		return reservation;
 	}
 }
