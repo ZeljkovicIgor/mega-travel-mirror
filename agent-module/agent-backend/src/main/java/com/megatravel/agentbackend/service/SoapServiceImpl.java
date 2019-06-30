@@ -291,6 +291,7 @@ public class SoapServiceImpl implements SoapService {
         System.out.println(response.getReservationId());
         if(response.getReservationId() != 0){
             reservation.setrDbId(response.getReservationId());
+            reservation.setRPrice(response.getReservationPrice());
             return reservation;
 
         }else

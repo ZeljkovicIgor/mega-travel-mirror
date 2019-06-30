@@ -34,10 +34,6 @@
                         <b-col sm="3" class="text-sm-right"><b>Broj osoba:</b></b-col>
                         <b-col>{{ row.item.rpeople }} osoba</b-col>
                     </b-row>
-                    <b-row class="mb-2">
-                        <b-col sm="3" class="text-sm-right"><b>Cena po osobi:</b></b-col>
-                        <b-col>cena po osobi </b-col>
-                    </b-row>
 
                     <b-row class="mb-2">
                         <b-col sm="3" class="text-sm-right"><b>Od:</b></b-col>

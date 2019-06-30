@@ -5,7 +5,7 @@
         </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <router-link class="btn btn-light" to="/">Smestajne jednice</router-link>
-            <router-link class="btn btn-light" to="/add-accommodation">Dodaj novi smestaj</router-link>
+            <router-link v-if="logged" class="btn btn-light" to="/add-accommodation">Dodaj novi smestaj</router-link>
             <router-link class="btn btn-light" to="/reservation">Rezervacije</router-link>
             <router-link v-if=!logged class="btn btn-light"  to="/login">Prijavi se</router-link>
             <!--<router-link v-if=logged class="btn btn-light"  to="/logout">Odjavi se</router-link>
@@ -51,7 +51,9 @@ export default {
                 .post("/logout")
                 .then(response => {
                     console.log(response.status);
-                    this.$router.push('/');
+                    this.logged =  false;
+                    this.$router.push('/login');
+
 
                 })
                 .catch(e => {
